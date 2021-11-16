@@ -1,5 +1,6 @@
 package com.mycompany.pdcproject.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -21,7 +22,6 @@ import javax.swing.JTextField;
 
 /**
  *
- * 
  *  登录界面：用户名输入框 密码输入框 登录取消按钮 功能
  *
  */
@@ -69,8 +69,8 @@ public class LoginFrame extends JFrame {
 //登录按钮
         Login = new JButton("登录");
         Login.setBounds(45, 350, 60, 36);
-        //Login.setBackground(new Color(44,22,44));//背景色
-        //Login.setForeground(Color.BLUE);//前景色    
+//        Login.setBackground(new Color(44,22,44));//背景色
+//        Login.setForeground(Color.BLUE);//前景色    
         //绑定登录按钮的事件监听
         Login.addActionListener(new ActionListener() {//ActionListener alt /
 
