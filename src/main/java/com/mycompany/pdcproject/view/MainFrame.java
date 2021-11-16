@@ -1,5 +1,6 @@
-package view;
+package com.mycompany.pdcproject.view;
 
+import com.mycompany.pdcproject.controller.WindowFrame;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import controller.WindowFrame;
  
 public class MainFrame extends JFrame implements MouseListener {
   //设置窗体的基本属性  大小

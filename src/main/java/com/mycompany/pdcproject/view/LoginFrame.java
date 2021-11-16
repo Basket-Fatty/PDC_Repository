@@ -1,4 +1,4 @@
-package view;
+package com.mycompany.pdcproject.view;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,8 +21,6 @@ import javax.swing.JTextField;
  
 /**
  * 
- * @author Huey
- * @date 2020-11-16
  * 登录界面：用户名输入框  密码输入框  登录取消按钮 功能
  *
  */

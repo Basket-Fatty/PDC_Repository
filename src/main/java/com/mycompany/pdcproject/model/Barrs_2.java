@@ -1,4 +1,4 @@
-package model;
+package com.mycompany.pdcproject.model;
 
 import java.awt.Graphics;
 import java.awt.Image;

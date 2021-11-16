@@ -1,9 +1,9 @@
-package view;
+package com.mycompany.pdcproject.view;
 
+import com.mycompany.pdcproject.controller.GamePanel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import controller.GamePanel;
  
 /**
  * @author Huey

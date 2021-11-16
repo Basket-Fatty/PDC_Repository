@@ -1,5 +1,13 @@
-package controller;
+package com.mycompany.pdcproject.controller;
 
+import com.mycompany.pdcproject.model.Barrs_1;
+import com.mycompany.pdcproject.model.Barrs_2;
+import com.mycompany.pdcproject.model.Barrs_3;
+import com.mycompany.pdcproject.model.Barrs_4;
+import com.mycompany.pdcproject.model.Barrs_5;
+import com.mycompany.pdcproject.model.Person;
+import com.mycompany.pdcproject.view.EndFrame;
+import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -13,14 +21,6 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import model.Barrs_1;
-import model.Barrs_2;
-import model.Barrs_3;
-import model.Barrs_4;
-import model.Barrs_5;
-import model.Person;
-import view.EndFrame;
-import view.GameFrame;
  
 /**
  * @author Huey

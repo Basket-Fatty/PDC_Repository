@@ -1,5 +1,7 @@
-package view;
+package com.mycompany.pdcproject.view;
 
+import com.mycompany.pdcproject.controller.WindowFrame;
+import com.mycompany.pdcproject.model.Person;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,8 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.WindowFrame;
-import model.Person;
 
 public class EndFrame extends JFrame implements MouseListener {
     //创建继续游戏按钮、返回主菜单按钮、退出按钮 组件

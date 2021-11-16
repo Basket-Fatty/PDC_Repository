@@ -1,4 +1,4 @@
-package controller;
+package com.mycompany.pdcproject.controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

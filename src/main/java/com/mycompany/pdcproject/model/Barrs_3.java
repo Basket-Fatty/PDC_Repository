@@ -1,12 +1,12 @@
-package model;
+package com.mycompany.pdcproject.model;
 
+import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import view.GameFrame;
  
 public class Barrs_3 {//     µ¼µ¯£¡
   private Image image;
