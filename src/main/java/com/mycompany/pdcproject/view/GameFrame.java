@@ -4,34 +4,34 @@ import com.mycompany.pdcproject.controller.GamePanel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
- 
 /**
- * @author Huey
- *2020-11-27  ÏÂÎç12:40:22
- * ÓÎÏ·Ö÷½çÃæ£ºÏÔÊ¾´°Ìå£¬³ĞÔØÓÎÏ·µÄÖ÷Ãæ°åÀà
+ *  æ¸¸æˆä¸»ç•Œé¢ï¼šæ˜¾ç¤ºçª—ä½“ï¼Œæ‰¿è½½æ¸¸æˆçš„ä¸»é¢æ¿ç±»
  */
- 
 public class GameFrame extends JFrame {
-  //ÉèÖÃ´°Ìå¿í¸ßÊôĞÔ
-  public static final int WIDTH=1500;
-  public static final int HEIGHT=900;
-  public GameFrame() {
-    //2.4´´½¨ÓÎÏ·Ãæ°å¶ÔÏó£¬²¢Ìí¼Óµ½´°ÌåÉÏÈ¥
-    GamePanel panel = new GamePanel();
-    panel.action();//³ÌĞòÆô¶¯µÄ·½·¨
-    this.addKeyListener(panel);//Ë­ÊµÏÖ¾Í¼àÌıË­
-    this.add(panel);
- 
-    /**1.ÉèÖÃ´°Ìå»ù±¾ÊôĞÔ*/
-    this.setSize(WIDTH,HEIGHT);
-    this.setLocationRelativeTo(null);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setIconImage(new ImageIcon("Image/115.png").getImage());
-    this.setUndecorated(true);
-    this.setVisible(true);  
-  }
- 
-  public static void main(String[] args) {
-    new GameFrame();
-  }
+    //è®¾ç½®çª—ä½“å®½é«˜å±æ€§
+
+    public static final int WIDTH = 1500;
+    public static final int HEIGHT = 900;
+
+    public GameFrame() {
+        //2.4åˆ›å»ºæ¸¸æˆé¢æ¿å¯¹è±¡ï¼Œå¹¶æ·»åŠ åˆ°çª—ä½“ä¸Šå»
+        GamePanel panel = new GamePanel();
+        panel.action();//ç¨‹åºå¯åŠ¨çš„æ–¹æ³•
+        this.addKeyListener(panel);//è°å®ç°å°±ç›‘å¬è°
+        this.add(panel);
+
+        /**
+         * 1.è®¾ç½®çª—ä½“åŸºæœ¬å±æ€§
+         */
+        this.setSize(WIDTH, HEIGHT);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setIconImage(new ImageIcon("Image/115.png").getImage());
+        this.setUndecorated(true);
+        this.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new GameFrame();
+    }
 }

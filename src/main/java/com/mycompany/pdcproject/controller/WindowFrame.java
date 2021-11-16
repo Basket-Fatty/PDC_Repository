@@ -2,73 +2,68 @@ package com.mycompany.pdcproject.controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
- 
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
- 
+
 /**
- * 
- * @author Huey
- * @date 2020-11-18
- * »º´æ¼ÓÔØ½çÃæ:±³¾°Í¼Æ¬¡¢½ø¶ÈÌõ
- * ¶¯Ì¬¼ÓÔØ¹ı³Ì¡££¨Ïß³Ì£©
- * 
+ *
+ *  ç¼“å­˜åŠ è½½ç•Œé¢:èƒŒæ™¯å›¾ç‰‡ã€è¿›åº¦æ¡ åŠ¨æ€åŠ è½½è¿‡ç¨‹ã€‚ï¼ˆçº¿ç¨‹ï¼‰
+ *
  */
-public class WindowFrame extends JFrame implements Runnable{
-  JLabel background;
-  //½ø¶ÈÌõ
-  JProgressBar jdt;
- 
-  //´´½¨Ò»¸öÏß³Ì²¢Æô¶¯
-  public void Start(){
-    WindowFrame frame = new WindowFrame();
-    Thread t = new Thread(frame);//t´ú±íÏß³Ì
-    //Æô¶¯Ïß³Ì
-    t.start();
-    dispose();
-  }
- 
- 
-  public WindowFrame() {
-    background = new JLabel(new ImageIcon("Image/hbg.jpg"));
-    this.add(BorderLayout.NORTH,background);//·ÅÔÚ´°¿ÚÉÏÃæ
- 
-    jdt = new JProgressBar();
-    jdt.setStringPainted(true);//¼ÓÔØÒÔ×Ö·û´®ĞÎÊ½³ÊÏÖ³öÀ´¡£0%
-    jdt.setBackground(Color.ORANGE);
-    this.add(BorderLayout.SOUTH,jdt);
- 
-    //´óĞ¡ 568 * 340
-    this.setSize(568,340);
-    this.setLocationRelativeTo(null);
-    this.setDefaultCloseOperation(3);
-    this.setUndecorated(true);
-    this.setIconImage(new ImageIcon("Image/115.png").getImage());  
-    this.setVisible(true);  
-  }
- 
- 
-  public static void main(String[] args) {
-    new WindowFrame().Start();
-  }
- 
- 
-  @Override
-  public void run() {
-    //Æô¶¯Ïß³Ìºó£¬Ïß³Ì¾ßÌåÖ´ĞĞµÄÄÚÈİ
-    int [] values = {0,1,3,10,23,32,40,47,55,66,76,86,89,95,99,99,99,100};
-    for(int i=0; i<values.length; i++){//Ñ­»·±éÀú¸³Öµ
-      jdt.setValue(values[i]);
-      //Ïß³ÌĞİÃß
-      try {
-        Thread.sleep(200);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }//200ºÁÃë
+public class WindowFrame extends JFrame implements Runnable {
+
+    JLabel background;
+    //è¿›åº¦æ¡
+    JProgressBar jdt;
+
+    //åˆ›å»ºä¸€ä¸ªçº¿ç¨‹å¹¶å¯åŠ¨
+    public void Start() {
+        WindowFrame frame = new WindowFrame();
+        Thread t = new Thread(frame);//tä»£è¡¨çº¿ç¨‹
+        //å¯åŠ¨çº¿ç¨‹
+        t.start();
+        dispose();
     }
-  }
- 
+
+    public WindowFrame() {
+        background = new JLabel(new ImageIcon("Image/hbg.jpg"));
+        this.add(BorderLayout.NORTH, background);//æ”¾åœ¨çª—å£ä¸Šé¢
+
+        jdt = new JProgressBar();
+        jdt.setStringPainted(true);//åŠ è½½ä»¥å­—ç¬¦ä¸²å½¢å¼å‘ˆç°å‡ºæ¥ã€‚0%
+        jdt.setBackground(Color.ORANGE);
+        this.add(BorderLayout.SOUTH, jdt);
+
+        //å¤§å° 568 * 340
+        this.setSize(568, 340);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(3);
+        this.setUndecorated(true);
+        this.setIconImage(new ImageIcon("Image/115.png").getImage());
+        this.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new WindowFrame().Start();
+    }
+
+    @Override
+    public void run() {
+        //å¯åŠ¨çº¿ç¨‹åï¼Œçº¿ç¨‹å…·ä½“æ‰§è¡Œçš„å†…å®¹
+        int[] values = {0, 1, 3, 10, 23, 32, 40, 47, 55, 66, 76, 86, 89, 95, 99, 99, 99, 100};
+        for (int i = 0; i < values.length; i++) {//å¾ªç¯éå†èµ‹å€¼
+            jdt.setValue(values[i]);
+            //çº¿ç¨‹ä¼‘çœ 
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }//200æ¯«ç§’
+        }
+    }
+
 }

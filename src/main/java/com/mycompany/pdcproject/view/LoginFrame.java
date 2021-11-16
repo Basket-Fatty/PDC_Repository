@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
- 
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,142 +18,142 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
- 
+
 /**
+ *
  * 
- * µÇÂ¼½çÃæ£ºÓÃ»§ÃûÊäÈë¿ò  ÃÜÂëÊäÈë¿ò  µÇÂ¼È¡Ïû°´Å¥ ¹¦ÄÜ
+ *  ç™»å½•ç•Œé¢ï¼šç”¨æˆ·åè¾“å…¥æ¡† å¯†ç è¾“å…¥æ¡† ç™»å½•å–æ¶ˆæŒ‰é’® åŠŸèƒ½
  *
  */
-public class LoginFrame extends JFrame{
-  //ÓÃ»§Ãû±äÁ¿£¨ÎÄ±¾£©
-  JLabel userLabel;
-  //ÓÃ»§ÃûÊäÈë¿ò£¨ÎÄ±¾ÊäÈë¿ò£©
-  JTextField userField;
-  //ÃÜÂë±äÁ¿£¨ÎÄ±¾£©
-  JLabel userLabel2;
-  //ÃÜÂëÊäÈë¿ò£¨ÎÄ±¾ÊäÈë¿ò£©
-  JPasswordField userField2;
-  //µÇÂ¼°´Å¥¡¢È¡Ïû°´Å¥£¨°´Å¥£©
-  JButton Login,Cancel;
- 
-  public LoginFrame() {//Ö±½Ó alt / £¨ÎŞ²Î¹¹Ôì£©  
-    userLabel = new JLabel("ÓÃ»§Ãû");  
-    //ÉèÖÃ×ÖÌå
-    userLabel.setFont(new Font("Î¢ÈíÑÅºÚ",Font.BOLD,18));        
-    userLabel2 = new JLabel("ÃÜ  Âë");
-    userLabel2.setFont(new Font("Î¢ÈíÑÅºÚ",Font.BOLD,18));
- 
-    //²¼¾Ö·½Ê½£º¾ø¶Ô²¼¾Ö
-    userLabel.setBounds(20, 220, 100, 30);//xÎ»ÖÃ£¬yÎ»ÖÃ£¬ËùÕ¼ÏÔÊ¾¿Õ¼äµÄ´óĞ¡
-    this.add(userLabel);//½«ÓÃ»§ÃûÕâÈı¸ö×ÖÌí¼Óµ½µÇÂ¼½çÃæÉÏ£¬ÒÔÏÂÍ¬Àí
-    userLabel2.setBounds(20, 280, 100, 30);
-    this.add(userLabel2);
- 
-    //ÓÃ»§ÃûÊäÈë¿ò
-    userField = new JTextField();
-    userField.setBounds(80, 220, 100, 30);
-    //ÉèÖÃÊäÈë¿ò°¼ÏİĞ§¹û
-    userField.setBorder(BorderFactory.createLoweredBevelBorder());
-    //ÉèÖÃÊäÈë¿ò±³¾°Í¸Ã÷
-    userField.setOpaque(false);
-    this.add(userField);
- 
-    userField2 = new JPasswordField();
-    userField2.setBounds(80, 280, 100, 30);
-    userField2.setBorder(BorderFactory.createLoweredBevelBorder());
-    userField2.setOpaque(false);
-    this.add(userField2);
- 
- 
- 
-//µÇÂ¼°´Å¥
-    Login = new JButton("µÇÂ¼");
-    Login.setBounds(45,350,60,36);
-    //Login.setBackground(new Color(44,22,44));//±³¾°É«
-    //Login.setForeground(Color.BLUE);//Ç°¾°É«    
-    //°ó¶¨µÇÂ¼°´Å¥µÄÊÂ¼ş¼àÌı
-    Login.addActionListener(new ActionListener() {//ActionListener alt /
- 
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        //System.out.println("µã»÷µÇÂ¼°´Å¥");
-        //»ñÈ¡ÓÃ»§ÃûÊäÈë¿òµÄÄÚÈİ
-        String userName = userField.getText();
-        String passWord = userField2.getText();//ºá¸ÜÔ­Òò£º·½·¨Ì«ÀÏÁË£¬²»ÍÆ¼öÓÃ
-        if("Huey".equals(userName) && "123".equals(passWord)){
-          //µÇÂ¼³É¹¦
-          JOptionPane.showMessageDialog(null, "»¶Ó­"+userName+"À´µ½ÌìÌì¿áÅÜÓÎÏ·");
-          //Ìø×ªµ½ÏÂÒ»½çÃæ
- 
-          //¹Ø±Õµ±Ç°½çÃæ
-          dispose();
-        }else if("".equals(userName) || "".equals(passWord)){
-          //²»ÄÜÎª¿Õ
-          JOptionPane.showMessageDialog(null, "ÓÃ»§Ãû / ÃÜÂë²»ÄÜÎª¿Õ£¬ÇëÖØĞÂÊäÈë£¡");
-        }else{
-          JOptionPane.showMessageDialog(null, "ÓÃ»§Ãû / ÃÜÂëÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë£¡");
-        }
- 
-      }
-    });
-    this.add(Login);
- 
-//È¡Ïû°´Å¥
-    Cancel = new JButton("È¡Ïû");
-    Cancel.setBounds(135,350,60,36);
-    this.add(Cancel);
-    Cancel.addActionListener(new ActionListener() {
- 
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        dispose();
-      }
-    });
- 
- 
- 
-    //´´½¨±³¾°Ãæ°å£¬²¢Ìí¼Óµ½´°ÌåÉÏÈ¥
-    LoginPanel panel = new LoginPanel();
-    this.add(panel);  
- 
-    //ÉèÖÃµÇÂ¼½çÃæµÄ»ù±¾ÊôĞÔ
-    this.setSize(900,530);
-    this.setLocationRelativeTo(null);//Î»ÖÃ¾ÓÖĞ
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setUndecorated(true);
- 
-    //ÉèÖÃ´°ÌåµÄLogoÍ¼±ê
-    this.setIconImage(new ImageIcon("Image/115.png").getImage());//´æ´¢Í¼Æ¬
-    this.setVisible(true);
-  }
- 
- 
- 
-  //²âÊÔÓÃµÄmain·½·¨       main + Alt /
-  public static void main(String[] args) {
-    new LoginFrame();
-  }
-  class LoginPanel extends JPanel{//»­°å
-    //±³¾°Í¼Æ¬±äÁ¿
-    Image background;//------ctr shift + o µ¼°ü
-    public LoginPanel() {//-----alt / »Ø³µ ¹¹Ôì·½·¨    ÔÚ{ºóË«»÷,ÏÔÊ¾×÷ÓÃÓò
-      //¶ÁÈ¡Í¼Æ¬ÎÄ¼ş£¬¸³Öµ¸øbackground±äÁ¿
-      try {//-----ËäÈ»²»´ó¿ÉÄÜ£¬µ«Ò²×öºÃ³Ô·¹Ò­ËÀµÄ×¼±¸
-        background = ImageIO.read(new File("Image/login.jpg"));//----read²ÎÊıÎªFileÀàĞÍ
-      } catch (IOException e) {//-------²¶»ñÒì³£ĞÅÏ¢
-        // ´òÓ¡Òì³£ÈÕÖ¾ĞÅÏ¢
-        e.printStackTrace();
-      }
-    }
-    //»æÖÆ·½·¨
-    @Override
-    public void paint(Graphics g) {
-      super.paint(g);
-      //»æÖÆ±³¾°Í¼Æ¬
-      g.drawImage(background, 0, 0,900,530, null);//900,530Îª¿í¸ß
-    }
-  }
- 
-}
+public class LoginFrame extends JFrame {
+    //ç”¨æˆ·åå˜é‡ï¼ˆæ–‡æœ¬ï¼‰
 
+    JLabel userLabel;
+    //ç”¨æˆ·åè¾“å…¥æ¡†ï¼ˆæ–‡æœ¬è¾“å…¥æ¡†ï¼‰
+    JTextField userField;
+    //å¯†ç å˜é‡ï¼ˆæ–‡æœ¬ï¼‰
+    JLabel userLabel2;
+    //å¯†ç è¾“å…¥æ¡†ï¼ˆæ–‡æœ¬è¾“å…¥æ¡†ï¼‰
+    JPasswordField userField2;
+    //ç™»å½•æŒ‰é’®ã€å–æ¶ˆæŒ‰é’®ï¼ˆæŒ‰é’®ï¼‰
+    JButton Login, Cancel;
+
+    public LoginFrame() {//ç›´æ¥ alt / ï¼ˆæ— å‚æ„é€ ï¼‰  
+        userLabel = new JLabel("ç”¨æˆ·å");
+        //è®¾ç½®å­—ä½“
+        userLabel.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 18));
+        userLabel2 = new JLabel("å¯†  ç ");
+        userLabel2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 18));
+
+        //å¸ƒå±€æ–¹å¼ï¼šç»å¯¹å¸ƒå±€
+        userLabel.setBounds(20, 220, 100, 30);//xä½ç½®ï¼Œyä½ç½®ï¼Œæ‰€å æ˜¾ç¤ºç©ºé—´çš„å¤§å°
+        this.add(userLabel);//å°†ç”¨æˆ·åè¿™ä¸‰ä¸ªå­—æ·»åŠ åˆ°ç™»å½•ç•Œé¢ä¸Šï¼Œä»¥ä¸‹åŒç†
+        userLabel2.setBounds(20, 280, 100, 30);
+        this.add(userLabel2);
+
+        //ç”¨æˆ·åè¾“å…¥æ¡†
+        userField = new JTextField();
+        userField.setBounds(80, 220, 100, 30);
+        //è®¾ç½®è¾“å…¥æ¡†å‡¹é™·æ•ˆæœ
+        userField.setBorder(BorderFactory.createLoweredBevelBorder());
+        //è®¾ç½®è¾“å…¥æ¡†èƒŒæ™¯é€æ˜
+        userField.setOpaque(false);
+        this.add(userField);
+
+        userField2 = new JPasswordField();
+        userField2.setBounds(80, 280, 100, 30);
+        userField2.setBorder(BorderFactory.createLoweredBevelBorder());
+        userField2.setOpaque(false);
+        this.add(userField2);
+
+//ç™»å½•æŒ‰é’®
+        Login = new JButton("ç™»å½•");
+        Login.setBounds(45, 350, 60, 36);
+        //Login.setBackground(new Color(44,22,44));//èƒŒæ™¯è‰²
+        //Login.setForeground(Color.BLUE);//å‰æ™¯è‰²    
+        //ç»‘å®šç™»å½•æŒ‰é’®çš„äº‹ä»¶ç›‘å¬
+        Login.addActionListener(new ActionListener() {//ActionListener alt /
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //System.out.println("ç‚¹å‡»ç™»å½•æŒ‰é’®");
+                //è·å–ç”¨æˆ·åè¾“å…¥æ¡†çš„å†…å®¹
+                String userName = userField.getText();
+                String passWord = userField2.getText();//æ¨ªæ åŸå› ï¼šæ–¹æ³•å¤ªè€äº†ï¼Œä¸æ¨èç”¨
+                if ("Huey".equals(userName) && "123".equals(passWord)) {
+                    //ç™»å½•æˆåŠŸ
+                    JOptionPane.showMessageDialog(null, "æ¬¢è¿" + userName + "æ¥åˆ°å¤©å¤©é…·è·‘æ¸¸æˆ");
+                    //è·³è½¬åˆ°ä¸‹ä¸€ç•Œé¢
+
+                    //å…³é—­å½“å‰ç•Œé¢
+                    dispose();
+                } else if ("".equals(userName) || "".equals(passWord)) {
+                    //ä¸èƒ½ä¸ºç©º
+                    JOptionPane.showMessageDialog(null, "ç”¨æˆ·å / å¯†ç ä¸èƒ½ä¸ºç©ºï¼Œè¯·é‡æ–°è¾“å…¥ï¼");
+                } else {
+                    JOptionPane.showMessageDialog(null, "ç”¨æˆ·å / å¯†ç è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼");
+                }
+
+            }
+        });
+        this.add(Login);
+
+//å–æ¶ˆæŒ‰é’®
+        Cancel = new JButton("å–æ¶ˆ");
+        Cancel.setBounds(135, 350, 60, 36);
+        this.add(Cancel);
+        Cancel.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                dispose();
+            }
+        });
+
+        //åˆ›å»ºèƒŒæ™¯é¢æ¿ï¼Œå¹¶æ·»åŠ åˆ°çª—ä½“ä¸Šå»
+        LoginPanel panel = new LoginPanel();
+        this.add(panel);
+
+        //è®¾ç½®ç™»å½•ç•Œé¢çš„åŸºæœ¬å±æ€§
+        this.setSize(900, 530);
+        this.setLocationRelativeTo(null);//ä½ç½®å±…ä¸­
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setUndecorated(true);
+
+        //è®¾ç½®çª—ä½“çš„Logoå›¾æ ‡
+        this.setIconImage(new ImageIcon("Image/115.png").getImage());//å­˜å‚¨å›¾ç‰‡
+        this.setVisible(true);
+    }
+
+    //æµ‹è¯•ç”¨çš„mainæ–¹æ³•       main + Alt /
+    public static void main(String[] args) {
+        new LoginFrame();
+    }
+
+    class LoginPanel extends JPanel {//ç”»æ¿
+        //èƒŒæ™¯å›¾ç‰‡å˜é‡
+
+        Image background;//------ctr shift + o å¯¼åŒ…
+
+        public LoginPanel() {//-----alt / å›è½¦ æ„é€ æ–¹æ³•    åœ¨{ååŒå‡»,æ˜¾ç¤ºä½œç”¨åŸŸ
+            //è¯»å–å›¾ç‰‡æ–‡ä»¶ï¼Œèµ‹å€¼ç»™backgroundå˜é‡
+            try {//-----è™½ç„¶ä¸å¤§å¯èƒ½ï¼Œä½†ä¹Ÿåšå¥½åƒé¥­å™æ­»çš„å‡†å¤‡
+                background = ImageIO.read(new File("Image/login.jpg"));//----readå‚æ•°ä¸ºFileç±»å‹
+            } catch (IOException e) {//-------æ•è·å¼‚å¸¸ä¿¡æ¯
+                // æ‰“å°å¼‚å¸¸æ—¥å¿—ä¿¡æ¯
+                e.printStackTrace();
+            }
+        }
+        //ç»˜åˆ¶æ–¹æ³•
+
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            //ç»˜åˆ¶èƒŒæ™¯å›¾ç‰‡
+            g.drawImage(background, 0, 0, 900, 530, null);//900,530ä¸ºå®½é«˜
+        }
+    }
+
+}
+//throws ......æŠ›å¼‚å¸¸ï¼Œå°†ä¸‹é¢çš„å¼‚å¸¸å‘ä¸ŠæŠ›,äº¤ç»™ä¸Šçº§ï¼šä¸å»ºè®®

@@ -17,9 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class EndFrame extends JFrame implements MouseListener {
-    //´´½¨¼ÌĞøÓÎÏ·°´Å¥¡¢·µ»ØÖ÷²Ëµ¥°´Å¥¡¢ÍË³ö°´Å¥ ×é¼ş
+    //åˆ›å»ºç»§ç»­æ¸¸æˆæŒ‰é’®ã€è¿”å›ä¸»èœå•æŒ‰é’®ã€é€€å‡ºæŒ‰é’® ç»„ä»¶
 
     JLabel again, back, exit;
 
@@ -38,7 +37,7 @@ public class EndFrame extends JFrame implements MouseListener {
         this.add(exit);
 
         EndPanel end = new EndPanel(person);
-        this.add(end);//½«½áÊøÃæ°å×é¼şÌí¼Óµ½½áÊø´°¿ÚÉÏ
+        this.add(end);//å°†ç»“æŸé¢æ¿ç»„ä»¶æ·»åŠ åˆ°ç»“æŸçª—å£ä¸Š
 
         this.setSize(1500, 900);
         this.setLocationRelativeTo(null);
@@ -57,8 +56,8 @@ public class EndFrame extends JFrame implements MouseListener {
         Image background;
         Person p;
 
-        public EndPanel(Person person) {//Àà±Èint a
-            this.p = person;//´´½¨¶ÔÏó¡¢´«Öµ
+        public EndPanel(Person person) {//ç±»æ¯”int a
+            this.p = person;//åˆ›å»ºå¯¹è±¡ã€ä¼ å€¼
             try {
                 background = ImageIO.read(new File("Image/chou.png"));
             } catch (IOException e) {
@@ -73,11 +72,11 @@ public class EndFrame extends JFrame implements MouseListener {
             super.paint(g);
             g.drawImage(background, 0, 0, 1500, 900, null);
             g.setColor(Color.CYAN);
-            g.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-            g.drawString(p.getScore() + "", 1110, 705);// + ¡± ¡° ÊôÊµÃî
+            g.setFont(new Font("å®‹ä½“", Font.BOLD, 30));
+            g.drawString(p.getScore() + "", 1110, 705);// + â€ â€œ å±å®å¦™
             g.drawString(p.getDistance() + " ", 1110, 622);
 
-            g.setFont(new Font("ËÎÌå", Font.BOLD, 50));
+            g.setFont(new Font("å®‹ä½“", Font.BOLD, 50));
             g.setColor(Color.ORANGE);
 
             //g.drawString(p.getTotalScore() + "", 1075, 500);
@@ -87,9 +86,9 @@ public class EndFrame extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(again)) {
-            //Ìø×ªµ½ÏÂÒ»½çÃæ  
+            //è·³è½¬åˆ°ä¸‹ä¸€ç•Œé¢  
             new WindowFrame().Start();
-            //¹Ø±Õµ±Ç°½çÃæ
+            //å…³é—­å½“å‰ç•Œé¢
             dispose();
         } else if (e.getSource().equals(back)) {
             new MainFrame();

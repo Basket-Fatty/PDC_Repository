@@ -8,89 +8,90 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
- 
+
 /**
- * @author Huey
- *2020-11-30  下午03:44:51
- *金币障碍物类
- * 
+ *  閲戝竵闅滅鐗╃被
+ *
  */
 public class Barrs_5 {
-    private Image image;//当前显示图片
+
+    private Image image;//褰撳墠鏄剧ず鍥剧墖
     public static final int WIDTH = 30;
     public static final int HEIGHT = 30;
-    private int x,y;
+    private int x, y;
     private int speed;
     Random random = new Random();
+
     public Barrs_5() {
-      try {
-        image = ImageIO.read(new File("Image/"+(random.nextInt(6) + 21) + ".png"));
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      x = GameFrame.WIDTH + 10;
-      y = random.nextInt(600);
-      speed = 20;
+        try {
+            image = ImageIO.read(new File("Image/" + (random.nextInt(6) + 21) + ".png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        x = GameFrame.WIDTH + 10;
+        y = random.nextInt(600);
+        speed = 20;
     }
- 
-    public void step(){
-      x -= speed;
+
+    public void step() {
+        x -= speed;
     }
- 
-    public void paintBarrs(Graphics g){
-      g.drawImage(image, x, y, WIDTH, HEIGHT, null);
+
+    public void paintBarrs(Graphics g) {
+        g.drawImage(image, x, y, WIDTH, HEIGHT, null);
     }
+
     public boolean outofBounds() {
-      return this.x<=-WIDTH;
+        return this.x <= -WIDTH;
     }
- 
+
     public Image getImage() {
-      return image;
+        return image;
     }
- 
+
     public void setImage(Image image) {
-      this.image = image;
+        this.image = image;
     }
- 
+
     public int getX() {
-      return x;
+        return x;
     }
- 
+
     public void setX(int x) {
-      this.x = x;
+        this.x = x;
     }
- 
+
     public int getY() {
-      return y;
+        return y;
     }
- 
+
     public void setY(int y) {
-      this.y = y;
+        this.y = y;
     }
- 
+
     public int getSpeed() {
-      return speed;
+        return speed;
     }
- 
+
     public void setSpeed(int speed) {
-      this.speed = speed;
+        this.speed = speed;
     }
- 
+
     public Random getRandom() {
-      return random;
+        return random;
     }
- 
+
     public void setRandom(Random random) {
-      this.random = random;
+        this.random = random;
     }
- 
+
     public static int getWidth() {
-      return WIDTH;
+        return WIDTH;
     }
- 
+
     public static int getHeight() {
-      return HEIGHT;
+        return HEIGHT;
     }
- 
+
 }

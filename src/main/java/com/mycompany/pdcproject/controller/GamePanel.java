@@ -21,345 +21,347 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
- 
 /**
- * @author Huey
- *2020-11-27  ÏÂÎç12:28:44
- * ÓÎÏ·Ö÷Ãæ°åÀà£¬ºËĞÄÂß¼­Àà
- *           1¡¢±³¾°Í¼Æ¬¹ö¶¯Ğ§¹û
- *           2¡¢Íæ¼Ò¶¯Ì¬Ğ§¹û
- *           3¡¢ÎåÖÖÕÏ°­ÎïµÄ³öÏÖ
- *           4¡¢Íæ¼ÒºÍÕÏ°­ÎïµÄÅö×²Âß¼­
- *           5¡¢ÔİÍ£¡¢¼ÌĞøÂß¼­
- *           6¡¢½áÊøÂß¼­
+ *  æ¸¸æˆä¸»é¢æ¿ç±»ï¼Œæ ¸å¿ƒé€»è¾‘ç±» 1ã€èƒŒæ™¯å›¾ç‰‡æ»šåŠ¨æ•ˆæœ 2ã€ç©å®¶åŠ¨æ€æ•ˆæœ
+ * 3ã€äº”ç§éšœç¢ç‰©çš„å‡ºç° 4ã€ç©å®¶å’Œéšœç¢ç‰©çš„ç¢°æ’é€»è¾‘ 5ã€æš‚åœã€ç»§ç»­é€»è¾‘ 6ã€ç»“æŸé€»è¾‘
  */
- 
-public class GamePanel extends JPanel implements KeyListener{
-  /**2¡¢Éú³É¶¯Ì¬µÄ±³¾°Í¼Æ¬***/
-  //2.1ÉùÃ÷±³¾°Í¼Æ¬¶ÔÏó
-  Image background;
-  Image score;
-  Image pause;//ÔİÍ£
-  Image  proceed;//¼ÌĞø.
- 
- 
-  /***3.ÊµÏÖÍæ¼ÒµÄ¶¯Ì¬Ğ§¹ûºÍÒÆ¶¯¹¦ÄÜ***/
-  //3.1´´½¨Íæ¼Ò¶ÔÏó£¨ÀàµÄÊµÀı»¯£©
-  Person person;
-  Barrs_2 barrs_2;//³èÎï
-  Barrs_4 barrs_4;//Óã¹³µÈÕÏ°­Îï
-  Barrs_5 barrs_5;//½ğ±Ò
-  /**4.ÊµÏÖó¦Ğ·ÕÏ°­Îï*/
-  //4.1
-  Barrs_1[]barrs1 = {};//´æ´¢ó¦Ğ·Êı×é£¨Ã»ÓĞÔªËØ£¬¿ÉÒÔÀ©Èİ£©
-  Barrs_3[]barrs3 ={};//µ¼µ¯
-  Barrs_4[]barrs4={};//Óã¹³
-  Barrs_5[]barrs5 = {};//½ğ±Ò
- 
-  public GamePanel() {
-    //3.2
-    person = new Person();//µ÷ÓÃPersonÀàµÄ¹¹Ôì·½·¨£¬´´½¨¶ÔÏó²¢¸³Öµ
-    barrs_2 = new Barrs_2();
-    //2.2¶ÁÈ¡Í¼Æ¬ÎÄ¼ş
-    try{
-      background =ImageIO.read(new File("Image/cc.png"));//ÅÜ¿á±³¾°
-      score =ImageIO.read(new File("Image/a12.png"));//µÃ·Ö±³¾°
-      pause = ImageIO.read(new File("Image/b2.png"));
-      proceed = ImageIO.read(new File("Image/b1.png"));
-    }catch(IOException e){
-      e.printStackTrace();
-    }
-  }
-  //2.5
-  int x=0;//±³¾°Í¼Æ¬³õÊ¼Î»ÖÃ
-@Override
-public void paint(Graphics g) { 
-  super.paint(g);
-  //2.7
-  if(flag){
-    x-=20;//Í¼Æ¬¹ö¶¯µÄËÙ¶È
-  }
-    //2.3»æÖÆ±³¾°Í¼Æ¬(¶¯Ì¬ÇĞ»»ºÜÁ÷³©)
-    g.drawImage(background, x, 0, GameFrame.WIDTH, GameFrame.HEIGHT, null);
-    g.drawImage(background, x+GameFrame.WIDTH, 0, GameFrame.WIDTH, GameFrame.HEIGHT,null);
-    if(x<=-GameFrame.WIDTH){//ÊµÏÖÁ½ÕÅÍ¼Æ¬Ö®¼äµÄÇĞ»»
-      x = 0;
-    }
- 
-  //3.3»æÖÆ Íæ¼Ò
-  person.paintPerson(g);
-  //»æÖÆó¦Ğ·
-  for(int i =0;i<barrs1.length;i++){
-    barrs1[i].paintBarrs(g);
-  }
-  //»æÖÆ³èÎï
-  barrs_2.paintBarrs(g);
-  //»æÖÆµ¼µ¯
-  for(int i =0;i<barrs3.length;i++){
-    barrs3[i].paintBarrs(g);
-  }
-  //Ëæ»ú»æÖÆÓã¹³ÕÏ°­Îï
-  for(int i =0;i<barrs4.length;i++){
-    barrs4[i].paintBarrs(g);
-  }
-  //Ëæ»ú»æÖÆ½ğ±Ò
-  for(int i = 0;i<barrs5.length;i++){
-    barrs5[i].paintBarrs(g);
-  }
- 
- 
-//Î»ÖÃÔ½ÍùÏÂ£¬Í¼²ãÔ½ÍùÉÏ
-  //»æÖÆÍæ¼Ò·ÖÊı
-  g.drawImage(score, 120, 50,null);
-  g.setColor(Color.ORANGE);
-  g.setFont(new Font("ËÎÌå",Font.BOLD,30 ));
-  g.drawString("Íæ¼ÒµÃ·Ö£º"+person.getScore()+"·Ö", 133, 95);
- 
-  //»æÖÆÔİÍ£¡¢¼ÌĞø±êÊ¶Í¼Æ¬
-  if(flag){
-          g.drawImage(proceed, 200, 800, 90,90,null);
-  }else{
-        g.drawImage(pause, 200, 800, 90, 90, null);
-  }
- 
-}
- 
-//Éú    ³É  ÕÏ  °­  Îï  µÄ  ·½  ·¨
-int index =0;
-public void enteredAction(){//ÊµÏÖÔ´Ô´  ²»  ¶Ï  Éú³ÉÕÏ°­ÎïµÄĞ§¹û
-  index++;
-  //Éú³Éó¦Ğ·ÕÏ°­Îï
-  if(index%100==0){
-    //Éú³ÉÒ»¸öó¦Ğ·
-    Barrs_1 b1 = new Barrs_1();
-    Barrs_3 b3 = new Barrs_3();
-    Barrs_4 b4 = new Barrs_4();
- 
-    barrs1 =Arrays.copyOf(barrs1,barrs1.length+1);//Êı×éÀ©Èİ
-    barrs1[barrs1.length-1]= b1;//·Åµ½Êı×é×îºóÒ»¸öÔªËØµÄÎ»ÖÃ
-    //System.out.println("²âÊÔ"+barrs1.length);    
-    barrs3 =Arrays.copyOf(barrs3,barrs3.length+1);
-    barrs3[barrs3.length-1]= b3;
-    barrs4 =Arrays.copyOf(barrs4,barrs4.length+1);
-    barrs4[barrs4.length-1]= b4;
-  }
-  if(index%15==0){
-    Barrs_5 b5 = new Barrs_5();
-    barrs5 = Arrays.copyOf(barrs5, barrs5.length +1);
-    barrs5[barrs5.length-1] = b5;
-  }
-}
- 
- 
-//ÒÆ    ¶¯  ·½  ·¨
-public void stepAction(){
-  //3..4
-    person.step();//ÇĞ»»Íæ¼ÒµÄÍ¼Æ¬¡ª>¶¯ÆğÀ´
-    person.drop();//²»¶ÏÏÂ×¹
-    barrs_2.drop();
-    //ó¦Ğ·ÕÏ°­ÎïÒÆ¶¯
-  for(int i =0;i<barrs1.length;i++){
-    barrs1[i].step();
-    //ÅĞ¶Ïµ±Ç°ÕÏ°­ÎïÊÇ·ñ Ô½½ç£¬²¢×öÔ½½ç´¦Àí
-    if(barrs1[i].outofBounds()){
-      //É¾³ıÔ½½çµÄó¦Ğ·ÕÏ°­Îï
-      barrs1[i] = barrs1[barrs1.length - 1];//½«ó¦Ğ·Êı×é×îºóÒ»¸öÔªËØ£¬¸³¸øÔ½½çµÄó¦Ğ·£¬¸²¸ÇÁË£¬Ïàµ±ÓÚ¼ä½ÓÉ¾³ıÁË¡£
-      barrs1= Arrays.copyOf(barrs1, barrs1.length - 1);//Êı×éËõÈİ
-    }
-  }
- 
-  barrs_2.step();
- 
-  for(int i =0;i<barrs3.length;i++){
-      barrs3[i].step();
-    //É¾³ıÔ½½çµÄµ¼µ¯ÕÏ°­Îï
-    if(barrs3[i].outofBounds()){
-      barrs3[i] = barrs3[barrs3.length - 1];
-      barrs3 = Arrays.copyOf(barrs3, barrs3.length - 1);
-    }
-  }
- 
-  for(int i =0;i<barrs4.length;i++){
-    barrs4[i].step();
-    //É¾³ıÔ½½çµÄÓã²æÕÏ°­Îï
-    if(barrs4[i].outofBounds()){
-    barrs4[i] = barrs4[barrs4.length - 1  ];
-    barrs4 = Arrays.copyOf(barrs4, barrs4.length - 1);
-    }
-  }
-  for(int i = 0;i<barrs5.length;i++){
-    barrs5[i].step();
-    if(barrs5[i].outofBounds()){
-      //É¾³ıÔ½½çµÄ½ğ±Ò
-      barrs5[i] = barrs5[barrs5.length - 1];
-      barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
-    }
-  }
-}
- 
-//Íæ¼ÒºÍÕÏ°­ÎïÅö×²µÄ´¦Àí·½·¨
-public void pengAction(){
-  //ÅĞ¶ÏÍæ¼ÒÊÇ·ñºÍó¦Ğ·ÕÏ°­Îï½øĞĞÅö×²
-  for(int i = 0;i<barrs1.length;i++){//ÉÏÏÂ×óÓÒ¶¼Ğ´ÁË£¬ÏÂÊÇÓÃ²»µ½µÄ
-    if(person.getX() + Person.WIDTH >= barrs1[i].getX() &&
-    person.getX() <= barrs1[i].getX()   + Barrs_1.WIDTH  &&
-    person .getY() +Person.getHeight() >= barrs1[i].getY() &&
-    person.getY()  <= barrs1[i].getY () + Barrs_1.HEIGHT){
-      //Åö×²ºóµÄ´¦Àí£¨ÕÚµ²ÀàÕÏ°­Îï£©
-      if(person.getX() + Person.WIDTH <= barrs1[i].getX() + Barrs_1.WIDTH){//·ÀÖ¹ÈËÔÚÓÒ±ß£¬Åö×²ºó¿ÉÒÔ´©¹ıÕÏ°­Îï
-        //×óÅö×²
-        person.setX(barrs1[i].getX()  - Barrs_1.WIDTH);
-      }else{
-        //ÓÒÅö×²
-        person.setX(barrs1[i].getX()+ Barrs_1.WIDTH  );
-      }            
-    }
-  }
-  //ÅĞ¶ÏÍæ¼ÒÊÇ·ñºÍµ¼µ¯ÕÏ°­Îï½øĞĞÅö×²
-  for(int i = 0;i<barrs3.length;i++){
-    if(person.getX() + Person.WIDTH >= barrs3[i].getX() &&
-    person.getX() <= barrs3[i].getX()   + Barrs_3.WIDTH  &&
-    person .getY() +Person.getHeight() >= barrs3[i].getY() &&
-    person.getY()  <= barrs3[i].getY () + Barrs_3.HEIGHT){
-      if(person.getX() + Person.WIDTH <= barrs3[i].getX() + Barrs_3.WIDTH){//Íæ¼ÒµÄ¿í¶È£¨120px£©ÊÇ±ÈÕÏ°­ÎïĞ¡µÄ
-        //×óÅö×²
-        person.setX(barrs3[i].getX()  - Barrs_3.WIDTH);
-      }else{
-        //ÓÒÅö×²
-        person.setX(barrs3[i].getX()+ Barrs_3.WIDTH  );
-      }  
-    }
-  }
-  //ÅĞ¶ÏÍæ¼ÒÊÇ·ñºÍÓã²æÕÏ°­Îï½øĞĞÅö×²
-  for(int i = 0;i<=barrs4.length -1;i++){//Ğ¡ĞÄÊı×éÔ½½ç£¡
-    if(person.getX() + Person.WIDTH >= barrs4[i].getX() &&
-    person.getX() <= barrs4[i].getX() + Barrs_4.WIDTH &&
-    person.getY() + Person.HEIGHT >= barrs4[i].getY() &&
-    person.getY() <= barrs4[i].getY() + Barrs_4.HEIGHT  ){
-      if(person.getX() + Person.WIDTH <= barrs4[i].getX() + Barrs_4.WIDTH  ){
-        //×óÅö×²
-        person.setX(barrs4[i].getX() - Barrs_4.WIDTH);
-      }else{
-        //ÓÒÅö×²
-        person.setX(barrs4[i].getX()+ Barrs_4.WIDTH  );
-      }  
-    }
-  }
-  //Íæ¼ÒºÍ½ğ±ÒµÄÅö×²
-  for(int i = 0;i<barrs5.length;i++){
-    if(person.getX() + Person.WIDTH >= barrs5[i].getX() &&
-    person.getX() <= barrs5[i].getX()   + Barrs_5.WIDTH  &&
-    person .getY() +Person.getHeight() >= barrs5[i].getY() &&
-    person.getY()  <= barrs5[i].getY () + Barrs_5.HEIGHT){//ÅĞ¶ÏÍæ¼ÒÓë½ğ±ÒµÄÅö×²
-      if(person.getX() + Person.WIDTH <= barrs5[i].getX() + Barrs_5.WIDTH){
-        //É¾³ıµ±Ç°½ğ±Ò
-        barrs5[i]  = barrs5[barrs5.length - 1];
-        barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
- 
-        //Íæ¼Ò¼Ó·Ö
-        int score = person.getScore();
-        person.setScore(score + 10);
-       }
-    }
-  }
- 
-}
-//½áÊøÂß¼­
-  public  void gameOverAction(){
-    if(person.outOfBounds()){
-      //³ÌĞò½áÊø
-      isGameOver = true;
-      //´«µİÊı¾İ£¨´´½¨½áÊø½çÃæ£©
-      new EndFrame(person);//ÃæÏò¶ÔÏóË¼Ïë
-      //Êı¾İÇå¿Õ
-      person = new Person();
-      barrs1 = new Barrs_1[]{};
-      barrs3 = new Barrs_3[]{};
-    }
- 
-  }
-  public static boolean isGameOver = false;
-  boolean flag = true; 
-//2.8  ´´  ½¨  Ò»  ¸ö  ³Ì  Ğò  Æô  ¶¯  µÄ   ·½  ·¨
-public void action(){
-  new Thread(){//ÄäÃûÄÚ²¿Àà
-    //ÖØĞ´run·½·¨
-    public void run() {
-      while(!isGameOver){
-        //3.4
-        if(flag){
-            enteredAction();//Ï¸½Ú£ºÖ»ÓĞÏÈÉú³ÉÁËÕÏ°­Îïºó£¬ÏÂÃæ²ÅÄÜµ÷ÓÃÒÆ¶¯ÕÏ°­ÎïµÄ·½·¨
-            stepAction();
-            pengAction();//Íæ¼ÒºÍÕÏ°­ÎïÅö×²
-            gameOverAction();
- 
-        }
-        //ÖØ»æ·½·¨
-        repaint();
-        //Ïß³ÌĞİÃß
+public class GamePanel extends JPanel implements KeyListener {
+
+    /**
+     * 2ã€ç”ŸæˆåŠ¨æ€çš„èƒŒæ™¯å›¾ç‰‡**
+     */
+    //2.1å£°æ˜èƒŒæ™¯å›¾ç‰‡å¯¹è±¡
+    Image background;
+    Image score;
+    Image pause;//æš‚åœ
+    Image proceed;//ç»§ç»­.
+
+    /**
+     * *3.å®ç°ç©å®¶çš„åŠ¨æ€æ•ˆæœå’Œç§»åŠ¨åŠŸèƒ½**
+     */
+    //3.1åˆ›å»ºç©å®¶å¯¹è±¡ï¼ˆç±»çš„å®ä¾‹åŒ–ï¼‰
+    Person person;
+    Barrs_2 barrs_2;//å® ç‰©
+    Barrs_4 barrs_4;//é±¼é’©ç­‰éšœç¢ç‰©
+    Barrs_5 barrs_5;//é‡‘å¸
+    /**
+     * 4.å®ç°èƒèŸ¹éšœç¢ç‰©
+     */
+    //4.1
+    Barrs_1[] barrs1 = {};//å­˜å‚¨èƒèŸ¹æ•°ç»„ï¼ˆæ²¡æœ‰å…ƒç´ ï¼Œå¯ä»¥æ‰©å®¹ï¼‰
+    Barrs_3[] barrs3 = {};//å¯¼å¼¹
+    Barrs_4[] barrs4 = {};//é±¼é’©
+    Barrs_5[] barrs5 = {};//é‡‘å¸
+
+    public GamePanel() {
+        //3.2
+        person = new Person();//è°ƒç”¨Personç±»çš„æ„é€ æ–¹æ³•ï¼Œåˆ›å»ºå¯¹è±¡å¹¶èµ‹å€¼
+        barrs_2 = new Barrs_2();
+        //2.2è¯»å–å›¾ç‰‡æ–‡ä»¶
         try {
-          Thread.sleep(60);
-        } catch (Exception e) {
-          // TODO: handle exception
-          e.printStackTrace();
+            background = ImageIO.read(new File("Image/cc.png"));//è·‘é…·èƒŒæ™¯
+            score = ImageIO.read(new File("Image/a12.png"));//å¾—åˆ†èƒŒæ™¯
+            pause = ImageIO.read(new File("Image/b2.png"));
+            proceed = ImageIO.read(new File("Image/b1.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-      }
- 
-    };
-  }.start();//´´½¨Ò»¸öÏß³Ì²¢Æô¶¯
+    }
+    //2.5
+    int x = 0;//èƒŒæ™¯å›¾ç‰‡åˆå§‹ä½ç½®
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        //2.7
+        if (flag) {
+            x -= 20;//å›¾ç‰‡æ»šåŠ¨çš„é€Ÿåº¦
+        }
+        //2.3ç»˜åˆ¶èƒŒæ™¯å›¾ç‰‡(åŠ¨æ€åˆ‡æ¢å¾ˆæµç•…)
+        g.drawImage(background, x, 0, GameFrame.WIDTH, GameFrame.HEIGHT, null);
+        g.drawImage(background, x + GameFrame.WIDTH, 0, GameFrame.WIDTH, GameFrame.HEIGHT, null);
+        if (x <= -GameFrame.WIDTH) {//å®ç°ä¸¤å¼ å›¾ç‰‡ä¹‹é—´çš„åˆ‡æ¢
+            x = 0;
+        }
+
+        //3.3ç»˜åˆ¶ ç©å®¶
+        person.paintPerson(g);
+        //ç»˜åˆ¶èƒèŸ¹
+        for (int i = 0; i < barrs1.length; i++) {
+            barrs1[i].paintBarrs(g);
+        }
+        //ç»˜åˆ¶å® ç‰©
+        barrs_2.paintBarrs(g);
+        //ç»˜åˆ¶å¯¼å¼¹
+        for (int i = 0; i < barrs3.length; i++) {
+            barrs3[i].paintBarrs(g);
+        }
+        //éšæœºç»˜åˆ¶é±¼é’©éšœç¢ç‰©
+        for (int i = 0; i < barrs4.length; i++) {
+            barrs4[i].paintBarrs(g);
+        }
+        //éšæœºç»˜åˆ¶é‡‘å¸
+        for (int i = 0; i < barrs5.length; i++) {
+            barrs5[i].paintBarrs(g);
+        }
+
+//ä½ç½®è¶Šå¾€ä¸‹ï¼Œå›¾å±‚è¶Šå¾€ä¸Š
+        //ç»˜åˆ¶ç©å®¶åˆ†æ•°
+        g.drawImage(score, 120, 50, null);
+        g.setColor(Color.ORANGE);
+        g.setFont(new Font("å®‹ä½“", Font.BOLD, 30));
+        g.drawString("ç©å®¶å¾—åˆ†ï¼š" + person.getScore() + "åˆ†", 133, 95);
+
+        //ç»˜åˆ¶æš‚åœã€ç»§ç»­æ ‡è¯†å›¾ç‰‡
+        if (flag) {
+            g.drawImage(proceed, 200, 800, 90, 90, null);
+        } else {
+            g.drawImage(pause, 200, 800, 90, 90, null);
+        }
+
+    }
+
+//ç”Ÿ    æˆ  éšœ  ç¢  ç‰©  çš„  æ–¹  æ³•
+    int index = 0;
+
+    public void enteredAction() {//å®ç°æºæº  ä¸  æ–­  ç”Ÿæˆéšœç¢ç‰©çš„æ•ˆæœ
+        index++;
+        //ç”ŸæˆèƒèŸ¹éšœç¢ç‰©
+        if (index % 100 == 0) {
+            //ç”Ÿæˆä¸€ä¸ªèƒèŸ¹
+            Barrs_1 b1 = new Barrs_1();
+            Barrs_3 b3 = new Barrs_3();
+            Barrs_4 b4 = new Barrs_4();
+
+            barrs1 = Arrays.copyOf(barrs1, barrs1.length + 1);//æ•°ç»„æ‰©å®¹
+            barrs1[barrs1.length - 1] = b1;//æ”¾åˆ°æ•°ç»„æœ€åä¸€ä¸ªå…ƒç´ çš„ä½ç½®
+            //System.out.println("æµ‹è¯•"+barrs1.length);    
+            barrs3 = Arrays.copyOf(barrs3, barrs3.length + 1);
+            barrs3[barrs3.length - 1] = b3;
+            barrs4 = Arrays.copyOf(barrs4, barrs4.length + 1);
+            barrs4[barrs4.length - 1] = b4;
+        }
+        if (index % 15 == 0) {
+            Barrs_5 b5 = new Barrs_5();
+            barrs5 = Arrays.copyOf(barrs5, barrs5.length + 1);
+            barrs5[barrs5.length - 1] = b5;
+        }
+    }
+
+//ç§»    åŠ¨  æ–¹  æ³•
+    public void stepAction() {
+        //3..4
+        person.step();//åˆ‡æ¢ç©å®¶çš„å›¾ç‰‡â€”>åŠ¨èµ·æ¥
+        person.drop();//ä¸æ–­ä¸‹å 
+        barrs_2.drop();
+        //èƒèŸ¹éšœç¢ç‰©ç§»åŠ¨
+        for (int i = 0; i < barrs1.length; i++) {
+            barrs1[i].step();
+            //åˆ¤æ–­å½“å‰éšœç¢ç‰©æ˜¯å¦ è¶Šç•Œï¼Œå¹¶åšè¶Šç•Œå¤„ç†
+            if (barrs1[i].outofBounds()) {
+                //åˆ é™¤è¶Šç•Œçš„èƒèŸ¹éšœç¢ç‰©
+                barrs1[i] = barrs1[barrs1.length - 1];//å°†èƒèŸ¹æ•°ç»„æœ€åä¸€ä¸ªå…ƒç´ ï¼Œèµ‹ç»™è¶Šç•Œçš„èƒèŸ¹ï¼Œè¦†ç›–äº†ï¼Œç›¸å½“äºé—´æ¥åˆ é™¤äº†ã€‚
+                barrs1 = Arrays.copyOf(barrs1, barrs1.length - 1);//æ•°ç»„ç¼©å®¹
+            }
+        }
+
+        barrs_2.step();
+
+        for (int i = 0; i < barrs3.length; i++) {
+            barrs3[i].step();
+            //åˆ é™¤è¶Šç•Œçš„å¯¼å¼¹éšœç¢ç‰©
+            if (barrs3[i].outofBounds()) {
+                barrs3[i] = barrs3[barrs3.length - 1];
+                barrs3 = Arrays.copyOf(barrs3, barrs3.length - 1);
+            }
+        }
+
+        for (int i = 0; i < barrs4.length; i++) {
+            barrs4[i].step();
+            //åˆ é™¤è¶Šç•Œçš„é±¼å‰éšœç¢ç‰©
+            if (barrs4[i].outofBounds()) {
+                barrs4[i] = barrs4[barrs4.length - 1];
+                barrs4 = Arrays.copyOf(barrs4, barrs4.length - 1);
+            }
+        }
+        for (int i = 0; i < barrs5.length; i++) {
+            barrs5[i].step();
+            if (barrs5[i].outofBounds()) {
+                //åˆ é™¤è¶Šç•Œçš„é‡‘å¸
+                barrs5[i] = barrs5[barrs5.length - 1];
+                barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
+            }
+        }
+    }
+
+//ç©å®¶å’Œéšœç¢ç‰©ç¢°æ’çš„å¤„ç†æ–¹æ³•
+    public void pengAction() {
+        //åˆ¤æ–­ç©å®¶æ˜¯å¦å’ŒèƒèŸ¹éšœç¢ç‰©è¿›è¡Œç¢°æ’
+        for (int i = 0; i < barrs1.length; i++) {//ä¸Šä¸‹å·¦å³éƒ½å†™äº†ï¼Œä¸‹æ˜¯ç”¨ä¸åˆ°çš„
+            if (person.getX() + Person.WIDTH >= barrs1[i].getX()
+                    && person.getX() <= barrs1[i].getX() + Barrs_1.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs1[i].getY()
+                    && person.getY() <= barrs1[i].getY() + Barrs_1.HEIGHT) {
+                //ç¢°æ’åçš„å¤„ç†ï¼ˆé®æŒ¡ç±»éšœç¢ç‰©ï¼‰
+                if (person.getX() + Person.WIDTH <= barrs1[i].getX() + Barrs_1.WIDTH) {//é˜²æ­¢äººåœ¨å³è¾¹ï¼Œç¢°æ’åå¯ä»¥ç©¿è¿‡éšœç¢ç‰©
+                    //å·¦ç¢°æ’
+                    person.setX(barrs1[i].getX() - Barrs_1.WIDTH);
+                } else {
+                    //å³ç¢°æ’
+                    person.setX(barrs1[i].getX() + Barrs_1.WIDTH);
+                }
+            }
+        }
+        //åˆ¤æ–­ç©å®¶æ˜¯å¦å’Œå¯¼å¼¹éšœç¢ç‰©è¿›è¡Œç¢°æ’
+        for (int i = 0; i < barrs3.length; i++) {
+            if (person.getX() + Person.WIDTH >= barrs3[i].getX()
+                    && person.getX() <= barrs3[i].getX() + Barrs_3.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs3[i].getY()
+                    && person.getY() <= barrs3[i].getY() + Barrs_3.HEIGHT) {
+                if (person.getX() + Person.WIDTH <= barrs3[i].getX() + Barrs_3.WIDTH) {//ç©å®¶çš„å®½åº¦ï¼ˆ120pxï¼‰æ˜¯æ¯”éšœç¢ç‰©å°çš„
+                    //å·¦ç¢°æ’
+                    person.setX(barrs3[i].getX() - Barrs_3.WIDTH);
+                } else {
+                    //å³ç¢°æ’
+                    person.setX(barrs3[i].getX() + Barrs_3.WIDTH);
+                }
+            }
+        }
+        //åˆ¤æ–­ç©å®¶æ˜¯å¦å’Œé±¼å‰éšœç¢ç‰©è¿›è¡Œç¢°æ’
+        for (int i = 0; i <= barrs4.length - 1; i++) {//å°å¿ƒæ•°ç»„è¶Šç•Œï¼
+            if (person.getX() + Person.WIDTH >= barrs4[i].getX()
+                    && person.getX() <= barrs4[i].getX() + Barrs_4.WIDTH
+                    && person.getY() + Person.HEIGHT >= barrs4[i].getY()
+                    && person.getY() <= barrs4[i].getY() + Barrs_4.HEIGHT) {
+                if (person.getX() + Person.WIDTH <= barrs4[i].getX() + Barrs_4.WIDTH) {
+                    //å·¦ç¢°æ’
+                    person.setX(barrs4[i].getX() - Barrs_4.WIDTH);
+                } else {
+                    //å³ç¢°æ’
+                    person.setX(barrs4[i].getX() + Barrs_4.WIDTH);
+                }
+            }
+        }
+        //ç©å®¶å’Œé‡‘å¸çš„ç¢°æ’
+        for (int i = 0; i < barrs5.length; i++) {
+            if (person.getX() + Person.WIDTH >= barrs5[i].getX()
+                    && person.getX() <= barrs5[i].getX() + Barrs_5.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs5[i].getY()
+                    && person.getY() <= barrs5[i].getY() + Barrs_5.HEIGHT) {//åˆ¤æ–­ç©å®¶ä¸é‡‘å¸çš„ç¢°æ’
+                if (person.getX() + Person.WIDTH <= barrs5[i].getX() + Barrs_5.WIDTH) {
+                    //åˆ é™¤å½“å‰é‡‘å¸
+                    barrs5[i] = barrs5[barrs5.length - 1];
+                    barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
+
+                    //ç©å®¶åŠ åˆ†
+                    int score = person.getScore();
+                    person.setScore(score + 10);
+                }
+            }
+        }
+
+    }
+//ç»“æŸé€»è¾‘
+
+    public void gameOverAction() {
+        if (person.outOfBounds()) {
+            //ç¨‹åºç»“æŸ
+            isGameOver = true;
+            //ä¼ é€’æ•°æ®ï¼ˆåˆ›å»ºç»“æŸç•Œé¢ï¼‰
+            new EndFrame(person);//é¢å‘å¯¹è±¡æ€æƒ³
+            //æ•°æ®æ¸…ç©º
+            person = new Person();
+            barrs1 = new Barrs_1[]{};
+            barrs3 = new Barrs_3[]{};
+        }
+
+    }
+    public static boolean isGameOver = false;
+    boolean flag = true;
+//2.8  åˆ›  å»º  ä¸€  ä¸ª  ç¨‹  åº  å¯  åŠ¨  çš„   æ–¹  æ³•
+
+    public void action() {
+        new Thread() {//åŒ¿åå†…éƒ¨ç±»
+            //é‡å†™runæ–¹æ³•
+            public void run() {
+                while (!isGameOver) {
+                    //3.4
+                    if (flag) {
+                        enteredAction();//ç»†èŠ‚ï¼šåªæœ‰å…ˆç”Ÿæˆäº†éšœç¢ç‰©åï¼Œä¸‹é¢æ‰èƒ½è°ƒç”¨ç§»åŠ¨éšœç¢ç‰©çš„æ–¹æ³•
+                        stepAction();
+                        pengAction();//ç©å®¶å’Œéšœç¢ç‰©ç¢°æ’
+                        gameOverAction();
+
+                    }
+                    //é‡ç»˜æ–¹æ³•
+                    repaint();
+                    //çº¿ç¨‹ä¼‘çœ 
+                    try {
+                        Thread.sleep(60);
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        ;
+    }
+
+    .start();//åˆ›å»ºä¸€ä¸ªçº¿ç¨‹å¹¶å¯åŠ¨
  
   }
  
 @Override
-public void keyTyped(KeyEvent e) {
-  // TODO Auto-generated method stub
- 
-}
- 
-@Override
-public void keyPressed(KeyEvent e) {
-  //»ñÈ¡Íæ¼Òµ±Ç°Î»ÖÃ×ø±ê
-   int x = person.getX();
-   int y = person.getY();
-   int x1 = barrs_2.getX();
-   int y1 = barrs_2.getY();
- 
-  //ÉÏ
-    if(e.getKeyCode() == KeyEvent.VK_UP  &&    y > 10  &&    y1 > 10){
-      person.setY(y-25);
-      barrs_2.setY(y-25);
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+
     }
-      //ÏÂ
-    if(e.getKeyCode()== KeyEvent.VK_DOWN  &&    y<=560    &&    y1<560){
-      person.setY(y+30);
-      barrs_2.setY(y-30);
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        //è·å–ç©å®¶å½“å‰ä½ç½®åæ ‡
+        int x = person.getX();
+        int y = person.getY();
+        int x1 = barrs_2.getX();
+        int y1 = barrs_2.getY();
+
+        //ä¸Š
+        if (e.getKeyCode() == KeyEvent.VK_UP && y > 10 && y1 > 10) {
+            person.setY(y - 25);
+            barrs_2.setY(y - 25);
+        }
+        //ä¸‹
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && y <= 560 && y1 < 560) {
+            person.setY(y + 30);
+            barrs_2.setY(y - 30);
+        }
+        //å·¦
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && x >= 0) {
+            person.setX(x - 30);
+            barrs_2.setX(x1 - 30);
+
+        }
+        //å³
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            person.setX(x + 22);
+            barrs_2.setX(x1 + 22);
+            if (x >= GameFrame.WIDTH - Person.WIDTH) {//å¦‚æœäººç‰©åˆ°äº†å³è¾¹ç•Œ
+                person.setX(GameFrame.WIDTH - Person.WIDTH);
+            }
+            if (x1 >= GameFrame.WIDTH - barrs_2.WIDTH) {//å¦‚æœå® ç‰©åˆ°äº†å³è¾¹ç•Œ
+                barrs_2.setX(GameFrame.WIDTH - barrs_2.WIDTH);
+            }
+        }
+        //æš‚åœ ç»§ç»­åŠŸèƒ½
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            flag = !flag;
+        }
+
     }
-    //×ó
-    if(e.getKeyCode()==KeyEvent.VK_LEFT    &&   x>=0  ){
-      person.setX(x-30);
-      barrs_2.setX(x1-30);
- 
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
     }
-    //ÓÒ
-    if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-      person.setX(x+22);
-      barrs_2.setX(x1+22);
-      if(x>=GameFrame.WIDTH-Person.WIDTH){//Èç¹ûÈËÎïµ½ÁËÓÒ±ß½ç
-        person.setX(GameFrame.WIDTH-Person.WIDTH);
-      }
-      if(x1>=GameFrame.WIDTH-barrs_2.WIDTH){//Èç¹û³èÎïµ½ÁËÓÒ±ß½ç
-        barrs_2.setX(GameFrame.WIDTH - barrs_2.WIDTH);
-      }
-    }
-    //ÔİÍ£ ¼ÌĞø¹¦ÄÜ
-    if(e.getKeyCode() == KeyEvent.VK_SPACE){
-        flag = !flag;
-    }
- 
-  }
- 
-@Override
-public void keyReleased(KeyEvent e) {
-  // TODO Auto-generated method stub
-}
 }

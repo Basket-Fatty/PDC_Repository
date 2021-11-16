@@ -15,139 +15,128 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
- 
 public class MainFrame extends JFrame implements MouseListener {
-  //ÉèÖÃ´°ÌåµÄ»ù±¾ÊôĞÔ  ´óĞ¡
-  /**
-   *  1.1¡¢ÉèÖÃ´°Ìå»ù±¾ÊôĞÔ´óĞ¡ ¾ÓÖĞ ±ß¿òÒş²Ø Ä¬ÈÏ¹Ø±Õ°´Å¥ logoÍ¼±ê
-    1.2¡¢´´½¨±³¾°Ãæ°åMainPanel£¬ÊµÏÖ±³¾°Í¼Æ¬¹¦ÄÜ
-    2.Í¼Æ¬°´Å¥¹¦ÄÜ
-   */
-  //2.1´´½¨¿ªÊ¼°´Å¥ °ïÖú°´Å¥ Àë¿ª°´Å¥ ×é¼ş
-  JLabel start,help,exit;
- 
-  JPanel MainPanel;
- 
-  public MainFrame() {//ÎŞ²Î¹¹Ôì£¬´´½¨¶ÔÏó¡£²¢ÔÚmainº¯ÊıÖĞµ÷ÓÃ
-    //2.2
-    start = new JLabel(new ImageIcon("Image/hh1.png"));//ImageIcon:Í¼±ê
-    start.setBounds(350,320,150,40);
-    start.setEnabled(false);//false°´Å¥Îª»ÒÉ«    
-    start.addMouseListener(this);
-    this.add(start);
- 
-    help = new JLabel(new ImageIcon("Image/hh2.png"));
-    help.setBounds(350,420,150,40);
-    help.setEnabled(false);
-    help.addMouseListener(this);
-    this.add(help);
- 
-    exit = new JLabel(new ImageIcon("Image/hh3.png"));
-    exit.setBounds(350, 520, 150, 40);
-    exit.setEnabled(false);
-    exit.addMouseListener(this);
-    this.add(exit);
- 
- 
-    /**1.ÊµÏÖ±³¾°Í¼Æ¬¼°´°ÌåÊôĞÔ*/
-    MainPanel panel = new MainPanel();
-    this.add(panel);
- 
-    //ÉèÖÃ´°Ìå»ù±¾ÊôĞÔ´óĞ¡ ¾ÓÖĞ ±ß¿òÒş²Ø Ä¬ÈÏ¹Ø±Õ°´Å¥ logoÍ¼±ê
-    this.setSize(1200,730);//´óĞ¡
-    this.setLocationRelativeTo(null);//¾ÓÖĞ
-    this.setUndecorated(true);//±ß¿òÒş²Ø
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Ä¬ÈÏ¹Ø±Õ
-    this.setIconImage(new ImageIcon("Image/115.png").getImage());//logo
-    this.setVisible(true);      
-  }
- 
-  public static void main(String[] args) {
-    new MainFrame();
-  }
- 
-  //2¡¢´´½¨±³¾°Ãæ°åMainPanel£¬ÊµÏÖ±³¾°Í¼Æ¬¹¦ÄÜ
-  class MainPanel extends JPanel{//´´½¨µÄMainPanelÀà£¬ÔÚMainFrameÖĞµ÷ÓÃ
-  Image background;    
-  public MainPanel() {
-    try {
-      background = ImageIO.read(new File("Image/main.png"));
-    } catch (IOException e) {
-      e.printStackTrace();
+    //è®¾ç½®çª—ä½“çš„åŸºæœ¬å±æ€§  å¤§å°
+
+    /**
+     * 1.1ã€è®¾ç½®çª—ä½“åŸºæœ¬å±æ€§å¤§å° å±…ä¸­ è¾¹æ¡†éšè— é»˜è®¤å…³é—­æŒ‰é’® logoå›¾æ ‡ 1.2ã€åˆ›å»ºèƒŒæ™¯é¢æ¿MainPanelï¼Œå®ç°èƒŒæ™¯å›¾ç‰‡åŠŸèƒ½
+     * 2.å›¾ç‰‡æŒ‰é’®åŠŸèƒ½
+     */
+    //2.1åˆ›å»ºå¼€å§‹æŒ‰é’® å¸®åŠ©æŒ‰é’® ç¦»å¼€æŒ‰é’® ç»„ä»¶
+    JLabel start, help, exit;
+
+    JPanel MainPanel;
+
+    public MainFrame() {//æ— å‚æ„é€ ï¼Œåˆ›å»ºå¯¹è±¡ã€‚å¹¶åœ¨mainå‡½æ•°ä¸­è°ƒç”¨
+        //2.2
+        start = new JLabel(new ImageIcon("Image/hh1.png"));//ImageIcon:å›¾æ ‡
+        start.setBounds(350, 320, 150, 40);
+        start.setEnabled(false);//falseæŒ‰é’®ä¸ºç°è‰²    
+        start.addMouseListener(this);
+        this.add(start);
+
+        help = new JLabel(new ImageIcon("Image/hh2.png"));
+        help.setBounds(350, 420, 150, 40);
+        help.setEnabled(false);
+        help.addMouseListener(this);
+        this.add(help);
+
+        exit = new JLabel(new ImageIcon("Image/hh3.png"));
+        exit.setBounds(350, 520, 150, 40);
+        exit.setEnabled(false);
+        exit.addMouseListener(this);
+        this.add(exit);
+
+        /**
+         * 1.å®ç°èƒŒæ™¯å›¾ç‰‡åŠçª—ä½“å±æ€§
+         */
+        MainPanel panel = new MainPanel();
+        this.add(panel);
+
+        //è®¾ç½®çª—ä½“åŸºæœ¬å±æ€§å¤§å° å±…ä¸­ è¾¹æ¡†éšè— é»˜è®¤å…³é—­æŒ‰é’® logoå›¾æ ‡
+        this.setSize(1200, 730);//å¤§å°
+        this.setLocationRelativeTo(null);//å±…ä¸­
+        this.setUndecorated(true);//è¾¹æ¡†éšè—
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//é»˜è®¤å…³é—­
+        this.setIconImage(new ImageIcon("Image/115.png").getImage());//logo
+        this.setVisible(true);
     }
-  }
-  @Override
-  public void paint(Graphics g) {
-    super.paint(g);
-    g.drawImage(background, 0, 0,1200,730, null);
+
+    public static void main(String[] args) {
+        new MainFrame();
     }
-  }
- 
- 
- 
-//ÒÔÏÂÎå¸ö·½·¨¾ùÎªÌí¼Ó implements MouseListener ºó£¬¿ì½İ³öÀ´µÄ
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    //Êó±êµã»÷
-    if(e.getSource().equals(start)){
-      //Ìø×ªµ½ÏÂÒ»½çÃæ
-      new WindowFrame().Start();
-      //¹Ø±Õµ±Ç°½çÃæ
-        //dispose();
-    }else if(e.getSource().equals(exit)){
-      dispose();
-    }else if(e.getSource().equals(help)){
-      JOptionPane.showMessageDialog(null, "ÓĞÒÉÎÊÇëÁªÏµ¿ª·¢Õß£ºHuey");
+
+    //2ã€åˆ›å»ºèƒŒæ™¯é¢æ¿MainPanelï¼Œå®ç°èƒŒæ™¯å›¾ç‰‡åŠŸèƒ½
+    class MainPanel extends JPanel {//åˆ›å»ºçš„MainPanelç±»ï¼Œåœ¨MainFrameä¸­è°ƒç”¨
+
+        Image background;
+
+        public MainPanel() {
+            try {
+                background = ImageIO.read(new File("Image/main.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            g.drawImage(background, 0, 0, 1200, 730, null);
+        }
     }
- 
-  }
- 
- 
- 
- 
-  @Override
-  public void mousePressed(MouseEvent e) {
-    // TODO Auto-generated method stub
- 
-  }
- 
- 
- 
- 
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    // TODO Auto-generated method stub
- 
-  }
- 
- 
- 
- 
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    // Êó±êÒÆÈë
-    if(e.getSource().equals(start)){//eÖ¸Ò»¸öÊÂ¼ş¡£e.getSource()»ñÈ¡ÊÂ¼ş
-      //Èç¹ûÊó±êÒÆÈëµ½£¨start£©×é¼ş£¨Í¼Æ¬°´Å¥£©
-      start.setEnabled(true);
-    }else if(e.getSource().equals(help)){
-      help.setEnabled(true);
-    }else if(e.getSource().equals(exit)){
-      exit.setEnabled(true);
+
+//ä»¥ä¸‹äº”ä¸ªæ–¹æ³•å‡ä¸ºæ·»åŠ  implements MouseListener åï¼Œå¿«æ·å‡ºæ¥çš„
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //é¼ æ ‡ç‚¹å‡»
+        if (e.getSource().equals(start)) {
+            //è·³è½¬åˆ°ä¸‹ä¸€ç•Œé¢
+            new WindowFrame().Start();
+            //å…³é—­å½“å‰ç•Œé¢
+            //dispose();
+        } else if (e.getSource().equals(exit)) {
+            dispose();
+        } else if (e.getSource().equals(help)) {
+            JOptionPane.showMessageDialog(null, "æœ‰ç–‘é—®è¯·è”ç³»å¼€å‘è€…ï¼šHuey");
+        }
+
     }
-  }
- 
- 
- 
- 
-  @Override
-  public void mouseExited(MouseEvent e) {
-    //Êó±êÒÆ³ö
-      if(e.getSource().equals(start)){
-        start.setEnabled(false);
-    }else if(e.getSource().equals(help)){
-      help.setEnabled(false);
-    }else if(e.getSource().equals(exit)){
-      exit.setEnabled(false);
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+
     }
-  }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // é¼ æ ‡ç§»å…¥
+        if (e.getSource().equals(start)) {//eæŒ‡ä¸€ä¸ªäº‹ä»¶ã€‚e.getSource()è·å–äº‹ä»¶
+            //å¦‚æœé¼ æ ‡ç§»å…¥åˆ°ï¼ˆstartï¼‰ç»„ä»¶ï¼ˆå›¾ç‰‡æŒ‰é’®ï¼‰
+            start.setEnabled(true);
+        } else if (e.getSource().equals(help)) {
+            help.setEnabled(true);
+        } else if (e.getSource().equals(exit)) {
+            exit.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //é¼ æ ‡ç§»å‡º
+        if (e.getSource().equals(start)) {
+            start.setEnabled(false);
+        } else if (e.getSource().equals(help)) {
+            help.setEnabled(false);
+        } else if (e.getSource().equals(exit)) {
+            exit.setEnabled(false);
+        }
+    }
 }

@@ -7,129 +7,140 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
- 
+
 /**
- * @author Huey
- * @date 2020-11-23
- * Íæ¼ÒµÄÊµÌåÀà
+ * 
+ *  çŽ©å®¶çš„å®žä½“ç±»
  */
-public class Person {//1.ÉùÃ÷ÊôÐÔ
-  private Image image;//1.1 Íæ¼Òµ±Ç°ÏÔÊ¾Í¼Æ¬
-  private Image[] images;//1.2 Íæ¼ÒËùÓÐÍ¼Æ¬
- 
-  public static final int WIDTH = 120;//1.3Íæ¼Ò¿í¸ß
-  public static final int HEIGHT = 120;
- 
-  //1.4Íæ¼Ò³õÊ¼Î»ÖÃ×ø±ê
-  private int x,y;
-  int index;//ÏÂÃæÓÃ×÷ÇÐ»»Í¼Æ¬
-  //Íæ¼ÒµÃ·Ö
-  private int score;
-  //Íæ¼ÒÅÜ¿á¾àÀë
-  private int distance;
- 
-  public Person() {//2.¸³Öµ
-    //¸øÍ¼Æ¬Êý×éimages¸³Öµ
-    init();//2.1  ÏÈÐ´£¬»áÌáÊ¾Òª²»ÒªÊµÏÖ£¡×Ô¶¯Éú³É·½·¨
-    //Ä¬ÈÏµ±Ç°ÏÔÊ¾Í¼Æ¬Î»µÚÒ»ÕÅÍ¼Æ¬ 2.6
-    image = images[0];
- 
-    x = 90;//2.7
-    y = 580;//½Å²ÈµØ°å
-    index = 0;
-    score = 0;
-    distance = 0;
-  }
-  //Íæ¼Ò×ÔÓÉÏÂÂä·½·¨5.1
-  public void drop() {
-    y += 5;
-    if(y>=580){// ÏÂÂä¹éÏÂÂä£¬Ò²µÃÎÂÈáµã£¬²»ÄÜÈÃÐ¡ÈË¶ù²ÈÆÆÁËµØ°å
-      y = 580;
+public class Person {//1.å£°æ˜Žå±žæ€§
+
+    private Image image;//1.1 çŽ©å®¶å½“å‰æ˜¾ç¤ºå›¾ç‰‡
+    private Image[] images;//1.2 çŽ©å®¶æ‰€æœ‰å›¾ç‰‡
+
+    public static final int WIDTH = 120;//1.3çŽ©å®¶å®½é«˜
+    public static final int HEIGHT = 120;
+
+    //1.4çŽ©å®¶åˆå§‹ä½ç½®åæ ‡
+    private int x, y;
+    int index;//ä¸‹é¢ç”¨ä½œåˆ‡æ¢å›¾ç‰‡
+    //çŽ©å®¶å¾—åˆ†
+    private int score;
+    //çŽ©å®¶è·‘é…·è·ç¦»
+    private int distance;
+
+    public Person() {//2.èµ‹å€¼
+        //ç»™å›¾ç‰‡æ•°ç»„imagesèµ‹å€¼
+        init();//2.1  å…ˆå†™ï¼Œä¼šæç¤ºè¦ä¸è¦å®žçŽ°ï¼è‡ªåŠ¨ç”Ÿæˆæ–¹æ³•
+        //é»˜è®¤å½“å‰æ˜¾ç¤ºå›¾ç‰‡ä½ç¬¬ä¸€å¼ å›¾ç‰‡ 2.6
+        image = images[0];
+
+        x = 90;//2.7
+        y = 580;//è„šè¸©åœ°æ¿
+        index = 0;
+        score = 0;
+        distance = 0;
     }
-  }
-  //Íæ¼ÒÒÆ¶¯µÄ·½·¨
-  public void step(){
-    //Íæ¼ÒÍ¼Æ¬µÄÇÐ»»
-    image = images[index ++ /3%images.length];
-    //Íæ¼Ò×ø±ê¸Ä±ä£¨Íæ¼Ò×ø±êÍ¨¹ý¼üÅÌ¿ØÖÆ£¬´Ë´Î²»×ö´¦Àí£©
-  }
-  //»æÖÆÍæ¼ÒµÄ·½·¨
-  public void paintPerson(Graphics g){
-    g.drawImage(image, x, y, WIDTH, HEIGHT, null);
-  }
- 
-  //ÅÐ¶ÏÍæ¼ÒÊÇ·ñÔ½½çµÄ·½·¨
-  public boolean outOfBounds(){
-    return this.x >= GameFrame.WIDTH || this.x <= -WIDTH;
-  }
-  private void init() {//2.2
-    images = new Image[9];
-    for(int i = 0; i<images.length; i++){//2.3
-      try {//2.5
-        images[i] = ImageIO.read(new File("Image/"+(i+1) + ".png"));//2.4
-      } catch (IOException e) {//2.5
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+    //çŽ©å®¶è‡ªç”±ä¸‹è½æ–¹æ³•5.1
+
+    public void drop() {
+        y += 5;
+        if (y >= 580) {// ä¸‹è½å½’ä¸‹è½ï¼Œä¹Ÿå¾—æ¸©æŸ”ç‚¹ï¼Œä¸èƒ½è®©å°äººå„¿è¸©ç ´äº†åœ°æ¿
+            y = 580;
+        }
     }
-  }
-//2.8  ÓÒ¼ü£¬Source£¬GGAS
-  public Image getImage() {
-    return image;
-  }
- 
-  public void setImage(Image image) {
-    this.image = image;
-  }
- 
-  public Image[] getImages() {
-    return images;
-  }
- 
-  public void setImages(Image[] images) {
-    this.images = images;
-  }
- 
-  public int getX() {
-    return x;
-  }
- 
-  public void setX(int x) {
-    this.x = x;
-  }
- 
-  public int getY() {
-    return y;
-  }
- 
-  public void setY(int y) {
-    this.y = y;
-  }
- 
-  public static int getWidth() {
-    return WIDTH;
-  }
- 
-  public static int getHeight() {
-    return HEIGHT;
-  }
-  public int getIndex() {
-    return index;
-  }
-  public void setIndex(int index) {
-    this.index = index;
-  }
-  public int getScore() {
-    return score;
-  }
-  public void setScore(int score) {
-    this.score = score;
-  }
-  public int getDistance() {
-    return distance;
-  }
-  public void setDistance(int distance) {
-    this.distance = distance;
-  }
- 
+    //çŽ©å®¶ç§»åŠ¨çš„æ–¹æ³•
+
+    public void step() {
+        //çŽ©å®¶å›¾ç‰‡çš„åˆ‡æ¢
+        image = images[index++ / 3 % images.length];
+        //çŽ©å®¶åæ ‡æ”¹å˜ï¼ˆçŽ©å®¶åæ ‡é€šè¿‡é”®ç›˜æŽ§åˆ¶ï¼Œæ­¤æ¬¡ä¸åšå¤„ç†ï¼‰
+    }
+    //ç»˜åˆ¶çŽ©å®¶çš„æ–¹æ³•
+
+    public void paintPerson(Graphics g) {
+        g.drawImage(image, x, y, WIDTH, HEIGHT, null);
+    }
+
+    //åˆ¤æ–­çŽ©å®¶æ˜¯å¦è¶Šç•Œçš„æ–¹æ³•
+    public boolean outOfBounds() {
+        return this.x >= GameFrame.WIDTH || this.x <= -WIDTH;
+    }
+
+    private void init() {//2.2
+        images = new Image[9];
+        for (int i = 0; i < images.length; i++) {//2.3
+            try {//2.5
+                images[i] = ImageIO.read(new File("Image/" + (i + 1) + ".png"));//2.4
+            } catch (IOException e) {//2.5
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+//2.8  å³é”®ï¼ŒSourceï¼ŒGGAS
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Image[] getImages() {
+        return images;
+    }
+
+    public void setImages(Image[] images) {
+        this.images = images;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public static int getWidth() {
+        return WIDTH;
+    }
+
+    public static int getHeight() {
+        return HEIGHT;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
 }
