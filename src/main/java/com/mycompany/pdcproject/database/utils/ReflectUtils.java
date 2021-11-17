@@ -1,6 +1,9 @@
 package com.mycompany.pdcproject.database.utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 封装了反射常用的操作
@@ -40,8 +43,16 @@ public class ReflectUtils {
             m = obj.getClass().getDeclaredMethod("set" + StringUtils.firstChar2UpperCase(columnName),
                     columnValue.getClass());
             m.invoke(obj, columnValue);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(ReflectUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(ReflectUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(IllegalAccessException ex){
+            Logger.getLogger(ReflectUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(ReflectUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(ReflectUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

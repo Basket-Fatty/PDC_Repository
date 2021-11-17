@@ -1,9 +1,15 @@
 package com.mycompany.pdcproject.database.core;
 
+import com.mycompany.pdcproject.database.bean.TableInfo;
 import com.mycompany.pdcproject.database.utils.JDBCUtils;
+import com.mycompany.pdcproject.database.utils.ReflectUtils;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,10 +43,31 @@ public class DerbyQuery implements Query {
 
     @Override
     public void insert(Object obj) {
-        if (obj instanceof Record) {
-            Record record = (Record) obj;
-        }
+        //obj-->表中 insert into 表名(id,uname,pwd) values(?,?,?)
+        Class c = obj.getClass();
+        List<Object> params = new ArrayList<>();	//存储sql参数对象
+        TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+        StringBuilder sql = new StringBuilder("insert into " + tableInfo.getTname() + " (");
+        int countNotNullField = 0;
+        Field[] fs = c.getDeclaredFields();
+        for (Field f : fs) {
+            String fieldName = f.getName();
+            Object fieldValue = ReflectUtils.invokeGet(fieldName, obj);
 
+            if (fieldValue != null) {
+                countNotNullField++;
+                sql.append(fieldName + ",");
+                params.add(fieldValue);
+            }
+        }
+        sql.setCharAt(sql.length() - 1, ')');
+        sql.append(" values (");
+        for (int i = 0; i < countNotNullField; i++) {
+            sql.append("?,");
+        }
+        sql.setCharAt(sql.length() - 1, ')');
+
+        executeDML(sql.toString(), params.toArray());
     }
 
     @Override
@@ -60,12 +87,53 @@ public class DerbyQuery implements Query {
 
     @Override
     public List queryRows(String sql, Class clazz, Object[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = DBManager.getConn();
+        List list = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement(sql);
+
+            //给sql设参
+            JDBCUtils.handleParams(ps, params);
+            rs = ps.executeQuery();
+            ResultSetMetaData metaData = rs.getMetaData();
+
+            //多行
+            while (rs.next()) {
+                if (list == null) {
+                    list = new ArrayList();
+                }
+                Object rowObj = clazz.newInstance();
+
+                //多列 select username 'uname',pwd,age from user where id>? and age>18
+                for (int i = 0; i < metaData.getColumnCount(); i++) {
+                    String columnName = metaData.getColumnLabel(i + 1);
+                    Object columnValue = rs.getObject(i + 1);
+
+                    //调用rowObj对象的setUsername(String uname)方法,将columnValue的值存储
+                    ReflectUtils.invokeSet(rowObj, columnName, columnValue);
+                }
+                list.add(rowObj);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DerbyQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(DerbyQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(DerbyQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBManager.close(ps, con);
+        }
+        return list;
     }
 
     @Override
     public Object queryUniqueRow(String sql, Class clazz, Object[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List list = queryRows(sql, clazz, params);
+        return (list == null || list.size() == 0) ? null : list.get(0);
     }
 
     @Override
@@ -77,5 +145,9 @@ public class DerbyQuery implements Query {
     public Number queryNumber(String sql, Object[] params) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+   
+    public static void main(String[] args) {
+        DerbyQuery dq = new DerbyQuery();
+        
+    }
 }

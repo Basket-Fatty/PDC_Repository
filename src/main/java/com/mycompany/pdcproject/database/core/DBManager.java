@@ -41,11 +41,17 @@ public class DBManager {
     public static Connection getConn() {
         try {
             Class.forName(conf.getDriver());
+            
+//            System.out.println(conf.getDriver());
+//            System.out.println(conf.getUrl());
+//            System.out.println(conf.getUser());
+//            System.out.println(conf.getPwd());
+            
             return DriverManager.getConnection(conf.getUrl(), conf.getUser(), conf.getPwd());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
-        } catch (SQLException e) {
+        } catch (SQLException e) {         
             e.printStackTrace();
             return null;
         }
@@ -95,5 +101,4 @@ public class DBManager {
     public static Configuration getConf() {
         return conf;
     }
-
 }

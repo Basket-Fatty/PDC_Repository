@@ -38,12 +38,18 @@ public class TableContext {
             //初始化获得表的信息
             Connection con = DBManager.getConn();
             DatabaseMetaData dbmd = con.getMetaData();
-
-            ResultSet tableSet = dbmd.getTables(null, "%", "%", new String[]{"Table"});
+            
+//            System.out.println("***");
+//            ResultSet set = dbmd.getTableTypes();
+//            while(set.next()){
+//                System.out.println((String)set.getObject(1)); 
+//            }
+            
+            ResultSet tableSet = dbmd.getTables(null, null, "%", new String[] {"TABLE"});
 
             while (tableSet.next()) {
-                String tableName = (String) tableSet.getObject("Table_NAME");
-
+                String tableName = (String) tableSet.getObject("Table_NAME");       
+                
                 TableInfo ti = new TableInfo(tableName, new ArrayList<ColumnInfo>(),
                         new HashMap<String, ColumnInfo>());
                 tables.put(tableName, ti);

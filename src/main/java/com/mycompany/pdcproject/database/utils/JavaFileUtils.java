@@ -127,9 +127,9 @@ public class JavaFileUtils {
     //测试
 
     public static void main(String[] args) {
-//		ColumnInfo ci = new ColumnInfo("username", "varchar", 0);
-//		JavaFieldGetSet f = createFieldSetGet(ci, new MySqlTypeConvertor());
-//		System.out.println(f);
+//  ColumnInfo ci = new ColumnInfo("username", "varchar", 0);
+//  JavaFieldGetSet f = createFieldSetGet(ci, new MySqlTypeConvertor());
+//  System.out.println(f);
 
         Map<String, TableInfo> map = TableContext.tables;
         for (TableInfo tableInfo : map.values()) {

@@ -1,25 +1,8 @@
-Tue Nov 16 14:47:40 CST 2021 : Apache Derby 网络服务器 - 10.14.2.0 - (1828579) 已启动并准备接受端口 1527 上的连接
+Wed Nov 17 09:39:34 CST 2021 : Apache Derby 网络服务器 - 10.14.2.0 - (1828579) 已启动并准备接受端口 1527 上的连接
 ----------------------------------------------------------------
-Tue Nov 16 14:47:41 CST 2021:
+Wed Nov 17 09:39:39 CST 2021:
 正在使用类加载程序 jdk.internal.loader.ClassLoaders$AppClassLoader@7852e922 引导数据库
-目录 F:\Netbeans\PDC_Repository\Database 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 a816c00e-017d-2780-520e-00001b7fb4e8
-已从 file:/F:/Netbeans/db-derby-10.14.2.0-bin/lib/derby.jar 加载
-java.vendor=Oracle Corporation
-java.runtime.version=16.0.2+7-67
-user.dir=F:\Netbeans\db-derby-10.14.2.0-bin
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=F:\Netbeans\PDC_Repository
-数据库类加载程序已启动 - derby.database.classpath=''
-----------------------------------------------------------------
-Tue Nov 16 14:47:42 CST 2021:
-正在使用类加载程序 jdk.internal.loader.ClassLoaders$AppClassLoader@7852e922 关闭数据库目录 F:\Netbeans\PDC_Repository\Database 上的实例 a816c00e-017d-2780-520e-00001b7fb4e8
-Tue Nov 16 14:47:42 CST 2021 Thread[DRDAConnThread_3,5,main] (DATABASE = Database), (DRDAID = {2}), 数据库“Database”已关闭。
-----------------------------------------------------------------
-Tue Nov 16 14:47:47 CST 2021:
-正在使用类加载程序 jdk.internal.loader.ClassLoaders$AppClassLoader@7852e922 引导数据库
-目录 F:\Netbeans\PDC_Repository\Database 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 6ede40af-017d-2780-520e-00001b7fb4e8
+目录 F:\Netbeans\PDC_Repository\Database 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 a816c00e-017d-2b8c-9935-00001b7fb4e8
 已从 file:/F:/Netbeans/db-derby-10.14.2.0-bin/lib/derby.jar 加载
 java.vendor=Oracle Corporation
 java.runtime.version=16.0.2+7-67

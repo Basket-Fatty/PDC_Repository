@@ -1,0 +1,80 @@
+package com.mycompany.pdcproject.database.po;
+
+import java.sql.*;
+import java.util.*;
+
+public class SYSCOLUMNS {
+
+	private null AUTOINCREMENTCYCLE;
+	private null COLUMNDATATYPE;
+	private Long AUTOINCREMENTVALUE;
+	private String COLUMNNAME;
+	private Long AUTOINCREMENTSTART;
+	private String REFERENCEID;
+	private Integer COLUMNNUMBER;
+	private Long AUTOINCREMENTINC;
+	private null COLUMNDEFAULT;
+	private String COLUMNDEFAULTID;
+
+
+	public null getAUTOINCREMENTCYCLE(){
+		return AUTOINCREMENTCYCLE;
+	}
+	public null getCOLUMNDATATYPE(){
+		return COLUMNDATATYPE;
+	}
+	public Long getAUTOINCREMENTVALUE(){
+		return AUTOINCREMENTVALUE;
+	}
+	public String getCOLUMNNAME(){
+		return COLUMNNAME;
+	}
+	public Long getAUTOINCREMENTSTART(){
+		return AUTOINCREMENTSTART;
+	}
+	public String getREFERENCEID(){
+		return REFERENCEID;
+	}
+	public Integer getCOLUMNNUMBER(){
+		return COLUMNNUMBER;
+	}
+	public Long getAUTOINCREMENTINC(){
+		return AUTOINCREMENTINC;
+	}
+	public null getCOLUMNDEFAULT(){
+		return COLUMNDEFAULT;
+	}
+	public String getCOLUMNDEFAULTID(){
+		return COLUMNDEFAULTID;
+	}
+	public void setAUTOINCREMENTCYCLE(null AUTOINCREMENTCYCLE){
+		this.AUTOINCREMENTCYCLE=AUTOINCREMENTCYCLE;
+	}
+	public void setCOLUMNDATATYPE(null COLUMNDATATYPE){
+		this.COLUMNDATATYPE=COLUMNDATATYPE;
+	}
+	public void setAUTOINCREMENTVALUE(Long AUTOINCREMENTVALUE){
+		this.AUTOINCREMENTVALUE=AUTOINCREMENTVALUE;
+	}
+	public void setCOLUMNNAME(String COLUMNNAME){
+		this.COLUMNNAME=COLUMNNAME;
+	}
+	public void setAUTOINCREMENTSTART(Long AUTOINCREMENTSTART){
+		this.AUTOINCREMENTSTART=AUTOINCREMENTSTART;
+	}
+	public void setREFERENCEID(String REFERENCEID){
+		this.REFERENCEID=REFERENCEID;
+	}
+	public void setCOLUMNNUMBER(Integer COLUMNNUMBER){
+		this.COLUMNNUMBER=COLUMNNUMBER;
+	}
+	public void setAUTOINCREMENTINC(Long AUTOINCREMENTINC){
+		this.AUTOINCREMENTINC=AUTOINCREMENTINC;
+	}
+	public void setCOLUMNDEFAULT(null COLUMNDEFAULT){
+		this.COLUMNDEFAULT=COLUMNDEFAULT;
+	}
+	public void setCOLUMNDEFAULTID(String COLUMNDEFAULTID){
+		this.COLUMNDEFAULTID=COLUMNDEFAULTID;
+	}
+}
