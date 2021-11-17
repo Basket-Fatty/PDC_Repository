@@ -1,41 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.pdcproject.database.po;
 
-/**
- *
- * @author Arthur
- */
+import java.sql.*;
+import java.util.*;
+
 public class RECORD {
-    private String NAME;
-    private int SCORE;
 
-    public RECORD(){
-        
-    }
+	private Integer DISTANCE;
+	private Integer SOCRE;
+	private String NAME;
 
-    public RECORD(String NAME, int SCORE) {
-        this.NAME = NAME;
-        this.SCORE = SCORE;
-    }
 
-    public String getNAME() {
-        return NAME;
-    }
-
-    public int getSCORE() {
-        return SCORE;
-    }
-
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
-    }
-
-    public void setSCORE(int SCORE) {
-        this.SCORE = SCORE;
-    }
-    
+	public Integer getDISTANCE(){
+		return DISTANCE;
+	}
+	public Integer getSOCRE(){
+		return SOCRE;
+	}
+	public String getNAME(){
+		return NAME;
+	}
+	public void setDISTANCE(Integer DISTANCE){
+		this.DISTANCE=DISTANCE;
+	}
+	public void setSOCRE(Integer SOCRE){
+		this.SOCRE=SOCRE;
+	}
+	public void setNAME(String NAME){
+		this.NAME=NAME;
+	}
 }

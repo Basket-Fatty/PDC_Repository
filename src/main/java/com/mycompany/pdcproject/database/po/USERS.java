@@ -1,43 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.pdcproject.database.po;
 
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
-/**
- *
- * @author Arthur
- */
 public class USERS {
-    private String NAME;
-    private String PWD;
 
-    public USERS(){
-        
-    }
+	private Integer MONEY;
+	private String PWD;
+	private String NAME;
 
-    public USERS(String NAME, String PWD) {
-        this.NAME = NAME;
-        this.PWD = PWD;
-    }
 
-    public String getNAME() {
-        return NAME;
-    }
-
-    public String getPWD() {
-        return PWD;
-    }
-
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
-    }
-
-    public void setPWD(String PWD) {
-        this.PWD = PWD;
-    }
-   
+	public Integer getMONEY(){
+		return MONEY;
+	}
+	public String getPWD(){
+		return PWD;
+	}
+	public String getNAME(){
+		return NAME;
+	}
+	public void setMONEY(Integer MONEY){
+		this.MONEY=MONEY;
+	}
+	public void setPWD(String PWD){
+		this.PWD=PWD;
+	}
+	public void setNAME(String NAME){
+		this.NAME=NAME;
+	}
 }

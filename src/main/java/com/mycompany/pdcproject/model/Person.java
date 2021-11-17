@@ -1,5 +1,6 @@
 package com.mycompany.pdcproject.model;
 
+import com.mycompany.pdcproject.database.po.USERS;
 import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,6 +24,8 @@ public class Person {//1.声明属性
     //1.4玩家初始位置坐标
     private int x, y;
     int index;//下面用作切换图片
+    //玩家信息
+    private USERS user;
     //玩家得分
     private int score;
     //玩家跑酷距离
@@ -54,6 +57,7 @@ public class Person {//1.声明属性
         //玩家图片的切换
         image = images[index++ / 3 % images.length];
         //玩家坐标改变（玩家坐标通过键盘控制，此次不做处理）
+        distance += 2;
     }
     //绘制玩家的方法
 
@@ -141,6 +145,14 @@ public class Person {//1.声明属性
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public void setUser(USERS user) {
+        this.user = user;
+    }
+
+    public USERS getUser() {
+        return user;
     }
 
 }

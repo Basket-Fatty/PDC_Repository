@@ -99,7 +99,7 @@ public class JavaFileUtils {
         String srcPath = DBManager.getConf().getSrcPath() + "\\";
         //正则表达式
         String packagePath = DBManager.getConf().getPoPackage().replaceAll("\\.", "\\\\");
-
+        
         File f = new File(srcPath + packagePath);
         if (!f.exists()) {
             f.mkdirs();

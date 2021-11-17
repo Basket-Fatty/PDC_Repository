@@ -56,15 +56,5 @@ public class TableContextTest {
         System.out.println("loadPOTable");
         TableContext.loadPOTable();
     }
-
-    /**
-     * Test of main method, of class TableContext.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        TableContext.main(args);
-    }
     
 }

@@ -1,51 +1,111 @@
 package com.mycompany.pdcproject.view;
 
-import com.mycompany.pdcproject.controller.WindowFrame;
+import com.mycompany.pdcproject.database.po.USERS;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class MainFrame extends JFrame implements MouseListener {
-    //设置窗体的基本属性  大小
+
+    //存储用户信息
+    private USERS user;
 
     /**
      * 1.1、设置窗体基本属性大小 居中 边框隐藏 默认关闭按钮 logo图标 1.2、创建背景面板MainPanel，实现背景图片功能
      * 2.图片按钮功能
      */
-    //2.1创建开始按钮 帮助按钮 离开按钮 组件
-    JLabel start, help, exit;
+    private JButton start, intro, guide, setting, personnel, help, quit, shop;
+    private JPanel MainPanel;
 
-    JPanel MainPanel;
+    allactionListener allactionlistener = new allactionListener();
 
-    public MainFrame() {//无参构造，创建对象。并在main函数中调用
-        //2.2
-        start = new JLabel(new ImageIcon("Image/hh1.png"));//ImageIcon:图标
-        start.setBounds(350, 320, 150, 40);
-        start.setEnabled(false);//false按钮为灰色    
-        start.addMouseListener(this);
+    public MainFrame(USERS user) {
+
+        //存储用户信息
+        this.user = user;
+
+        start = new JButton("开始游戏");
+        start.setBounds(100, 200, 165, 40);
+        start.setContentAreaFilled(false);
+        start.setBorderPainted(false);
+        start.setFont(new Font("华文隶书", Font.BOLD, 26));
+        //start.setEnabled(false);//false按钮为灰色    
         this.add(start);
 
-        help = new JLabel(new ImageIcon("Image/hh2.png"));
-        help.setBounds(350, 420, 150, 40);
-        help.setEnabled(false);
-        help.addMouseListener(this);
+        intro = new JButton("游戏简介");
+        intro.setBounds(835, 450, 165, 40);
+        intro.setContentAreaFilled(false);
+        intro.setBorderPainted(false);
+        intro.setFont(new Font("华文行楷", Font.BOLD, 27));
+        this.add(intro);
+
+        guide = new JButton("游戏指南");
+        guide.setBounds(835, 500, 165, 40);
+        guide.setContentAreaFilled(false);
+        guide.setBorderPainted(false);
+        guide.setFont(new Font("华文行楷", Font.BOLD, 27));
+        this.add(guide);
+
+        setting = new JButton("设置");
+        setting.setBounds(100, 260, 165, 40);
+        setting.setContentAreaFilled(false);
+        setting.setBorderPainted(false);
+        setting.setFont(new Font("华文隶书", Font.BOLD, 26));
+        this.add(setting);
+
+        personnel = new JButton("制作人员");
+        personnel.setBounds(100, 320, 165, 40);
+        personnel.setContentAreaFilled(false);
+        personnel.setBorderPainted(false);
+        personnel.setFont(new Font("华文隶书", Font.BOLD, 26));
+        this.add(personnel);
+
+        help = new JButton("帮助");
+        help.setBounds(100, 380, 165, 40);
+        help.setContentAreaFilled(false);
+        help.setBorderPainted(false);
+        help.setFont(new Font("华文隶书", Font.BOLD, 26));
         this.add(help);
 
-        exit = new JLabel(new ImageIcon("Image/hh3.png"));
-        exit.setBounds(350, 520, 150, 40);
-        exit.setEnabled(false);
-        exit.addMouseListener(this);
-        this.add(exit);
+        quit = new JButton("退出");
+        quit.setBounds(100, 440, 165, 40);
+        quit.setContentAreaFilled(false);
+        quit.setBorderPainted(false);
+        quit.setFont(new Font("华文隶书", Font.BOLD, 26));
+        this.add(quit);
+
+        shop = new JButton("商城");
+        shop.setBounds(835, 30, 165, 40);
+        shop.setContentAreaFilled(false);
+        shop.setBorderPainted(false);
+        shop.setFont(new Font("华文行楷", Font.BOLD, 27));
+        this.add(shop);
+
+        start.addActionListener(allactionlistener);
+        intro.addActionListener(allactionlistener);
+        guide.addActionListener(allactionlistener);
+        setting.addActionListener(allactionlistener);
+        personnel.addActionListener(allactionlistener);
+        help.addActionListener(allactionlistener);
+        quit.addActionListener(allactionlistener);
+        shop.addActionListener(allactionlistener);
+        start.addMouseListener(this);
+        intro.addMouseListener(this);
+        guide.addMouseListener(this);
+        setting.addMouseListener(this);
+        personnel.addMouseListener(this);
+        help.addMouseListener(this);
+        quit.addMouseListener(this);
+        shop.addMouseListener(this);
 
         /**
          * 1.实现背景图片及窗体属性
@@ -54,16 +114,74 @@ public class MainFrame extends JFrame implements MouseListener {
         this.add(panel);
 
         //设置窗体基本属性大小 居中 边框隐藏 默认关闭按钮 logo图标
-        this.setSize(1200, 730);//大小
+        this.setSize(1000, 600);//大小
         this.setLocationRelativeTo(null);//居中
-        this.setUndecorated(true);//边框隐藏
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//默认关闭
-        this.setIconImage(new ImageIcon("Image/115.png").getImage());//logo
+        //this.setUndecorated(true);//边框隐藏
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setIconImage(new ImageIcon("Image/rng.png").getImage());//logo
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new MainFrame();
+//    public static void main(String[] args) {
+//        new MainFrame();
+//    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getSource().equals(start)) {
+            start.setFont(new Font("华文隶书", Font.BOLD, 30));
+        } else if (e.getSource().equals(setting)) {
+            setting.setFont(new Font("华文隶书", Font.BOLD, 30));
+        } else if (e.getSource().equals(personnel)) {
+            personnel.setFont(new Font("华文隶书", Font.BOLD, 30));
+        } else if (e.getSource().equals(help)) {
+            help.setFont(new Font("华文隶书", Font.BOLD, 30));
+        } else if (e.getSource().equals(quit)) {
+            quit.setFont(new Font("华文隶书", Font.BOLD, 30));
+        } else if (e.getSource().equals(intro)) {
+            intro.setFont(new Font("华文行楷", Font.BOLD, 30));
+        } else if (e.getSource().equals(guide)) {
+            guide.setFont(new Font("华文行楷", Font.BOLD, 30));
+        } else if (e.getSource().equals(shop)) {
+            shop.setFont(new Font("华文行楷", Font.BOLD, 30));
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource().equals(start)) {
+            start.setFont(new Font("华文隶书", Font.BOLD, 26));
+        } else if (e.getSource().equals(setting)) {
+            setting.setFont(new Font("华文隶书", Font.BOLD, 26));
+        } else if (e.getSource().equals(personnel)) {
+            personnel.setFont(new Font("华文隶书", Font.BOLD, 26));
+        } else if (e.getSource().equals(help)) {
+            help.setFont(new Font("华文隶书", Font.BOLD, 26));
+        } else if (e.getSource().equals(quit)) {
+            quit.setFont(new Font("华文隶书", Font.BOLD, 26));
+        } else if (e.getSource().equals(intro)) {
+            intro.setFont(new Font("华文行楷", Font.BOLD, 27));
+        } else if (e.getSource().equals(guide)) {
+            guide.setFont(new Font("华文行楷", Font.BOLD, 27));
+        } else if (e.getSource().equals(shop)) {
+            shop.setFont(new Font("华文行楷", Font.BOLD, 27));
+        }
     }
 
     //2、创建背景面板MainPanel，实现背景图片功能
@@ -73,7 +191,7 @@ public class MainFrame extends JFrame implements MouseListener {
 
         public MainPanel() {
             try {
-                background = ImageIO.read(new File("Image/main.png"));
+                background = ImageIO.read(new File("Image/main.jpg"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -82,61 +200,52 @@ public class MainFrame extends JFrame implements MouseListener {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
-            g.drawImage(background, 0, 0, 1200, 730, null);
+            g.drawImage(background, 0, 0, 1000, 600, null);
         }
     }
 
-//以下五个方法均为添加 implements MouseListener 后，快捷出来的
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        //鼠标点击
-        if (e.getSource().equals(start)) {
-            //跳转到下一界面
-            new WindowFrame().Start();
-            //关闭当前界面
-            //dispose();
-        } else if (e.getSource().equals(exit)) {
-            dispose();
-        } else if (e.getSource().equals(help)) {
-            JOptionPane.showMessageDialog(null, "有疑问请联系开发者：Huey");
-        }
+    class allactionListener implements ActionListener {
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // 鼠标移入
-        if (e.getSource().equals(start)) {//e指一个事件。e.getSource()获取事件
-            //如果鼠标移入到（start）组件（图片按钮）
-            start.setEnabled(true);
-        } else if (e.getSource().equals(help)) {
-            help.setEnabled(true);
-        } else if (e.getSource().equals(exit)) {
-            exit.setEnabled(true);
-        }
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        //鼠标移出
-        if (e.getSource().equals(start)) {
-            start.setEnabled(false);
-        } else if (e.getSource().equals(help)) {
-            help.setEnabled(false);
-        } else if (e.getSource().equals(exit)) {
-            exit.setEnabled(false);
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+            String cmd = e.getActionCommand();
+            switch (cmd) {
+                case "开始游戏":
+                    dispose();
+                    new GameFrame(user);
+                    break;
+                case "商城":
+                    break;
+                case "游戏简介":
+                    JOptionPane.showMessageDialog(null, "你作为一个跑步爱好者，你的梦想是跑遍世界的每一个地方。\n"
+                            + "而现在，你有了这样一个机会，在游戏中选择一个角色来帮助完成你的梦想。在游戏中，你会遇到各种障碍，\n"
+                            + "你所要做的就是努力跨过这些障碍并到达更远的地方，获取更高的积分。\n"
+                            + "当然，就和现实中的人物一样，长时间跑步会变得疲劳，你需要在游戏中获取食物道具来补充你的体力值。\n"
+                            + "另外，在游戏中我们还设置了金币奖励以鼓励那些热爱跑步，坚持跑步的玩家。", "游戏简介", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "游戏指南":
+                    JOptionPane.showMessageDialog(null, "W为跳跃，S为滑铲，通过这两个按键控制角色行为，躲避游戏障碍。\n"
+                            + "玩家的初始体力值为100，随着游戏的进行，体力值会慢慢减少，当体力值降低到0时，\n"
+                            + "玩家需要停下来休息，游戏结束。因此需要获得食物道具来保持体力值。\n"
+                            + "在游戏的过程中会遇到金币奖励道具，吃下这些金币奖励道具你就可以获得金币，\n"
+                            + "并用这些金币在商城中购买道具提升自己的角色。", "游戏指南", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "设置":
+                    break;
+                case "制作人员":
+                    JOptionPane.showMessageDialog(null, "黄许喆，汤思源，华信洋，何正楷",
+                            "制作人员", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "帮助":
+                    JOptionPane.showMessageDialog(null, "如有疑问请发送问题至电子邮箱：1367041395@qq.com",
+                            "帮助", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "退出":
+                    dispose();
+                    break;
+            }
         }
     }
+
 }

@@ -1,53 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.pdcproject.database.po;
 
-import java.awt.Image;
+import java.sql.*;
+import java.util.*;
 
-/**
- *
- * @author Arthur
- */
 public class ITEM {
-    private String NAME;
-    private float BONUS;
-    private Image IMAGE;
 
-    public ITEM(){
-        
-    }
+	private java.sql.Blob IMAGE;
+	private Integer PRICE;
+	private Double BONUS;
+	private String NAME;
 
-    public ITEM(String NAME, float BONUS, Image IMAGE) {
-        this.NAME = NAME;
-        this.BONUS = BONUS;
-        this.IMAGE = IMAGE;
-    }
 
-    public String getNAME() {
-        return NAME;
-    }
-
-    public float getBONUS() {
-        return BONUS;
-    }
-
-    public Image getIMAGE() {
-        return IMAGE;
-    }
-
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
-    }
-
-    public void setBONUS(float BONUS) {
-        this.BONUS = BONUS;
-    }
-
-    public void setIMAGE(Image IMAGE) {
-        this.IMAGE = IMAGE;
-    }
-
+	public java.sql.Blob getIMAGE(){
+		return IMAGE;
+	}
+	public Integer getPRICE(){
+		return PRICE;
+	}
+	public Double getBONUS(){
+		return BONUS;
+	}
+	public String getNAME(){
+		return NAME;
+	}
+	public void setIMAGE(java.sql.Blob IMAGE){
+		this.IMAGE=IMAGE;
+	}
+	public void setPRICE(Integer PRICE){
+		this.PRICE=PRICE;
+	}
+	public void setBONUS(Double BONUS){
+		this.BONUS=BONUS;
+	}
+	public void setNAME(String NAME){
+		this.NAME=NAME;
+	}
 }

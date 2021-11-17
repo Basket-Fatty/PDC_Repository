@@ -1,6 +1,8 @@
 package com.mycompany.pdcproject.view;
 
-import com.mycompany.pdcproject.controller.WindowFrame;
+import com.mycompany.pdcproject.database.core.DerbyQuery;
+import com.mycompany.pdcproject.database.po.RECORD;
+import com.mycompany.pdcproject.database.po.USERS;
 import com.mycompany.pdcproject.model.Person;
 import java.awt.Color;
 import java.awt.Font;
@@ -18,11 +20,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class EndFrame extends JFrame implements MouseListener {
+    private Person person;
     //创建继续游戏按钮、返回主菜单按钮、退出按钮 组件
 
     JLabel again, back, exit;
 
     public EndFrame(Person person) {
+        this.person = person;
         again = new JLabel(new ImageIcon("Image/hh5.png"));
         again.setBounds(520, 622, 60, 25);
         again.addMouseListener(this);
@@ -47,9 +51,9 @@ public class EndFrame extends JFrame implements MouseListener {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        //new EndFrame();
-    }
+//    public static void main(String[] args) {
+//        //new EndFrame();
+//    }
 
     class EndPanel extends JPanel {
 
@@ -76,6 +80,22 @@ public class EndFrame extends JFrame implements MouseListener {
             g.drawString(p.getScore() + "", 1110, 705);// + ” “ 属实妙
             g.drawString(p.getDistance() + " ", 1110, 622);
 
+            USERS user = p.getUser();
+            //在数据库中插入新的record
+            RECORD record = new RECORD();
+            //用户名，建议和Person类绑定
+            record.setNAME(user.getNAME());
+            record.setSOCRE(p.getScore());
+            record.setDISTANCE(p.getDistance());
+            new DerbyQuery().insert(record);
+            
+            //本局游戏金币结算,金币等于得分/10
+            int money = (p.getScore()/10);
+            money += user.getMONEY();
+            user.setMONEY(money);
+            //更新数据库
+            new DerbyQuery().update(user, new String[]{"MONEY"});
+
             g.setFont(new Font("宋体", Font.BOLD, 50));
             g.setColor(Color.ORANGE);
 
@@ -86,12 +106,11 @@ public class EndFrame extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(again)) {
-            //跳转到下一界面  
-            new WindowFrame().Start();
+            new GameFrame(person.getUser());
             //关闭当前界面
             dispose();
         } else if (e.getSource().equals(back)) {
-            new MainFrame();
+            new MainFrame(person.getUser());
             dispose();
         } else if (e.getSource().equals(exit)) {
             System.exit(0);

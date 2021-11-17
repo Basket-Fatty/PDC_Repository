@@ -1,5 +1,6 @@
 package com.mycompany.pdcproject.controller;
 
+import com.mycompany.pdcproject.database.po.USERS;
 import com.mycompany.pdcproject.model.Barrs_1;
 import com.mycompany.pdcproject.model.Barrs_2;
 import com.mycompany.pdcproject.model.Barrs_3;
@@ -26,6 +27,8 @@ import javax.swing.JPanel;
  * 3、五种障碍物的出现 4、玩家和障碍物的碰撞逻辑 5、暂停、继续逻辑 6、结束逻辑
  */
 public class GamePanel extends JPanel implements KeyListener {
+    //存储用户信息
+    private USERS user;
 
     /**
      * 2、生成动态的背景图片**
@@ -53,7 +56,10 @@ public class GamePanel extends JPanel implements KeyListener {
     Barrs_4[] barrs4 = {};//鱼钩
     Barrs_5[] barrs5 = {};//金币
 
-    public GamePanel() {
+    public GamePanel(USERS user) {
+        //存储用户信息
+        this.user = user;
+        
         //3.2
         person = new Person();//调用Person类的构造方法，创建对象并赋值
         barrs_2 = new Barrs_2();
@@ -267,7 +273,9 @@ public class GamePanel extends JPanel implements KeyListener {
         if (person.outOfBounds()) {
             //程序结束
             isGameOver = true;
-            //传递数据（创建结束界面）
+            //传递用户信息
+            person.setUser(user);
+            //传递数据（创建结束界面） 
             new EndFrame(person);//面向对象思想
             //数据清空
             person = new Person();

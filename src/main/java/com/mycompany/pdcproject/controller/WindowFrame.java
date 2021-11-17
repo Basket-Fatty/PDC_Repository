@@ -1,5 +1,7 @@
 package com.mycompany.pdcproject.controller;
 
+import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.model.Person;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -14,6 +16,9 @@ import javax.swing.JProgressBar;
  *
  */
 public class WindowFrame extends JFrame implements Runnable {
+    
+//存储用户信息
+    private USERS user;
 
     JLabel background;
     //进度条
@@ -21,14 +26,15 @@ public class WindowFrame extends JFrame implements Runnable {
 
     //创建一个线程并启动
     public void Start() {
-        WindowFrame frame = new WindowFrame();
+        WindowFrame frame = new WindowFrame(user);
         Thread t = new Thread(frame);//t代表线程
         //启动线程
         t.start();
         dispose();
     }
 
-    public WindowFrame() {
+    public WindowFrame(USERS user) {
+        this.user  = user;
         background = new JLabel(new ImageIcon("Image/hbg.jpg"));
         this.add(BorderLayout.NORTH, background);//放在窗口上面
 
@@ -46,9 +52,9 @@ public class WindowFrame extends JFrame implements Runnable {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new WindowFrame().Start();
-    }
+//    public static void main(String[] args) {
+//        new WindowFrame().Start();
+//    }
 
     @Override
     public void run() {

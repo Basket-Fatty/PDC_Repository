@@ -1,6 +1,8 @@
 package com.mycompany.pdcproject.view;
 
-import java.awt.Color;
+import com.mycompany.pdcproject.database.core.DerbyQuery;
+import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.model.Person;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,103 +12,103 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  *
- *  登录界面：用户名输入框 密码输入框 登录取消按钮 功能
+ * 登录界面：用户名输入框 密码输入框 登录取消按钮 功能
  *
  */
 public class LoginFrame extends JFrame {
-    //用户名变量（文本）
+    //存储用户信息
+    private USERS user;
 
-    JLabel userLabel;
-    //用户名输入框（文本输入框）
-    JTextField userField;
-    //密码变量（文本）
-    JLabel userLabel2;
-    //密码输入框（文本输入框）
-    JPasswordField userField2;
-    //登录按钮、取消按钮（按钮）
-    JButton Login, Cancel;
+    private JLabel name, psw;
+    private JTextField nfield, pfield;
+    private JButton login, register, cancel;
 
-    public LoginFrame() {//直接 alt / （无参构造）  
-        userLabel = new JLabel("用户名");
-        //设置字体
-        userLabel.setFont(new Font("微软雅黑", Font.BOLD, 18));
-        userLabel2 = new JLabel("密  码");
-        userLabel2.setFont(new Font("微软雅黑", Font.BOLD, 18));
+    public LoginFrame() {
+        super("RUNNING");
 
-        //布局方式：绝对布局
-        userLabel.setBounds(20, 220, 100, 30);//x位置，y位置，所占显示空间的大小
-        this.add(userLabel);//将用户名这三个字添加到登录界面上，以下同理
-        userLabel2.setBounds(20, 280, 100, 30);
-        this.add(userLabel2);
+        name = new JLabel("用户名");
+        psw = new JLabel("密  码");
+        name.setFont(new Font("微软雅黑", Font.BOLD, 18));
+        psw.setFont(new Font("微软雅黑", Font.BOLD, 18));
+        name.setBounds(40, 280, 100, 30);
+        psw.setBounds(40, 340, 100, 30);
+        this.add(name);
+        this.add(psw);
 
-        //用户名输入框
-        userField = new JTextField();
-        userField.setBounds(80, 220, 100, 30);
+        //用户名密码输入框
+        nfield = new JTextField();
+        pfield = new JPasswordField();
+        nfield.setBounds(100, 280, 100, 30);
+        pfield.setBounds(100, 340, 100, 30);
         //设置输入框凹陷效果
-        userField.setBorder(BorderFactory.createLoweredBevelBorder());
+        nfield.setBorder(BorderFactory.createLoweredBevelBorder());
+        pfield.setBorder(BorderFactory.createLoweredBevelBorder());
         //设置输入框背景透明
-        userField.setOpaque(false);
-        this.add(userField);
+        nfield.setOpaque(false);
+        pfield.setOpaque(false);
+        this.add(nfield);
+        this.add(pfield);
 
-        userField2 = new JPasswordField();
-        userField2.setBounds(80, 280, 100, 30);
-        userField2.setBorder(BorderFactory.createLoweredBevelBorder());
-        userField2.setOpaque(false);
-        this.add(userField2);
+        login = new JButton("登录");
+        register = new JButton("注册");
+        cancel = new JButton("取消");
+        login.setBounds(40, 400, 60, 36);
+        register.setBounds(110, 400, 60, 36);
+        cancel.setBounds(180, 400, 60, 36);
+        this.add(login);
+        this.add(register);
+        this.add(cancel);
 
-//登录按钮
-        Login = new JButton("登录");
-        Login.setBounds(45, 350, 60, 36);
-//        Login.setBackground(new Color(44,22,44));//背景色
-//        Login.setForeground(Color.BLUE);//前景色    
         //绑定登录按钮的事件监听
-        Login.addActionListener(new ActionListener() {//ActionListener alt /
+        login.addActionListener(new ActionListener() {//ActionListener alt /
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //System.out.println("点击登录按钮");
                 //获取用户名输入框的内容
-                String userName = userField.getText();
-                String passWord = userField2.getText();//横杠原因：方法太老了，不推荐用
-                if ("Huey".equals(userName) && "123".equals(passWord)) {
-                    //登录成功
-                    JOptionPane.showMessageDialog(null, "欢迎" + userName + "来到天天酷跑游戏");
-                    //跳转到下一界面
+                String userName = nfield.getText();
+                String passWord = pfield.getText();
 
-                    //关闭当前界面
-                    dispose();
-                } else if ("".equals(userName) || "".equals(passWord)) {
+                if ("".equals(userName) || "".equals(passWord)) {
                     //不能为空
                     JOptionPane.showMessageDialog(null, "用户名 / 密码不能为空，请重新输入！");
+                }
+
+                //从数据库中根据用户名查询密码
+                String sql = "SELECT * FROM BASKETFATTY.USERS WHERE name  = ? ";
+                //根据用户名获取USERS对象
+                user = (USERS) new DerbyQuery().queryUniqueRow(sql, USERS.class, new Object[]{userName});
+                if (user == null) {
+                    JOptionPane.showMessageDialog(null, "该用户不存在！");
+                    //判断密码是否正确
+                } else if (user.getPWD().equals(passWord)) {
+                    //登录成功
+                    JOptionPane.showMessageDialog(null, "欢迎" + userName + "来到天天酷跑游戏");
+                    //跳转到下一界面        
+                    new MainFrame(user);
+                    //关闭当前界面
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "用户名 / 密码输入错误，请重新输入！");
                 }
 
             }
         });
-        this.add(Login);
-
-//取消按钮
-        Cancel = new JButton("取消");
-        Cancel.setBounds(135, 350, 60, 36);
-        this.add(Cancel);
-        Cancel.addActionListener(new ActionListener() {
+        register.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
+                new RegFrame();
+            }
+        });
+        cancel.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
@@ -116,14 +118,14 @@ public class LoginFrame extends JFrame {
         this.add(panel);
 
         //设置登录界面的基本属性
-        this.setSize(900, 530);
-        this.setLocationRelativeTo(null);//位置居中
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setUndecorated(true);
+        this.setSize(1000, 600);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         //设置窗体的Logo图标
         this.setIconImage(new ImageIcon("Image/115.png").getImage());//存储图片
-        this.setVisible(true);
     }
 
     //测试用的main方法       main + Alt /
@@ -151,7 +153,7 @@ public class LoginFrame extends JFrame {
         public void paint(Graphics g) {
             super.paint(g);
             //绘制背景图片
-            g.drawImage(background, 0, 0, 900, 530, null);//900,530为宽高
+            g.drawImage(background, 0, 0, 1000, 600, null);
         }
     }
 

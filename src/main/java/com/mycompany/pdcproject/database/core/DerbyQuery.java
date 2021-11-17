@@ -97,7 +97,23 @@ public class DerbyQuery implements Query {
 
     @Override
     public int update(Object obj, String[] fieldNames) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //obj{"uname","pwd"}-->update 表名 set uname=?,pwd=? where id=?
+        Class c = obj.getClass();
+        List<Object> params = new ArrayList<>();	//存储sql参数对象
+        TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+        StringBuilder sql = new StringBuilder("update " + tableInfo.getTname() + " set ");
+
+        for (String fname : fieldNames) {
+            Object fValue = ReflectUtils.invokeGet(fname, obj);
+            params.add(fValue);
+            sql.append(fname + "=?,");
+        }
+        sql.setCharAt(sql.length() - 1, ' ');
+        sql.append("where " + tableInfo.getOnlyPriKey().getName() + "=? ");
+
+        params.add(ReflectUtils.invokeGet(tableInfo.getOnlyPriKey().getName(), obj));
+
+        return executeDML(sql.toString(), params.toArray());
     }
 
     @Override
@@ -153,16 +169,32 @@ public class DerbyQuery implements Query {
 
     @Override
     public Object queryValue(String sql, Object[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = DBManager.getConn();
+        Object value = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            //给sql设参
+            JDBCUtils.handleParams(ps, params);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                value = rs.getObject(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DerbyQuery.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBManager.close(ps, con);
+        }
+        return value;
     }
 
     @Override
     public Number queryNumber(String sql, Object[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Number) queryValue(sql, params);
     }
 
-    public static void main(String[] args) {
-        DerbyQuery dq = new DerbyQuery();
-
-    }
+//    public static void main(String[] args) {
+//        DerbyQuery dq = new DerbyQuery();
+//    }
 }

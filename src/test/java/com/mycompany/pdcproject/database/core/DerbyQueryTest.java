@@ -41,7 +41,9 @@ public class DerbyQueryTest {
     public void testInsert() {
         System.out.println("insert");
         String sql = "INSERT INTO BASKETFATTY.USERS (\"NAME\", PWD) VALUES ( ?, ?)";
-        USERS user = new USERS("lpz", "hxz");
+        USERS user = new USERS();
+        user.setNAME("lpz");
+        user.setPWD("hxz");
         DerbyQuery instance = new DerbyQuery();
         instance.insert(user);
     }
@@ -74,7 +76,9 @@ public class DerbyQueryTest {
     @Test
     public void testDelete(){
         System.out.println("delete");
-        USERS user = new USERS("lpz","hxz");
+        USERS user = new USERS();
+        user.setNAME("lpz");
+        user.setPWD("hxz");
         DerbyQuery instance = new DerbyQuery();
         instance.delete(user);
     }
