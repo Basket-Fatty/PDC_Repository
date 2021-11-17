@@ -1,5 +1,6 @@
 package com.mycompany.pdcproject.database.core;
 
+import com.mycompany.pdcproject.database.bean.ColumnInfo;
 import com.mycompany.pdcproject.database.bean.TableInfo;
 import com.mycompany.pdcproject.database.utils.JDBCUtils;
 import com.mycompany.pdcproject.database.utils.ReflectUtils;
@@ -72,12 +73,26 @@ public class DerbyQuery implements Query {
 
     @Override
     public int delete(Class clazz, Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Emp.class, 2-->delete from emp where id=2
+
+        //通过Class对象找TableInfo
+        TableInfo tableInfo = TableContext.poClassTableMap.get(clazz);
+        ColumnInfo onlyPriKey = tableInfo.getOnlyPriKey();
+
+        String sql = "delete from " + tableInfo.getTname() + " where " + onlyPriKey.getName() + "=? ";
+
+        return executeDML(sql, new Object[]{id});
     }
 
     @Override
     public int delete(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Class c = obj.getClass();
+        TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+        ColumnInfo onlyPriKey = tableInfo.getOnlyPriKey();
+
+        //通过反射机制 调用属性对应的get方法或set方法
+        Object priKeyValue = ReflectUtils.invokeGet(onlyPriKey.getName(), obj);
+        return delete(c, priKeyValue);
     }
 
     @Override
@@ -145,9 +160,9 @@ public class DerbyQuery implements Query {
     public Number queryNumber(String sql, Object[] params) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   
+
     public static void main(String[] args) {
         DerbyQuery dq = new DerbyQuery();
-        
+
     }
 }
