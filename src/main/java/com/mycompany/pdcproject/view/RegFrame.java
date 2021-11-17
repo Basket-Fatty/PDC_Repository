@@ -81,6 +81,7 @@ public class RegFrame extends JFrame {
                     user.setNAME(nf);
                     user.setPWD(pf);
                     user.setMONEY(0);
+                    user.setITEMS("");
                     new DerbyQuery().insert(user);
                     JOptionPane.showMessageDialog(null, "注册成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
                 } else {

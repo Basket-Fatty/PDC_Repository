@@ -21,7 +21,7 @@ public class GameFrame extends JFrame {
         this.user = user;
         //2.4创建游戏面板对象，并添加到窗体上去
         GamePanel panel = new GamePanel(user);
-        panel.action();//程序启动的方法
+        panel.action(this);//程序启动的方法
         this.addKeyListener(panel);//谁实现就监听谁
         this.add(panel);
 
@@ -37,6 +37,10 @@ public class GameFrame extends JFrame {
     }
 
 //    public static void main(String[] args) {
-//        new GameFrame();
+//        USERS user = new USERS();
+//        user.setNAME("lpz");
+//        user.setPWD("hxz");
+//        user.setMONEY(100);
+//        new GameFrame(user);
 //    }
 }

@@ -1,5 +1,6 @@
 package com.mycompany.pdcproject.model;
 
+import com.mycompany.pdcproject.database.po.ITEM;
 import com.mycompany.pdcproject.database.po.USERS;
 import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.Graphics;
@@ -10,8 +11,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * 
- *  玩家的实体类
+ *
+ * 玩家的实体类
  */
 public class Person {//1.声明属性
 
@@ -47,7 +48,7 @@ public class Person {//1.声明属性
 
     public void drop() {
         y += 5;
-        if (y >= 580) {// 下落归下落，也得温柔点，不能让小人儿踩破了地板
+        if (y >= 580) {
             y = 580;
         }
     }
@@ -56,7 +57,7 @@ public class Person {//1.声明属性
     public void step() {
         //玩家图片的切换
         image = images[index++ / 3 % images.length];
-        //玩家坐标改变（玩家坐标通过键盘控制，此次不做处理）
+        //玩家坐标改变
         distance += 2;
     }
     //绘制玩家的方法
@@ -71,7 +72,7 @@ public class Person {//1.声明属性
     }
 
     private void init() {//2.2
-        images = new Image[9];
+        images = new Image[8];
         for (int i = 0; i < images.length; i++) {//2.3
             try {//2.5
                 images[i] = ImageIO.read(new File("Image/" + (i + 1) + ".png"));//2.4

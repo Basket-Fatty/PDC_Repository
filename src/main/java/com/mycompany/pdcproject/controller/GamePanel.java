@@ -261,7 +261,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     //玩家加分
                     int score = person.getScore();
-                    person.setScore(score + 10);
+                    person.setScore((int) (score + 10*user.getBONUS()));
                 }
             }
         }
@@ -269,7 +269,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 //结束逻辑
 
-    public void gameOverAction() {
+    public void gameOverAction(GameFrame frame) {
         if (person.outOfBounds()) {
             //程序结束
             isGameOver = true;
@@ -277,10 +277,8 @@ public class GamePanel extends JPanel implements KeyListener {
             person.setUser(user);
             //传递数据（创建结束界面） 
             new EndFrame(person);//面向对象思想
-            //数据清空
-            person = new Person();
-            barrs1 = new Barrs_1[]{};
-            barrs3 = new Barrs_3[]{};
+            //关闭窗口
+            frame.dispose();
         }
 
     }
@@ -288,7 +286,7 @@ public class GamePanel extends JPanel implements KeyListener {
     boolean flag = true;
 //2.8  创  建  一  个  程  序  启  动  的   方  法
 
-    public void action() {
+    public void action(GameFrame frame) {
         new Thread() {//匿名内部类
             //重写run方法
             public void run() {
@@ -298,8 +296,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         enteredAction();//细节：只有先生成了障碍物后，下面才能调用移动障碍物的方法
                         stepAction();
                         pengAction();//玩家和障碍物碰撞
-                        gameOverAction();
-
+                        gameOverAction(frame);
                     }
                     //重绘方法
                     repaint();
@@ -311,7 +308,6 @@ public class GamePanel extends JPanel implements KeyListener {
                         e.printStackTrace();
                     }
                 }
-
             }
         ;
     }

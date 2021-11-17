@@ -2,6 +2,7 @@ package com.mycompany.pdcproject.controller;
 
 import com.mycompany.pdcproject.database.po.USERS;
 import com.mycompany.pdcproject.model.Person;
+import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -70,6 +71,7 @@ public class WindowFrame extends JFrame implements Runnable {
                 e.printStackTrace();
             }//200毫秒
         }
+
     }
 
 }
