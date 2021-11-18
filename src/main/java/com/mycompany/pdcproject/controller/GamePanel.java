@@ -332,30 +332,13 @@ public class GamePanel extends JPanel implements KeyListener {
 
         //上
         if (e.getKeyCode() == KeyEvent.VK_UP && y > 10 && y1 > 10) {
-            person.setY(y - 25);
-            barrs_2.setY(y - 25);
+            person.setY(y - 100);
+            barrs_2.setY(y - 100);
         }
         //下
         if (e.getKeyCode() == KeyEvent.VK_DOWN && y <= 560 && y1 < 560) {
-            person.setY(y + 30);
-            barrs_2.setY(y - 30);
-        }
-        //左
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && x >= 0) {
-            person.setX(x - 30);
-            barrs_2.setX(x1 - 30);
-
-        }
-        //右
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            person.setX(x + 22);
-            barrs_2.setX(x1 + 22);
-            if (x >= GameFrame.WIDTH - Person.WIDTH) {//如果人物到了右边界
-                person.setX(GameFrame.WIDTH - Person.WIDTH);
-            }
-            if (x1 >= GameFrame.WIDTH - barrs_2.WIDTH) {//如果宠物到了右边界
-                barrs_2.setX(GameFrame.WIDTH - barrs_2.WIDTH);
-            }
+            person.setY(y + 120);
+            barrs_2.setY(y - 120);
         }
         //暂停 继续功能
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
