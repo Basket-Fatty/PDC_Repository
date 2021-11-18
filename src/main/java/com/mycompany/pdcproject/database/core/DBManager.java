@@ -103,7 +103,8 @@ public class DBManager {
     }
 
 //    public static void main(String[] args) {
-//        File file = new File("test.txt");
-//        System.out.println(file.getAbsolutePath());
+//        File f;
+//        f = new File(new DBManager().getClass().getResource("/").getPath());
+//        System.out.println(f);
 //    }
 }

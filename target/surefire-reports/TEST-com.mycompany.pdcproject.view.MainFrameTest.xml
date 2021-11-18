@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" time="0" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="com.mycompany.pdcproject.view.MainFrameTest" time="0.092" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="16.0.2+7-67"/>
@@ -59,8 +59,5 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testBoolean" time="0"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testDouble" time="0"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testInteger" time="0"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testString" time="0"/>
+  <testcase classname="com.mycompany.pdcproject.view.MainFrameTest" name="testMain" time="0.092"/>
 </testsuite>
