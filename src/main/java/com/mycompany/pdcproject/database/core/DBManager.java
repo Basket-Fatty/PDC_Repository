@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.mycompany.pdcproject.database.bean.Configuration;
+import java.io.File;
 
 /**
  * 根据配置信息,维持连接对象的管理(增加连接池的功能)
@@ -41,17 +42,16 @@ public class DBManager {
     public static Connection getConn() {
         try {
             Class.forName(conf.getDriver());
-            
+
 //            System.out.println(conf.getDriver());
 //            System.out.println(conf.getUrl());
 //            System.out.println(conf.getUser());
 //            System.out.println(conf.getPwd());
-            
             return DriverManager.getConnection(conf.getUrl(), conf.getUser(), conf.getPwd());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
-        } catch (SQLException e) {         
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -101,4 +101,9 @@ public class DBManager {
     public static Configuration getConf() {
         return conf;
     }
+
+//    public static void main(String[] args) {
+//        File file = new File("test.txt");
+//        System.out.println(file.getAbsolutePath());
+//    }
 }
