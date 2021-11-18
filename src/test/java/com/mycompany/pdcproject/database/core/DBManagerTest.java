@@ -42,29 +42,27 @@ public class DBManagerTest {
     }
 
     /**
-     * Test of getConn method, of class DBManager.
-     */
-    @Test
-    public void testGetConn() {
-        System.out.println("getConn");
-        Connection expResult = null;
-        Connection result = DBManager.getConn();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getConf method, of class DBManager.
      */
     @Test
     public void testGetConf() {
         System.out.println("getConf");
-        Configuration expResult = null;
-        Configuration result = DBManager.getConf();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Configuration conf = DBManager.getConf();
+        String driver = conf.getDriver();
+        String url = conf.getUrl();
+        String src = conf.getSrcPath();
+        String user = conf.getUser();
+        String pwd = conf.getPwd();
+        String po = conf.getPoPackage();
+        String db = conf.getUsingDB();
+        
+        assertEquals("org.apache.derby.jdbc.EmbeddedDriver", driver);
+        assertEquals("jdbc:derby:Database", url);
+        assertEquals("BasketFatty", user);
+        assertEquals("HxZ200151", pwd);
+        assertEquals("derby", db);
+        assertEquals("src/main/java", src);
+        assertEquals("com.mycompany.pdcproject.database.po", po);
     }
     
 }

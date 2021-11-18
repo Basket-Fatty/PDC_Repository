@@ -5,8 +5,8 @@
  */
 package com.mycompany.pdcproject.view;
 
-import com.mycompany.pdcproject.database.po.ITEM;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Item;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Store;
 import java.awt.*;
 import java.io.File;
@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 public class StoreFrame extends JFrame {
 
     private Store shop;
-    private USERS user;
+    private Users user;
     private int money;
 
     //北部区域
@@ -37,13 +37,13 @@ public class StoreFrame extends JFrame {
     JLabel jLabel;
     int[] prices = new int[3];
 
-    public StoreFrame(USERS user) {
+    public StoreFrame(Users user) {
         super("Store"); //设置窗口标题
 
         //数据初始化
         this.user = user;
         shop = new Store(user);
-        this.money = user.getMONEY();
+        this.money = user.getMoney();
 
         setLayout(null);//使窗体取消布局管理器设置          
 
@@ -56,7 +56,7 @@ public class StoreFrame extends JFrame {
             jShoeLabels[i].setBounds(i * 300 + 100, 100, 200, 200);
             add(jShoeLabels[i]);
             //Set the layout of Money Label
-            jMoneyLabels[i] = new JLabel(shop.getItemList().get(i).getPRICE().toString(), JLabel.CENTER);
+            jMoneyLabels[i] = new JLabel(shop.getItemList().get(i).getPrice().toString(), JLabel.CENTER);
             jMoneyLabels[i].setBounds(i * 300 + 100, 300, 200, 50);
             jMoneyLabels[i].setFont(f1);
             add(jMoneyLabels[i]);
@@ -68,13 +68,13 @@ public class StoreFrame extends JFrame {
 
             //Set the layout of Buy Button
             //判断当前用户的库存
-            ITEM item = shop.getItemList().get(i);
+            Item item = shop.getItemList().get(i);
             if (shop.check(item) == false) {
                 //未拥有该道具
                 jBuys[i] = new JButton("Buy");              
             } else {
                 //拥有该道具
-                jBuys[i] = new JButton("Have bought");
+                jBuys[i] = new JButton("Saled");
                 jBuys[i].setEnabled(false); 
             }
             jBuys[i].setBounds(i * 300 + 150, 380, 110, 50);
@@ -85,10 +85,10 @@ public class StoreFrame extends JFrame {
 
             //Set the layout of Wear Button
             //判断是否穿戴，通过bonus判断
-            if(user.getBONUS() == item.getBONUS()){
-                jWears[i] = new JButton("Take off");
-            }else{
+            if(user.getBonus() == item.getBonus()){
                 jWears[i] = new JButton("Wear");
+            }else{
+                jWears[i] = new JButton("Off");
             } 
             jWears[i].setBounds(i * 300 + 150, 470, 110, 50);
             jWears[i].setBackground(Color.PINK);
@@ -150,23 +150,23 @@ public class StoreFrame extends JFrame {
 //    public static void main(String[] args) {
 //        new StoreFrame();
 //    }
-    public void buyShoes(JButton buy, int money, ITEM item) {
+    public void buyShoes(JButton buy, int money, Item item) {
         int option = JOptionPane.showConfirmDialog(null, "Are you sure to buy these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-        if (money >= item.getPRICE() && option == JOptionPane.YES_OPTION) {
-            buy.setText("Have bought");
+        if (money >= item.getPrice() && option == JOptionPane.YES_OPTION) {
+            buy.setText("Saled");
             buy.setEnabled(false);
 
             //数据操作,并更新余额          
             money = shop.buy(item);
             jMoneyLabel.setText("" + money);
 
-        } else if (money < item.getPRICE() && option == JOptionPane.YES_OPTION) {
+        } else if (money < item.getPrice() && option == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "Insufficient balance to purchase!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     //有待改进
-    public void wearShoes(JButton wear, ITEM item) {
+    public void wearShoes(JButton wear, Item item) {
         String bname = wear.getText();
         //判断是否拥有
         if (shop.check(item)) {
@@ -174,21 +174,21 @@ public class StoreFrame extends JFrame {
             //2.判断当前用户是否已经穿戴道具
 
             //当前用户未穿戴任何item
-            if (bname == "Wear" && user.getISWEARED() == false) {
+            if (bname == "Wear" && user.getIsweared() == false) {
                 int option = JOptionPane.showConfirmDialog(null, "Sure to wear these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
-                    wear.setText("Take off");
+                    wear.setText("Off");
 
                     //数据操作
                     shop.wear(item);
                 }
 
                 //当前item未被穿戴，但当前用户已穿戴其他item
-            } else if (bname == "Wear" && user.getISWEARED() == true) {
+            } else if (bname == "Wear" && user.getIsweared() == true) {
                 JOptionPane.showMessageDialog(null, "You can't wear these shoes because you've already worn a pair of shoes!", "Error", JOptionPane.ERROR_MESSAGE);
 
                 //当前item已被穿戴
-            } else if (bname == "Take off") {
+            } else if (bname == "Off") {
                 int option = JOptionPane.showConfirmDialog(null, "Sure to take off these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     wear.setText("Wear");

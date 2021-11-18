@@ -22,7 +22,7 @@ public class ReflectUtils {
      */
     public static Object invokeGet(String fieldName, Object obj) {
         try {
-            Method m = obj.getClass().getDeclaredMethod("get" + StringUtils.firstChar2UpperCase(fieldName), null);
+            Method m = obj.getClass().getDeclaredMethod("get" + StringUtils.first2Upper(fieldName), null);
             return m.invoke(obj, null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class ReflectUtils {
     public static void invokeSet(Object obj, String columnName, Object columnValue) {
         Method m;
         try {
-            m = obj.getClass().getDeclaredMethod("set" + StringUtils.firstChar2UpperCase(columnName),
+            m = obj.getClass().getDeclaredMethod("set" + StringUtils.first2Upper(columnName),
                     columnValue.getClass());
             m.invoke(obj, columnValue);
         } catch (NoSuchMethodException ex) {

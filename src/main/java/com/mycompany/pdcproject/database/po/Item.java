@@ -3,29 +3,29 @@ package com.mycompany.pdcproject.database.po;
 import java.sql.*;
 import java.util.*;
 
-public class ITEM {
+public class Item {
 
-	private Integer PRICE;
-	private Double BONUS;
-	private String NAME;
+	private Integer price;
+	private Double bonus;
+	private String name;
 
 
-	public Integer getPRICE(){
-		return PRICE;
+	public Integer getPrice(){
+		return price;
 	}
-	public Double getBONUS(){
-		return BONUS;
+	public Double getBonus(){
+		return bonus;
 	}
-	public String getNAME(){
-		return NAME;
+	public String getName(){
+		return name;
 	}
-	public void setPRICE(Integer PRICE){
-		this.PRICE=PRICE;
+	public void setPrice(Integer price){
+		this.price=price;
 	}
-	public void setBONUS(Double BONUS){
-		this.BONUS=BONUS;
+	public void setBonus(Double bonus){
+		this.bonus=bonus;
 	}
-	public void setNAME(String NAME){
-		this.NAME=NAME;
+	public void setName(String name){
+		this.name=name;
 	}
 }

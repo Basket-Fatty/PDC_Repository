@@ -1,7 +1,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.controller.WindowFrame;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,7 +12,7 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
     
     //存储用户数据
-    private USERS user;
+    private Users user;
 
     private JButton[] button = new JButton[9];
     private JPanel MainPanel;
@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
 
     allactionListener allactionlistener = new allactionListener();
 
-    public MainFrame(USERS user) {
+    public MainFrame(Users user) {
         this.user = user;
         
         setLayout(null);

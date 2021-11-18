@@ -37,18 +37,18 @@ public class JavaFileUtils {
 
         String javaFieldType = convertor.datebaseType2JavaType(column.getDataType());
 
-        jfgs.setFieldInfo("\tprivate " + javaFieldType + " " + column.getName() + ";\n");
+        jfgs.setFieldInfo("\tprivate " + javaFieldType + " " + column.getName().toLowerCase() + ";\n");
 
         StringBuilder getSrc = new StringBuilder();
-        getSrc.append("\tpublic " + javaFieldType + " get" + StringUtils.firstChar2UpperCase(column.getName()) + "(){\n");
-        getSrc.append("\t\treturn " + column.getName() + ";\n");
+        getSrc.append("\tpublic " + javaFieldType + " get" + StringUtils.first2Upper(column.getName().toLowerCase()) + "(){\n");
+        getSrc.append("\t\treturn " + column.getName().toLowerCase() + ";\n");
         getSrc.append("\t}\n");
         jfgs.setGetInfo(getSrc.toString());
 
         StringBuilder setSrc = new StringBuilder();
-        setSrc.append("\tpublic void set" + StringUtils.firstChar2UpperCase(column.getName()) + "(");
-        setSrc.append(javaFieldType + " " + column.getName() + "){\n");
-        setSrc.append("\t\tthis." + column.getName() + "=" + column.getName() + ";\n");
+        setSrc.append("\tpublic void set" + StringUtils.first2Upper(column.getName().toLowerCase()) + "(");
+        setSrc.append(javaFieldType + " " + column.getName().toLowerCase() + "){\n");
+        setSrc.append("\t\tthis." + column.getName().toLowerCase() + "=" + column.getName().toLowerCase() + ";\n");
         setSrc.append("\t}\n");
         jfgs.setSetInfo(setSrc.toString());
 
@@ -75,7 +75,7 @@ public class JavaFileUtils {
         src.append("package " + DBManager.getConf().getPoPackage() + ";\n\n");
         src.append("import java.sql.*;\n");
         src.append("import java.util.*;\n\n");
-        src.append("public class " + StringUtils.firstChar2UpperCase(tableInfo.getTname()) + " {\n\n");
+        src.append("public class " + StringUtils.first2Upper(tableInfo.getTname()) + " {\n\n");
 
         for (JavaFieldGetSet f : javaFields) {
             src.append(f.getFieldInfo());
@@ -108,10 +108,10 @@ public class JavaFileUtils {
         BufferedWriter bw = null;
 
         try {
-            bw = new BufferedWriter(new FileWriter(f.getAbsoluteFile() + "/" + StringUtils.firstChar2UpperCase(tableInfo.getTname()) + ".java"));
+            bw = new BufferedWriter(new FileWriter(f.getAbsoluteFile() + "/" + StringUtils.first2Upper(tableInfo.getTname()) + ".java"));
             bw.write(src);
             System.out.println("建立表" + tableInfo.getTname()
-                    + "对应的java类:" + StringUtils.firstChar2UpperCase(tableInfo.getTname()) + ".java");
+                    + "对应的java类:" + StringUtils.first2Upper(tableInfo.getTname()) + ".java");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -126,14 +126,14 @@ public class JavaFileUtils {
     }
     //测试
 
-    public static void main(String[] args) {
-//  ColumnInfo ci = new ColumnInfo("username", "varchar", 0);
-//  JavaFieldGetSet f = createFieldSetGet(ci, new MySqlTypeConvertor());
-//  System.out.println(f);
-
-        Map<String, TableInfo> map = TableContext.tables;
-        for (TableInfo tableInfo : map.values()) {
-            createJavaPOFile(tableInfo, new DerbyTypeConvertor());
-        }
-    }
+//    public static void main(String[] args) {
+////  ColumnInfo ci = new ColumnInfo("username", "varchar", 0);
+////  JavaFieldGetSet f = createFieldSetGet(ci, new MySqlTypeConvertor());
+////  System.out.println(f);
+//
+//        Map<String, TableInfo> map = TableContext.tables;
+//        for (TableInfo tableInfo : map.values()) {
+//            createJavaPOFile(tableInfo, new DerbyTypeConvertor());
+//        }
+//    }
 }

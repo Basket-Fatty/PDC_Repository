@@ -98,7 +98,7 @@ public class TableContext {
         for (TableInfo tableInfo : tables.values()) {
             try {
                 Class c = Class.forName(DBManager.getConf().getPoPackage()
-                        + "." + StringUtils.firstChar2UpperCase(tableInfo.getTname()));
+                        + "." + StringUtils.first2Upper(tableInfo.getTname()));
                 poClassTableMap.put(c, tableInfo);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

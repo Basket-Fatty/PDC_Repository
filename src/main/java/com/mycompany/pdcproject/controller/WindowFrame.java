@@ -1,6 +1,6 @@
 package com.mycompany.pdcproject.controller;
 
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Person;
 import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.BorderLayout;
@@ -19,7 +19,7 @@ import javax.swing.JProgressBar;
 public class WindowFrame extends JFrame implements Runnable {
     
 //存储用户信息
-    private USERS user;
+    private Users user;
 
     JLabel background;
     //进度条
@@ -34,7 +34,7 @@ public class WindowFrame extends JFrame implements Runnable {
         dispose();
     }
 
-    public WindowFrame(USERS user) {
+    public WindowFrame(Users user) {
         this.user  = user;
         background = new JLabel(new ImageIcon("Image/hbg.jpg"));
         this.add(BorderLayout.NORTH, background);//放在窗口上面

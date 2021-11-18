@@ -37,16 +37,14 @@ public class TableContextTest {
     public void tearDown() {
     }
 
-//    /**
-//     * Test of updateJavaPOFile method, of class TableContext.
-//     */
-//    @Test
-//    public void testUpdateJavaPOFile() {
-//        System.out.println("updateJavaPOFile");
-//        TableContext.updateJavaPOFile();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of updateJavaPOFile method, of class TableContext.
+     */
+    @Test
+    public void testUpdateJavaPOFile() {
+        System.out.println("updateJavaPOFile");
+        TableContext.updateJavaPOFile();
+    }
 
     /**
      * Test of loadPOTable method, of class TableContext.

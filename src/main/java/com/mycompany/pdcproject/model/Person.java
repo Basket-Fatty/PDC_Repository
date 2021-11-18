@@ -1,7 +1,7 @@
 package com.mycompany.pdcproject.model;
 
-import com.mycompany.pdcproject.database.po.ITEM;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Item;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.view.GameFrame;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -26,7 +26,7 @@ public class Person {//1.声明属性
     private int x, y;
     int index;//下面用作切换图片
     //玩家信息
-    private USERS user;
+    private Users user;
     //玩家得分
     private int score;
     //玩家跑酷距离
@@ -148,11 +148,11 @@ public class Person {//1.声明属性
         this.distance = distance;
     }
 
-    public void setUser(USERS user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
-    public USERS getUser() {
+    public Users getUser() {
         return user;
     }
 

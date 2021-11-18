@@ -1,6 +1,6 @@
 package com.mycompany.pdcproject.database.core;
 
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
  *
  */
 public class DerbyQueryTest {
+    private Users user;
 
     public DerbyQueryTest() {
 
@@ -28,6 +29,13 @@ public class DerbyQueryTest {
 
     @Before
     public void setUp() {
+        user = new Users();
+        user.setName("lpz");
+        user.setPwd("hxz");
+        user.setBonus(1.0);
+        user.setIsweared(false);
+        user.setItems("");
+        user.setMoney(1000);
     }
 
     @After
@@ -39,11 +47,9 @@ public class DerbyQueryTest {
      */
     @Test
     public void testInsert() {
+        setUp();
         System.out.println("insert");
         String sql = "INSERT INTO BASKETFATTY.USERS (\"NAME\", PWD) VALUES ( ?, ?)";
-        USERS user = new USERS();
-        user.setNAME("lpz");
-        user.setPWD("hxz");
         DerbyQuery instance = new DerbyQuery();
         instance.insert(user);
     }
@@ -53,21 +59,22 @@ public class DerbyQueryTest {
      */
     @Test
     public void testQueryUniqueRow() {
+        setUp();
         System.out.println("queryUniqueRow");
         String sql = "SELECT * FROM BASKETFATTY.USERS WHERE NAME = ?  ";
-        Class clazz = USERS.class;
+        Class clazz = Users.class;
         Object[] params = new Object[]{"lpz"};
         DerbyQuery instance = new DerbyQuery();
         Object expResult = "hxz";
         Object result = instance.queryUniqueRow(sql, clazz, params);
-        USERS user = null;
+        Users target = null;
 //        System.out.println(result);
-        if (result instanceof USERS) {
-            user = (USERS) result;
+        if (result instanceof Users) {
+            target = (Users) result;
         }
-//        System.out.println(user.getNAME());
-//        System.out.println(user.getPWD());
-        assertEquals(expResult, user.getPWD());
+//        System.out.println(user.getName());
+//        System.out.println(user.getPwd());
+        assertEquals(expResult, target.getPwd());
     }
 
     /**
@@ -76,9 +83,6 @@ public class DerbyQueryTest {
     @Test
     public void testDelete(){
         System.out.println("delete");
-        USERS user = new USERS();
-        user.setNAME("lpz");
-        user.setPWD("hxz");
         DerbyQuery instance = new DerbyQuery();
         instance.delete(user);
     }
@@ -90,16 +94,16 @@ public class DerbyQueryTest {
     public void testQueryRows() {
         System.out.println("queryRows");
         String sql = "SELECT * FROM BASKETFATTY.USERS  ";
-        Class clazz = USERS.class;
+        Class clazz = Users.class;
         Object[] params = null;
         DerbyQuery instance = new DerbyQuery();
-        List<USERS> list = instance.queryRows(sql, clazz, params);
+        List<Users> list = instance.queryRows(sql, clazz, params);
 
-        for (USERS user : list) {
-            System.out.println(user.getNAME());
+        for (Users user : list) {
+            System.out.println(user.getName());
         }
-//        System.out.println(user.getNAME());
-//        System.out.println(user.getPWD());
+//        System.out.println(user.getName());
+//        System.out.println(user.getPwd());
     }
 
 }

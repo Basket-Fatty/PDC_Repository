@@ -1,7 +1,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.controller.GamePanel;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -10,14 +10,14 @@ import javax.swing.JFrame;
  */
 public class GameFrame extends JFrame {
     //存储用户信息
-    private USERS user;
+    private Users user;
     
     //设置窗体宽高属性
 
     public static final int WIDTH = 1500;
     public static final int HEIGHT = 900;
 
-    public GameFrame(USERS user) {
+    public GameFrame(Users user) {
         this.user = user;
         //2.4创建游戏面板对象，并添加到窗体上去
         GamePanel panel = new GamePanel(user);
@@ -37,7 +37,7 @@ public class GameFrame extends JFrame {
     }
 
 //    public static void main(String[] args) {
-//        USERS user = new USERS();
+//        Users user = new Users();
 //        user.setNAME("lpz");
 //        user.setPWD("hxz");
 //        user.setMONEY(100);

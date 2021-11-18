@@ -1,7 +1,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.database.core.DerbyQuery;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Person;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,7 +21,7 @@ import javax.swing.*;
  */
 public class LoginFrame extends JFrame {
     //存储用户信息
-    private USERS user;
+    private Users user;
 
     private JLabel name, psw;
     private JTextField nfield, pfield;
@@ -81,11 +81,11 @@ public class LoginFrame extends JFrame {
                 //从数据库中根据用户名查询密码
                 String sql = "SELECT * FROM BASKETFATTY.USERS WHERE name  = ? ";
                 //根据用户名获取USERS对象
-                user = (USERS) new DerbyQuery().queryUniqueRow(sql, USERS.class, new Object[]{userName});
+                user = (Users) new DerbyQuery().queryUniqueRow(sql, Users.class, new Object[]{userName});
                 if (user == null) {
                     JOptionPane.showMessageDialog(null, "该用户不存在！");
                     //判断密码是否正确
-                } else if (user.getPWD().equals(passWord)) {
+                } else if (user.getPwd().equals(passWord)) {
                     //登录成功
                     JOptionPane.showMessageDialog(null, "欢迎" + userName + "来到天天酷跑游戏");
                     //跳转到下一界面        

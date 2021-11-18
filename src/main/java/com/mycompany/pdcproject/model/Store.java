@@ -1,8 +1,8 @@
 package com.mycompany.pdcproject.model;
 
 import com.mycompany.pdcproject.database.core.DerbyQuery;
-import com.mycompany.pdcproject.database.po.ITEM;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Item;
+import com.mycompany.pdcproject.database.po.Users;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +12,16 @@ import java.util.List;
  */
 public class Store {
 
-    private USERS user;
-    private List<ITEM> itemList = new ArrayList<>();
+    private Users user;
+    private List<Item> itemList = new ArrayList<>();
 
-    public Store(USERS user) {
+    public Store(Users user) {
         this.user = user;
         //初始化商店道具列表
         String sql = "SELECT * FROM BASKETFATTY.ITEM ";
-        for (Object obj : new DerbyQuery().queryRows(sql, ITEM.class, new Object[]{})) {
-            if (obj instanceof ITEM) {
-                ITEM item = (ITEM) obj;
+        for (Object obj : new DerbyQuery().queryRows(sql, Item.class, new Object[]{})) {
+            if (obj instanceof Item) {
+                Item item = (Item) obj;
                 itemList.add(item);
             }
         }
@@ -33,17 +33,17 @@ public class Store {
      * @param item 待检查的道具
      * @return true代表拥有
      */
-    public boolean check(ITEM item) {
-//        String sql = "SELECT ITEMS FROM BASKETFATTY.USERS WHERE NAME = ?";
+    public boolean check(Item item) {
+//        String sql = "SELECT ITEMS FROM BASKETFATTY.Users WHERE NAME = ?";
         //"straw sandals,light spirit,the flash"
-//        String[] items = ((String)new DerbyQuery().queryValue(sql, new Object[]{user.getNAME()})).split(",");
-        String[] owns = (user.getITEMS()).split(",");
+//        String[] items = ((String)new DerbyQuery().queryValue(sql, new Object[]{user.getName()})).split(",");
+        String[] owns = (user.getItems()).split(",");
         //对每个道具分别操作
         boolean isOwned = false;
         for (String own : owns) {
             if(own == ""){
                 continue;
-            }else if(own.equals(item.getNAME()) ){
+            }else if(own.equals(item.getName()) ){
                 isOwned = true;
                 break;
             }         
@@ -56,10 +56,10 @@ public class Store {
      * @param item 待购买item
      * @return 余额
      */
-    public int buy(ITEM item){
-        int balance = user.getMONEY() - item.getPRICE();
-        user.setMONEY(balance);
-        user.setITEMS(user.getITEMS()+","+item.getNAME());
+    public int buy(Item item){
+        int balance = user.getMoney() - item.getPrice();
+        user.setMoney(balance);
+        user.setItems(user.getItems()+","+item.getName());
         new DerbyQuery().update(user, new String[]{"MONEY","ITEMS"});
         return balance;
     }
@@ -68,9 +68,9 @@ public class Store {
      * 穿戴item
      * @param item 待穿戴item
      */
-    public void wear(ITEM item){
-        user.setBONUS(item.getBONUS());
-        user.setISWEARED(true);
+    public void wear(Item item){
+        user.setBonus(item.getBonus());
+        user.setIsweared(true);
         new DerbyQuery().update(user, new String[]{"ISWEARED","BONUS"});
     }
     
@@ -78,17 +78,17 @@ public class Store {
      * 脱下item
      * @param item 待脱下item
      */
-    public void takeoff(ITEM item){
-        user.setBONUS(1.0);
-        user.setISWEARED(false);
+    public void takeoff(Item item){
+        user.setBonus(1.0);
+        user.setIsweared(false);
         new DerbyQuery().update(user, new String[]{"ISWEARED","BONUS"});
     }
 
-    public List<ITEM> getItemList() {
+    public List<Item> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<ITEM> itemList) {
+    public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
     }
 

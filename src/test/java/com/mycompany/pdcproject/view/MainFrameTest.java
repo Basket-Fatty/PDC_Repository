@@ -6,7 +6,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.database.core.DerbyQuery;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Store;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,7 +19,7 @@ import org.junit.Test;
  * @author Arthur
  */
 public class MainFrameTest {
-    private USERS user;
+    private Users user;
     
     public MainFrameTest() {
     }
@@ -35,13 +35,13 @@ public class MainFrameTest {
     @Before
     public void setUp() {
         //数据初始化
-        user = new USERS();
-        user.setNAME("hxz");
-        user.setPWD("lpz");
-        user.setISWEARED(false);
-        user.setITEMS("light spirit");
-        user.setBONUS(1.0);
-        user.setMONEY(600);
+        user = new Users();
+        user.setName("hxz");
+        user.setPwd("lpz");
+        user.setIsweared(false);
+        user.setItems("light spirit");
+        user.setBonus(1.0);
+        user.setMoney(600);
 
         //数据库初始化
         new DerbyQuery().update(user, new String[]{"NAME", "PWD", "ISWEARED", "ITEMS", "BONUS", "MONEY"});

@@ -5,7 +5,7 @@
  */
 package com.mycompany.pdcproject.view;
 
-import com.mycompany.pdcproject.database.po.RECORD;
+import com.mycompany.pdcproject.database.po.Record;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;

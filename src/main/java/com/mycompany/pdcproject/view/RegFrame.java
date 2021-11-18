@@ -6,7 +6,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.database.core.DerbyQuery;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -75,13 +75,13 @@ public class RegFrame extends JFrame {
                 } else if (!pf.equals(cf)) {
                     JOptionPane.showMessageDialog(null, "输入密码与确定密码不相符！", "错误", JOptionPane.ERROR_MESSAGE);
                     //判断用户名是否重复 
-                } else if (new DerbyQuery().queryUniqueRow(sql, USERS.class, new Object[]{nf}) == null) {
+                } else if (new DerbyQuery().queryUniqueRow(sql, Users.class, new Object[]{nf}) == null) {
                     //将账户信息添加至数据库
-                    USERS user = new USERS();
-                    user.setNAME(nf);
-                    user.setPWD(pf);
-                    user.setMONEY(0);
-                    user.setITEMS("");
+                    Users user = new Users();
+                    user.setName(nf);
+                    user.setPwd(pf);
+                    user.setMoney(0);
+                    user.setItems("");
                     new DerbyQuery().insert(user);
                     JOptionPane.showMessageDialog(null, "注册成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
                 } else {

@@ -3,29 +3,29 @@ package com.mycompany.pdcproject.database.po;
 import java.sql.*;
 import java.util.*;
 
-public class RECORD {
+public class Record {
 
-	private Integer DISTANCE;
-	private Integer SCORE;
-	private String NAME;
+	private Integer distance;
+	private Integer score;
+	private String name;
 
 
-	public Integer getDISTANCE(){
-		return DISTANCE;
+	public Integer getDistance(){
+		return distance;
 	}
-	public Integer getSCORE(){
-		return SCORE;
+	public Integer getScore(){
+		return score;
 	}
-	public String getNAME(){
-		return NAME;
+	public String getName(){
+		return name;
 	}
-	public void setDISTANCE(Integer DISTANCE){
-		this.DISTANCE=DISTANCE;
+	public void setDistance(Integer distance){
+		this.distance=distance;
 	}
-	public void setSCORE(Integer SCORE){
-		this.SCORE=SCORE;
+	public void setScore(Integer score){
+		this.score=score;
 	}
-	public void setNAME(String NAME){
-		this.NAME=NAME;
+	public void setName(String name){
+		this.name=name;
 	}
 }

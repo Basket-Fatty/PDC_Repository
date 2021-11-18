@@ -1,8 +1,8 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.database.core.DerbyQuery;
-import com.mycompany.pdcproject.database.po.RECORD;
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Record;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Person;
 import java.awt.Color;
 import java.awt.Font;
@@ -80,19 +80,19 @@ public class EndFrame extends JFrame implements MouseListener {
             g.drawString(p.getScore() + "", 1110, 705);// + ” “ 属实妙
             g.drawString(p.getDistance() + " ", 1110, 622);
 
-            USERS user = p.getUser();
+            Users user = p.getUser();
             //在数据库中插入新的record
-            RECORD record = new RECORD();
+            Record record = new Record();
             //用户名，建议和Person类绑定
-            record.setNAME(user.getNAME());
-            record.setSCORE(p.getScore());
-            record.setDISTANCE(p.getDistance());
+            record.setName(user.getName());
+            record.setScore(p.getScore());
+            record.setDistance(p.getDistance());
             new DerbyQuery().insert(record);
             
             //本局游戏金币结算,金币等于得分/10
             int money = (p.getScore()/10);
-            money += user.getMONEY();
-            user.setMONEY(money);
+            money += user.getMoney();
+            user.setMoney(money);
             //更新数据库
             new DerbyQuery().update(user, new String[]{"MONEY"});
 

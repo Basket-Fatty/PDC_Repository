@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.mycompany.pdcproject.database.core.DerbyQueryTest" time="0.639" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" time="0.013" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="16.0.2+7-67"/>
@@ -14,7 +14,7 @@
     <property name="user.script" value=""/>
     <property name="user.country" value="CN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="test" value="com.mycompany.pdcproject.database.core.DerbyQueryTest"/>
+    <property name="test" value="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="F:\Netbeans\PDC_Repository"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
@@ -45,7 +45,7 @@
     <property name="java.class.path" value="G:\DevTools\NetBeans-12.4\netbeans\java\maven\bin\..\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="16"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.mycompany.pdcproject.database.core.DerbyQueryTest -Dmaven.ext.class.path=G:\DevTools\NetBeans-12.4\netbeans\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest -Dmaven.ext.class.path=G:\DevTools\NetBeans-12.4\netbeans\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-16.0.2"/>
     <property name="user.language" value="zh"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -60,8 +60,8 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyQueryTest" name="testQueryUniqueRow" time="0.494"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyQueryTest" name="testQueryRows" time="0.01"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyQueryTest" name="testDelete" time="0.12"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.DerbyQueryTest" name="testInsert" time="0.015"/>
+  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testBoolean" time="0.013"/>
+  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testDouble" time="0"/>
+  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testInteger" time="0"/>
+  <testcase classname="com.mycompany.pdcproject.database.core.DerbyTypeConvertorTest" name="testString" time="0"/>
 </testsuite>

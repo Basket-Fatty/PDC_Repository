@@ -1,7 +1,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.database.core.DerbyQuery;
-import com.mycompany.pdcproject.database.po.RECORD;
+import com.mycompany.pdcproject.database.po.Record;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,7 +17,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class RankFrame extends JFrame {
-    private List<RECORD> rank = rank();
+    private List<Record> rank = rank();
 
     class HistoryPanel extends JPanel {//画板
         //背景图片变量
@@ -99,7 +99,7 @@ public class RankFrame extends JFrame {
         //用户名字
         int i1 = 150;
         for (int i = 0; i < 8; i++) {
-            jname[i] = new JLabel(rank.get(i).getNAME(), JLabel.CENTER);
+            jname[i] = new JLabel(rank.get(i).getName(), JLabel.CENTER);
             jname[i].setBounds(300, i1 + i * 50, 150, 50);
             jname[i].setFont(f2);
             jname[i].setForeground(Color.BLACK);
@@ -109,7 +109,7 @@ public class RankFrame extends JFrame {
         //用户得分
         int i2 = 150;
         for (int i = 0; i < 8; i++) {
-            jname[i] = new JLabel(rank.get(i).getSCORE().toString(), JLabel.CENTER);
+            jname[i] = new JLabel(rank.get(i).getScore().toString(), JLabel.CENTER);
             jname[i].setBounds(570, i1 + i * 50, 150, 50);
             jname[i].setFont(f2);
             jname[i].setForeground(Color.BLACK);
@@ -135,9 +135,9 @@ public class RankFrame extends JFrame {
 
     }
 
-    public static List<RECORD> rank() {
+    public static List<Record> rank() {
         String sql = "SELECT * FROM BASKETFATTY.RECORD ORDER BY SCORE DESC";
-        return new DerbyQuery().queryRows(sql, RECORD.class, new Object[]{});
+        return new DerbyQuery().queryRows(sql, Record.class, new Object[]{});
     }
 
 //    public static void main(String[] args) {

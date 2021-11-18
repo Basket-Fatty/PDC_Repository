@@ -1,6 +1,6 @@
 package com.mycompany.pdcproject.controller;
 
-import com.mycompany.pdcproject.database.po.USERS;
+import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Barrs_1;
 import com.mycompany.pdcproject.model.Barrs_2;
 import com.mycompany.pdcproject.model.Barrs_3;
@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements KeyListener {
     //存储用户信息
-    private USERS user;
+    private Users user;
 
     /**
      * 2、生成动态的背景图片**
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Barrs_4[] barrs4 = {};//鱼钩
     Barrs_5[] barrs5 = {};//金币
 
-    public GamePanel(USERS user) {
+    public GamePanel(Users user) {
         //存储用户信息
         this.user = user;
         
@@ -261,7 +261,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     //玩家加分
                     int score = person.getScore();
-                    person.setScore((int) (score + 10*user.getBONUS()));
+                    person.setScore((int) (score + 10*user.getBonus()));
                 }
             }
         }
