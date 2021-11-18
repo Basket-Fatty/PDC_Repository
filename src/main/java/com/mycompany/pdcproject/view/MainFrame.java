@@ -3,207 +3,88 @@ package com.mycompany.pdcproject.view;
 import com.mycompany.pdcproject.controller.WindowFrame;
 import com.mycompany.pdcproject.database.po.USERS;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class MainFrame extends JFrame implements MouseListener {
-
-    //存储用户信息
+public class MainFrame extends JFrame {
+    
+    //存储用户数据
     private USERS user;
 
-    /**
-     * 1.1、设置窗体基本属性大小 居中 边框隐藏 默认关闭按钮 logo图标 1.2、创建背景面板MainPanel，实现背景图片功能
-     * 2.图片按钮功能
-     */
-    private JButton start, intro, guide, setting, personnel, help, quit, shop;
+    private JButton[] button = new JButton[9];
     private JPanel MainPanel;
+    private JLabel image;
+    String[] bname = {"开始游戏", "设置", "制作人员", "帮助", "退出", "商城", "历史记录", "游戏简介", "游戏指南"};
 
     allactionListener allactionlistener = new allactionListener();
 
     public MainFrame(USERS user) {
-
-        //存储用户信息
         this.user = user;
+        
+        setLayout(null);
+        for (int i = 0; i < 9; i++) {
+            int j = i;
+            //Set the layout of the buttons in MainFrame
+            button[i] = new JButton(bname[i]);
+            if (i < 5) {
+                button[i].setBounds(100, 200 + i * 60, 165, 40);
+            } else if (i < 7) {
+                button[i].setBounds(835, 30 + (i - 5) * 50, 165, 40);
+            } else {
+                button[i].setBounds(835, 450 + 50 * (i - 7), 165, 40);
+            }
+            button[i].setContentAreaFilled(false);
+            button[i].setBorderPainted(false);
+            button[i].setFont(new Font("华文隶书", Font.BOLD, 26));
+            this.add(button[i]);
 
-        start = new JButton("开始游戏");
-        start.setBounds(100, 200, 165, 40);
-        start.setContentAreaFilled(false);
-        start.setBorderPainted(false);
-        start.setFont(new Font("华文隶书", Font.BOLD, 26));
-        //start.setEnabled(false);//false按钮为灰色    
-        this.add(start);
+            //Set Buttons' ActiobListener amd 
+            button[i].addActionListener(allactionlistener);
+            button[i].addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
 
-        intro = new JButton("游戏简介");
-        intro.setBounds(835, 450, 165, 40);
-        intro.setContentAreaFilled(false);
-        intro.setBorderPainted(false);
-        intro.setFont(new Font("华文行楷", Font.BOLD, 27));
-        this.add(intro);
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
 
-        guide = new JButton("游戏指南");
-        guide.setBounds(835, 500, 165, 40);
-        guide.setContentAreaFilled(false);
-        guide.setBorderPainted(false);
-        guide.setFont(new Font("华文行楷", Font.BOLD, 27));
-        this.add(guide);
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
 
-        setting = new JButton("设置");
-        setting.setBounds(100, 260, 165, 40);
-        setting.setContentAreaFilled(false);
-        setting.setBorderPainted(false);
-        setting.setFont(new Font("华文隶书", Font.BOLD, 26));
-        this.add(setting);
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    button[j].setFont(new Font("华文隶书", Font.BOLD, 30));
+                }
 
-        personnel = new JButton("制作人员");
-        personnel.setBounds(100, 320, 165, 40);
-        personnel.setContentAreaFilled(false);
-        personnel.setBorderPainted(false);
-        personnel.setFont(new Font("华文隶书", Font.BOLD, 26));
-        this.add(personnel);
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button[j].setFont(new Font("华文隶书", Font.BOLD, 26));
+                }
+            });
+        }
 
-        help = new JButton("帮助");
-        help.setBounds(100, 380, 165, 40);
-        help.setContentAreaFilled(false);
-        help.setBorderPainted(false);
-        help.setFont(new Font("华文隶书", Font.BOLD, 26));
-        this.add(help);
-
-        quit = new JButton("退出");
-        quit.setBounds(100, 440, 165, 40);
-        quit.setContentAreaFilled(false);
-        quit.setBorderPainted(false);
-        quit.setFont(new Font("华文隶书", Font.BOLD, 26));
-        this.add(quit);
-
-        shop = new JButton("商城");
-        shop.setBounds(835, 30, 165, 40);
-        shop.setContentAreaFilled(false);
-        shop.setBorderPainted(false);
-        shop.setFont(new Font("华文行楷", Font.BOLD, 27));
-        this.add(shop);
-
-        start.addActionListener(allactionlistener);
-        intro.addActionListener(allactionlistener);
-        guide.addActionListener(allactionlistener);
-        setting.addActionListener(allactionlistener);
-        personnel.addActionListener(allactionlistener);
-        help.addActionListener(allactionlistener);
-        quit.addActionListener(allactionlistener);
-        shop.addActionListener(allactionlistener);
-        start.addMouseListener(this);
-        intro.addMouseListener(this);
-        guide.addMouseListener(this);
-        setting.addMouseListener(this);
-        personnel.addMouseListener(this);
-        help.addMouseListener(this);
-        quit.addMouseListener(this);
-        shop.addMouseListener(this);
-
-        /**
-         * 1.实现背景图片及窗体属性
-         */
-        MainPanel panel = new MainPanel();
-        this.add(panel);
+        image = new JLabel(new ImageIcon("Image/main.jpg"));
+        image.setBounds(0, 0, 1000, 620);
+        this.add(image);
 
         //设置窗体基本属性大小 居中 边框隐藏 默认关闭按钮 logo图标
         this.setSize(1000, 600);//大小
         this.setLocationRelativeTo(null);//居中
-        //this.setUndecorated(true);//边框隐藏
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setIconImage(new ImageIcon("Image/rng.png").getImage());//logo
         this.setVisible(true);
+
     }
 
 //    public static void main(String[] args) {
 //        new MainFrame();
 //    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        if (e.getSource().equals(start)) {
-            start.setFont(new Font("华文隶书", Font.BOLD, 30));
-        } else if (e.getSource().equals(setting)) {
-            setting.setFont(new Font("华文隶书", Font.BOLD, 30));
-        } else if (e.getSource().equals(personnel)) {
-            personnel.setFont(new Font("华文隶书", Font.BOLD, 30));
-        } else if (e.getSource().equals(help)) {
-            help.setFont(new Font("华文隶书", Font.BOLD, 30));
-        } else if (e.getSource().equals(quit)) {
-            quit.setFont(new Font("华文隶书", Font.BOLD, 30));
-        } else if (e.getSource().equals(intro)) {
-            intro.setFont(new Font("华文行楷", Font.BOLD, 30));
-        } else if (e.getSource().equals(guide)) {
-            guide.setFont(new Font("华文行楷", Font.BOLD, 30));
-        } else if (e.getSource().equals(shop)) {
-            shop.setFont(new Font("华文行楷", Font.BOLD, 30));
-        }
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        if (e.getSource().equals(start)) {
-            start.setFont(new Font("华文隶书", Font.BOLD, 26));
-        } else if (e.getSource().equals(setting)) {
-            setting.setFont(new Font("华文隶书", Font.BOLD, 26));
-        } else if (e.getSource().equals(personnel)) {
-            personnel.setFont(new Font("华文隶书", Font.BOLD, 26));
-        } else if (e.getSource().equals(help)) {
-            help.setFont(new Font("华文隶书", Font.BOLD, 26));
-        } else if (e.getSource().equals(quit)) {
-            quit.setFont(new Font("华文隶书", Font.BOLD, 26));
-        } else if (e.getSource().equals(intro)) {
-            intro.setFont(new Font("华文行楷", Font.BOLD, 27));
-        } else if (e.getSource().equals(guide)) {
-            guide.setFont(new Font("华文行楷", Font.BOLD, 27));
-        } else if (e.getSource().equals(shop)) {
-            shop.setFont(new Font("华文行楷", Font.BOLD, 27));
-        }
-    }
-
-    //2、创建背景面板MainPanel，实现背景图片功能
-    class MainPanel extends JPanel {//创建的MainPanel类，在MainFrame中调用
-
-        Image background;
-
-        public MainPanel() {
-            try {
-                background = ImageIO.read(new File("Image/main.jpg"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void paint(Graphics g) {
-            super.paint(g);
-            g.drawImage(background, 0, 0, 1000, 600, null);
-        }
-    }
 
     class allactionListener implements ActionListener {
 
@@ -217,6 +98,10 @@ public class MainFrame extends JFrame implements MouseListener {
                     new GameFrame(user);
                     break;
                 case "商城":
+                    new StoreFrame(user);
+                    break;
+                case "历史记录":
+                    new RankFrame();
                     break;
                 case "游戏简介":
                     JOptionPane.showMessageDialog(null, "你作为一个跑步爱好者，你的梦想是跑遍世界的每一个地方。\n"

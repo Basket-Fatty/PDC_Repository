@@ -85,7 +85,7 @@ public class EndFrame extends JFrame implements MouseListener {
             RECORD record = new RECORD();
             //用户名，建议和Person类绑定
             record.setNAME(user.getNAME());
-            record.setSOCRE(p.getScore());
+            record.setSCORE(p.getScore());
             record.setDISTANCE(p.getDistance());
             new DerbyQuery().insert(record);
             
@@ -105,9 +105,9 @@ public class EndFrame extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource().equals(again)) {
+        if (e.getSource().equals(again)) { 
             new GameFrame(person.getUser());
-            //关闭当前界面
+              //关闭当前界面
             dispose();
         } else if (e.getSource().equals(back)) {
             new MainFrame(person.getUser());

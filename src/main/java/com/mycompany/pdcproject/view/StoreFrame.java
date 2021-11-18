@@ -5,122 +5,139 @@
  */
 package com.mycompany.pdcproject.view;
 
-import com.mycompany.pdcproject.database.core.DerbyQuery;
 import com.mycompany.pdcproject.database.po.ITEM;
 import com.mycompany.pdcproject.database.po.USERS;
-import com.mycompany.pdcproject.model.Shop;
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.mycompany.pdcproject.model.Store;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class StoreFrame extends JFrame implements ActionListener {
+public class StoreFrame extends JFrame {
 
-    //数据存储区
+    private Store shop;
     private USERS user;
-    private Shop shop = new Shop(user);
+    private int money;
 
     //北部区域
     JButton jBack;
-    JLabel jMoneyimg;
-    JLabel jMoney;
-    JPanel jp1;
+    JLabel jMoneyImg;
+    JLabel jMoneyLabel;
+    JPanel jP1;
     //南部区域
-    JLabel jshoe1, jshoe2, jshoe3;
-    JLabel jMoney1, jMoney2, jMoney3;
-    JButton jbuy1, jbuy2, jbuy3;
-    JButton jwear1, jwear2, jwear3;
-    JPanel jp2;
+    JLabel[] jShoeLabels = new JLabel[3];
+    JLabel[] jMoneyLabels = new JLabel[3];
+    JLabel[] jLabels = new JLabel[3];
+    JButton[] jBuys = new JButton[3];
+    JButton[] jWears = new JButton[3];
+    JPanel jP2;
+    JLabel jLabel;
+    int[] prices = new int[3];
 
     public StoreFrame(USERS user) {
-
         super("Store"); //设置窗口标题
-        setLayout(null);//使窗体取消布局管理器设置
-        setBounds(300, 100, 1000, 600);
-        this.user = user;
 
-        //北部区域
-        jBack = new JButton(new ImageIcon("Image/back1.png"));
+        //数据初始化
+        this.user = user;
+        shop = new Store(user);
+        this.money = user.getMONEY();
+
+        setLayout(null);//使窗体取消布局管理器设置          
+
+        jMoneyLabel = new JLabel(money + "", JLabel.CENTER);
+        Font f1 = new Font("Arial", Font.BOLD, 16);
+        Font f2 = new Font("Arial", Font.BOLD, 25);
+        for (int i = 0; i < 3; i++) {
+            //Set the layout of  Shoes Icon
+            jShoeLabels[i] = new JLabel(new ImageIcon("Image/shoe" + (i + 1) + ".png"));
+            jShoeLabels[i].setBounds(i * 300 + 100, 100, 200, 200);
+            add(jShoeLabels[i]);
+            //Set the layout of Money Label
+            jMoneyLabels[i] = new JLabel(shop.getItemList().get(i).getPRICE().toString(), JLabel.CENTER);
+            jMoneyLabels[i].setBounds(i * 300 + 100, 300, 200, 50);
+            jMoneyLabels[i].setFont(f1);
+            add(jMoneyLabels[i]);
+            //Set the layout of JLabel
+            jLabels[i] = new JLabel("$", JLabel.CENTER);
+            jLabels[i].setFont(f1);
+            jLabels[i].setBounds(i * 300 + 130, 300, 100, 50);
+            add(jLabels[i]);
+
+            //Set the layout of Buy Button
+            //判断当前用户的库存
+            ITEM item = shop.getItemList().get(i);
+            if (shop.check(item) == false) {
+                //未拥有该道具
+                jBuys[i] = new JButton("Buy");              
+            } else {
+                //拥有该道具
+                jBuys[i] = new JButton("Have bought");
+                jBuys[i].setEnabled(false); 
+            }
+            jBuys[i].setBounds(i * 300 + 150, 380, 110, 50);
+            jBuys[i].setFont(f2);
+            jBuys[i].setBackground(Color.PINK);
+            prices[i] = Integer.valueOf(jMoneyLabels[i].getText());
+            add(jBuys[i]);
+
+            //Set the layout of Wear Button
+            //判断是否穿戴，通过bonus判断
+            if(user.getBONUS() == item.getBONUS()){
+                jWears[i] = new JButton("Take off");
+            }else{
+                jWears[i] = new JButton("Wear");
+            } 
+            jWears[i].setBounds(i * 300 + 150, 470, 110, 50);
+            jWears[i].setBackground(Color.PINK);
+            jWears[i].setFont(f2);
+            add(jWears[i]);
+
+            //Set Buttons' ActionListener
+            JButton jBuy = jBuys[i];
+            JButton jWear = jWears[i];
+
+            jBuys[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    buyShoes(jBuy, money, item);
+                }
+            });
+
+            jWears[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    wearShoes(jWear, item);
+                }
+            });
+        }
+        jBack = new JButton(new ImageIcon("Image/back2.1.png"));
         jBack.setContentAreaFilled(false);
         jBack.setBorderPainted(false);
-        jBack.addActionListener(this);
-        //账户余额
-        jMoney = new JLabel(user.getMONEY().toString(), JLabel.CENTER);
-//      jMoneyimg=new Jlabel("")
-        jBack.setBounds(0, 0, 50, 50);
-        jMoney.setBounds(850, 0, 100, 50);
-        //南部区域
+        jBack.setBounds(30, 20, 50, 50);
+        jMoneyLabel.setBounds(845, 20, 100, 50);
 
-        ITEM item;
-        //shoe1
-        jshoe1 = new JLabel(new ImageIcon("Image/shoe1.png"));
-        //获取道具信息
-        item = shop.getItemList().get(0);
-        jMoney1 = new JLabel(item.getPRICE().toString(), JLabel.CENTER);
-        jbuy1 = new JButton("buy");
-        jwear1 = new JButton("wear");
-        jshoe1.setBounds(100, 100, 200, 200);
-        jMoney1.setBounds(100, 300, 200, 50);
-        jbuy1.setBounds(150, 400, 110, 50);
-        jwear1.setBounds(150, 500, 110, 50);
+        jLabel = new JLabel("Balance:$", JLabel.CENTER);
+        jLabel.setFont(f1);
+        jMoneyLabel.setFont(f1);
+        jLabel.setBounds(780, 20, 100, 50);
 
-        //shoe2
-        jshoe2 = new JLabel(new ImageIcon("Image/shoe2.png"));
-        //获取道具信息
-        item = shop.getItemList().get(1);
-        jMoney2 = new JLabel(item.getPRICE().toString(), JLabel.CENTER);
-        jbuy2 = new JButton("buy");
-        jwear2 = new JButton("wear");
-        jshoe2.setBounds(400, 100, 200, 200);
-        jMoney2.setBounds(400, 300, 200, 50);
-        jbuy2.setBounds(450, 400, 110, 50);
-        jwear2.setBounds(450, 500, 110, 50);
-
-        //shoe3
-        jshoe3 = new JLabel(new ImageIcon("Image/shoe3.png"));
-        //获取道具信息
-        item = shop.getItemList().get(2);
-        jMoney3 = new JLabel(item.getPRICE().toString(), JLabel.CENTER);
-        jbuy3 = new JButton("buy");
-        jwear3 = new JButton("wear");
-        jshoe3.setBounds(700, 100, 200, 200);
-        jMoney3.setBounds(700, 300, 200, 50);
-        jbuy3.setBounds(750, 400, 110, 50);
-        jwear3.setBounds(750, 500, 110, 50);
-
-        //添加组件
+        add(jLabel);
         add(jBack);
-        add(jMoney);
-
-        add(jshoe1);
-        add(jshoe2);
-        add(jshoe3);
-
-        add(jMoney1);
-        add(jMoney2);
-        add(jMoney3);
-
-        add(jbuy1);
-        add(jbuy2);
-        add(jbuy3);
-        jbuy1.addActionListener(this);
-        jbuy2.addActionListener(this);
-        jbuy3.addActionListener(this);
-
-        add(jwear1);
-        add(jwear2);
-        add(jwear3);
-        jwear1.addActionListener(this);
-        jwear2.addActionListener(this);
-        jwear3.addActionListener(this);
+        add(jMoneyLabel);
 
         LoginPanel panel1 = new LoginPanel();
         add(panel1);
         panel1.setBounds(0, 0, 1000, 600);
+
+        jBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
         //展示组件
         this.setSize(1000, 600);
@@ -130,139 +147,75 @@ public class StoreFrame extends JFrame implements ActionListener {
         this.setResizable(false);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //便于判断金额是否足够
-        int balance = Integer.valueOf(jMoney.getText());
-        int shoe1 = Integer.valueOf(jMoney1.getText());
-        int shoe2 = Integer.valueOf(jMoney2.getText());
-        int shoe3 = Integer.valueOf(jMoney3.getText());
-        
-        //购买分支
-        if (e.getSource().equals(jbuy1)) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure to buy these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-            if (balance > shoe1 && option == JOptionPane.YES_OPTION) {
-                //数据操作
-                int nbalance = shop.buy(shop.getItemList().get(0));
-                //外观操作
-                jbuy1.setText("have bought");
-                jbuy1.setEnabled(false);
-                jMoney.setText("" + nbalance);
+//    public static void main(String[] args) {
+//        new StoreFrame();
+//    }
+    public void buyShoes(JButton buy, int money, ITEM item) {
+        int option = JOptionPane.showConfirmDialog(null, "Are you sure to buy these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
+        if (money >= item.getPRICE() && option == JOptionPane.YES_OPTION) {
+            buy.setText("Have bought");
+            buy.setEnabled(false);
 
-            } else if (balance < shoe1 && option == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "Insufficient balance to purchase!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (e.getSource().equals(jbuy2)) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure to buy these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-            if (balance >= shoe2 && option == JOptionPane.YES_OPTION) {
-                //数据操作
-                int nbalance = shop.buy(shop.getItemList().get(0));
-                //外观操作
-                jbuy2.setText("have bought");
-                jbuy2.setEnabled(false);
-                jMoney.setText("" + nbalance);
+            //数据操作,并更新余额          
+            money = shop.buy(item);
+            jMoneyLabel.setText("" + money);
 
-            } else if (balance < shoe2 && option == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "Insufficient balance to purchase!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (e.getSource().equals(jbuy3)) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure to buy these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-            if (balance >= shoe3 && option == JOptionPane.YES_OPTION) {
-                //数据操作
-                int nbalance = shop.buy(shop.getItemList().get(0));
-                //外观操作
-                jbuy3.setText("have bought");
-                jbuy3.setEnabled(false);
-                jMoney.setText("" + nbalance);
+        } else if (money < item.getPRICE() && option == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Insufficient balance to purchase!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-            } else if (balance < shoe3 && option == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "Insufficient balance to purchase!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        //穿戴分支
-        } else if (e.getSource().equals(jwear1)) {
-            String bname = jwear1.getText();
-            if (jbuy1.getText() == "have bought") {
-                if (bname == "wear") {
-                    int option = JOptionPane.showConfirmDialog(null, "Sure to wear these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        jwear1.setText("take off");
-                        //更新用户的得分加成
-                        user.setBONUS(shop.getItemList().get(0).getBONUS());
-                    }
-                } else if (bname == "take off") {
-                    int option = JOptionPane.showConfirmDialog(null, "Sure to take off these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        jwear1.setText("wear");
-                        //更新用户的得分加成
-                        user.setBONUS(1.0);
-                    }
+    //有待改进
+    public void wearShoes(JButton wear, ITEM item) {
+        String bname = wear.getText();
+        //判断是否拥有
+        if (shop.check(item)) {
+            //1.判断当前item是否已被穿戴
+            //2.判断当前用户是否已经穿戴道具
+
+            //当前用户未穿戴任何item
+            if (bname == "Wear" && user.getISWEARED() == false) {
+                int option = JOptionPane.showConfirmDialog(null, "Sure to wear these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    wear.setText("Take off");
+
+                    //数据操作
+                    shop.wear(item);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "You haven't bought this pair of shoes yet!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (e.getSource().equals(jwear2)) {
-            String bname = jwear2.getText();
-            if (jbuy2.getText() == "have bought") {
-                if (bname == "wear") {
-                    int option = JOptionPane.showConfirmDialog(null, "Sure to wear these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        jwear2.setText("take off");
-                        //更新用户的得分加成
-                        user.setBONUS(shop.getItemList().get(1).getBONUS());
-                    }
-                } else if (bname == "take off") {
-                    int option = JOptionPane.showConfirmDialog(null, "Sure to take off these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        jwear2.setText("wear");
-                        //更新用户的得分加成
-                        user.setBONUS(1.0);
-                    }
+
+                //当前item未被穿戴，但当前用户已穿戴其他item
+            } else if (bname == "Wear" && user.getISWEARED() == true) {
+                JOptionPane.showMessageDialog(null, "You can't wear these shoes because you've already worn a pair of shoes!", "Error", JOptionPane.ERROR_MESSAGE);
+
+                //当前item已被穿戴
+            } else if (bname == "Take off") {
+                int option = JOptionPane.showConfirmDialog(null, "Sure to take off these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    wear.setText("Wear");
+
+                    //数据操作
+                    shop.takeoff(item);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "You haven't bought this pair of shoes yet!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (e.getSource().equals(jwear3)) {
-            String bname = jwear3.getText();
-            if (jbuy3.getText() == "have bought") {
-                if (bname == "wear") {
-                    int option = JOptionPane.showConfirmDialog(null, "Sure to wear these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        jwear3.setText("take off");
-                        //更新用户的得分加成
-                        user.setBONUS(shop.getItemList().get(2).getBONUS());
-                    }
-                } else if (bname == "take off") {
-                    int option = JOptionPane.showConfirmDialog(null, "Sure to take off these shoes?", "Hint", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        jwear3.setText("wear");
-                        //更新用户的得分加成
-                        user.setBONUS(1.0);
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "You haven't bought this pair of shoes yet!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (e.getSource().equals(jBack)) {
-            dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "You haven't bought this pair of shoes yet!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     class LoginPanel extends JPanel {//画板
         //背景图片变量
 
-        Image background;//------ctr shift + o 导包
+        Image background;
 
-        public LoginPanel() {//-----alt / 回车 构造方法    在{后双击,显示作用域
+        public LoginPanel() {
             //读取图片文件，赋值给background变量
-            try {//-----虽然不大可能，但也做好吃饭噎死的准备
+            try {
                 background = ImageIO.read(new File("Image/storebackground.png"));//----read参数为File类型
-            } catch (IOException e) {//-------捕获异常信息
-                // 打印异常日志信息
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        //绘制方法
 
         @Override
         public void paint(Graphics g) {
@@ -272,12 +225,4 @@ public class StoreFrame extends JFrame implements ActionListener {
         }
     }
 
-//    public static void main(String[] args) {
-//        USERS user = new USERS();
-//        user.setNAME("lpz");
-//        user.setPWD("hxz");
-//        user.setMONEY(500);
-//        user.setITEMS("");
-//        new StoreFrame(user);
-//    }
 }

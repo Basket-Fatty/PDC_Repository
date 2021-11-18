@@ -29,6 +29,8 @@ public class DerbyTypeConvertor implements TypeConvertor {
             return "java.sql.Time";
         } else if ("timestamp".equalsIgnoreCase(columnType)) {
             return "java.sql.Timestamp";
+        }else if ("boolean".equalsIgnoreCase(columnType)){
+            return "Boolean";
         }
         return null;
     }

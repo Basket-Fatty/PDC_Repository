@@ -282,7 +282,7 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
     }
-    public static boolean isGameOver = false;
+    public boolean isGameOver = false;
     boolean flag = true;
 //2.8  创  建  一  个  程  序  启  动  的   方  法
 

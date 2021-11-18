@@ -6,6 +6,7 @@ import java.util.*;
 public class USERS {
 
 	private Integer MONEY;
+	private Boolean ISWEARED;
 	private Double BONUS;
 	private String ITEMS;
 	private String PWD;
@@ -14,6 +15,9 @@ public class USERS {
 
 	public Integer getMONEY(){
 		return MONEY;
+	}
+	public Boolean getISWEARED(){
+		return ISWEARED;
 	}
 	public Double getBONUS(){
 		return BONUS;
@@ -29,6 +33,9 @@ public class USERS {
 	}
 	public void setMONEY(Integer MONEY){
 		this.MONEY=MONEY;
+	}
+	public void setISWEARED(Boolean ISWEARED){
+		this.ISWEARED=ISWEARED;
 	}
 	public void setBONUS(Double BONUS){
 		this.BONUS=BONUS;

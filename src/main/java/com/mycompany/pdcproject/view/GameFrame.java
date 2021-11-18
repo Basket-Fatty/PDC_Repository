@@ -36,12 +36,12 @@ public class GameFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        USERS user = new USERS();
-        user.setNAME("lpz");
-        user.setPWD("hxz");
-        user.setMONEY(100);
-        user.setBONUS(1.0);
-        new GameFrame(user);
-    }
+//    public static void main(String[] args) {
+//        USERS user = new USERS();
+//        user.setNAME("lpz");
+//        user.setPWD("hxz");
+//        user.setMONEY(100);
+//        user.setBONUS(1.0);
+//        new GameFrame(user);
+//    }
 }

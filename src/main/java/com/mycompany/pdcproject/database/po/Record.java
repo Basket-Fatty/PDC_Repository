@@ -6,15 +6,15 @@ import java.util.*;
 public class RECORD {
 
 	private Integer DISTANCE;
-	private Integer SOCRE;
+	private Integer SCORE;
 	private String NAME;
 
 
 	public Integer getDISTANCE(){
 		return DISTANCE;
 	}
-	public Integer getSOCRE(){
-		return SOCRE;
+	public Integer getSCORE(){
+		return SCORE;
 	}
 	public String getNAME(){
 		return NAME;
@@ -22,8 +22,8 @@ public class RECORD {
 	public void setDISTANCE(Integer DISTANCE){
 		this.DISTANCE=DISTANCE;
 	}
-	public void setSOCRE(Integer SOCRE){
-		this.SOCRE=SOCRE;
+	public void setSCORE(Integer SCORE){
+		this.SCORE=SCORE;
 	}
 	public void setNAME(String NAME){
 		this.NAME=NAME;
