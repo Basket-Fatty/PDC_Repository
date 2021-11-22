@@ -1,0 +1,7 @@
+com.mycompany.pdcproject.controller
+com.mycompany.pdcproject.database.bean
+com.mycompany.pdcproject.database.core
+com.mycompany.pdcproject.database.po
+com.mycompany.pdcproject.database.utils
+com.mycompany.pdcproject.model
+com.mycompany.pdcproject.view

@@ -1,0 +1,11 @@
+com\mycompany\pdcproject\database\core\DerbyQueryTest.class
+com\mycompany\pdcproject\database\core\DerbyTypeConvertorTest.class
+com\mycompany\pdcproject\view\RegFrameTest.class
+com\mycompany\pdcproject\view\EndFrameTest.class
+com\mycompany\pdcproject\view\GameFrameTest.class
+com\mycompany\pdcproject\view\LoginFrameTest.class
+com\mycompany\pdcproject\view\MainFrameTest.class
+com\mycompany\pdcproject\view\RankFrameTest.class
+com\mycompany\pdcproject\view\StoreFrameTest.class
+com\mycompany\pdcproject\database\core\DBManagerTest.class
+com\mycompany\pdcproject\database\core\TableContextTest.class

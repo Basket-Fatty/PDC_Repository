@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="com.mycompany.pdcproject.view.StoreFrameTest" time="4.571" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="com.mycompany.pdcproject.view.StoreFrameTest" time="2.297" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="16.0.2+7-67"/>
@@ -59,7 +59,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.mycompany.pdcproject.view.StoreFrameTest" name="testMain" time="0.095"/>
-  <testcase classname="com.mycompany.pdcproject.view.StoreFrameTest" name="testWearShoes" time="3.514"/>
-  <testcase classname="com.mycompany.pdcproject.view.StoreFrameTest" name="testBuyShoes" time="0.962"/>
+  <testcase classname="com.mycompany.pdcproject.view.StoreFrameTest" name="testMain" time="0.108"/>
+  <testcase classname="com.mycompany.pdcproject.view.StoreFrameTest" name="testWearShoes" time="1.493"/>
+  <testcase classname="com.mycompany.pdcproject.view.StoreFrameTest" name="testBuyShoes" time="0.696"/>
 </testsuite>

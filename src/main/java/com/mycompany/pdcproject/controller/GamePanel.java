@@ -2,10 +2,10 @@ package com.mycompany.pdcproject.controller;
 
 import com.mycompany.pdcproject.database.po.Users;
 import com.mycompany.pdcproject.model.Barrs_1;
-import com.mycompany.pdcproject.model.Barrs_2;
 import com.mycompany.pdcproject.model.Barrs_3;
 import com.mycompany.pdcproject.model.Barrs_4;
 import com.mycompany.pdcproject.model.Barrs_5;
+import com.mycompany.pdcproject.model.Barrs_6;
 import com.mycompany.pdcproject.model.Person;
 import com.mycompany.pdcproject.view.EndFrame;
 import com.mycompany.pdcproject.view.GameFrame;
@@ -20,13 +20,14 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *  游戏主面板类，核心逻辑类 1、背景图片滚动效果 2、玩家动态效果
- * 3、五种障碍物的出现 4、玩家和障碍物的碰撞逻辑 5、暂停、继续逻辑 6、结束逻辑
+ * 游戏主面板类，核心逻辑类 1、背景图片滚动效果 2、玩家动态效果 3、五种障碍物的出现 4、玩家和障碍物的碰撞逻辑 5、暂停、继续逻辑 6、结束逻辑
  */
 public class GamePanel extends JPanel implements KeyListener {
+
     //存储用户信息
     private Users user;
 
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements KeyListener {
     //2.1声明背景图片对象
     Image background;
     Image score;
+    Image power;
     Image pause;//暂停
     Image proceed;//继续.
 
@@ -44,9 +46,10 @@ public class GamePanel extends JPanel implements KeyListener {
      */
     //3.1创建玩家对象（类的实例化）
     Person person;
-    Barrs_2 barrs_2;//宠物
     Barrs_4 barrs_4;//鱼钩等障碍物
     Barrs_5 barrs_5;//金币
+    Barrs_6 barrs_6;//面包
+    //Barrs_6 barrs_6;
     /**
      * 4.实现螃蟹障碍物
      */
@@ -55,20 +58,25 @@ public class GamePanel extends JPanel implements KeyListener {
     Barrs_3[] barrs3 = {};//导弹
     Barrs_4[] barrs4 = {};//鱼钩
     Barrs_5[] barrs5 = {};//金币
+    Barrs_6[] barrs6 = {};//面包
+    //Barrs_6[] barrs6 = {};//
 
     public GamePanel(Users user) {
         //存储用户信息
         this.user = user;
-        
+
         //3.2
         person = new Person();//调用Person类的构造方法，创建对象并赋值
-        barrs_2 = new Barrs_2();
+        //传递用户信息
+        person.setUser(user);
+        person.setPower((int)(100 * user.getBonus()));
         //2.2读取图片文件
         try {
             background = ImageIO.read(new File("Image/cc.png"));//跑酷背景
             score = ImageIO.read(new File("Image/a12.png"));//得分背景
-            pause = ImageIO.read(new File("Image/b2.png"));
-            proceed = ImageIO.read(new File("Image/b1.png"));
+            power = ImageIO.read(new File("Image/b11.png"));
+//            pause = ImageIO.read(new File("Image/b2.png"));
+//            proceed = ImageIO.read(new File("Image/b1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,15 +97,12 @@ public class GamePanel extends JPanel implements KeyListener {
         if (x <= -GameFrame.WIDTH) {//实现两张图片之间的切换
             x = 0;
         }
-
         //3.3绘制 玩家
         person.paintPerson(g);
         //绘制螃蟹
         for (int i = 0; i < barrs1.length; i++) {
             barrs1[i].paintBarrs(g);
         }
-        //绘制宠物
-        barrs_2.paintBarrs(g);
         //绘制导弹
         for (int i = 0; i < barrs3.length; i++) {
             barrs3[i].paintBarrs(g);
@@ -110,13 +115,21 @@ public class GamePanel extends JPanel implements KeyListener {
         for (int i = 0; i < barrs5.length; i++) {
             barrs5[i].paintBarrs(g);
         }
-
+        //随机绘制面包
+        for (int i = 0; i < barrs6.length; i++) {
+            barrs6[i].paintBarrs(g);
+        }
 //位置越往下，图层越往上
         //绘制玩家分数
         g.drawImage(score, 120, 50, null);
         g.setColor(Color.ORANGE);
-        g.setFont(new Font("宋体", Font.BOLD, 30));
-        g.drawString("玩家得分：" + person.getScore() + "分", 133, 95);
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawString("SCORE:" + person.getScore(), 133, 95);
+
+        g.drawImage(score, 400, 50, null);
+        g.setColor(Color.ORANGE);
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawString("Power:" + person.getPower(), 413, 95);
 
         //绘制暂停、继续标识图片
         if (flag) {
@@ -146,6 +159,9 @@ public class GamePanel extends JPanel implements KeyListener {
             barrs3[barrs3.length - 1] = b3;
             barrs4 = Arrays.copyOf(barrs4, barrs4.length + 1);
             barrs4[barrs4.length - 1] = b4;
+            Barrs_6 b6 = new Barrs_6();
+            barrs6 = Arrays.copyOf(barrs6, barrs6.length + 1);
+            barrs6[barrs6.length - 1] = b6;
         }
         if (index % 15 == 0) {
             Barrs_5 b5 = new Barrs_5();
@@ -159,7 +175,7 @@ public class GamePanel extends JPanel implements KeyListener {
         //3..4
         person.step();//切换玩家的图片—>动起来
         person.drop();//不断下坠
-        barrs_2.drop();
+        person.repower();
         //螃蟹障碍物移动
         for (int i = 0; i < barrs1.length; i++) {
             barrs1[i].step();
@@ -170,8 +186,6 @@ public class GamePanel extends JPanel implements KeyListener {
                 barrs1 = Arrays.copyOf(barrs1, barrs1.length - 1);//数组缩容
             }
         }
-
-        barrs_2.step();
 
         for (int i = 0; i < barrs3.length; i++) {
             barrs3[i].step();
@@ -198,6 +212,16 @@ public class GamePanel extends JPanel implements KeyListener {
                 barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
             }
         }
+        
+        for (int i = 0; i < barrs6.length; i++) {
+            barrs6[i].step();
+            //删除越界的面包障碍物
+            if (barrs6[i].outofBounds()) {
+                barrs6[i] = barrs6[barrs6.length - 1];
+                barrs6 = Arrays.copyOf(barrs6, barrs6.length - 1);
+            }
+        }
+
     }
 
 //玩家和障碍物碰撞的处理方法
@@ -212,9 +236,25 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (person.getX() + Person.WIDTH <= barrs1[i].getX() + Barrs_1.WIDTH) {//防止人在右边，碰撞后可以穿过障碍物
                     //左碰撞
                     person.setX(barrs1[i].getX() - Barrs_1.WIDTH);
-                } else {
-                    //右碰撞
-                    person.setX(barrs1[i].getX() + Barrs_1.WIDTH);
+                    int power = person.getPower() - 1;
+                    person.setPower(power);
+                }
+            }
+        }
+        //和面包的碰撞
+        for (int i = 0; i < barrs6.length; i++) {
+            if (person.getX() + Person.WIDTH >= barrs6[i].getX()
+                    && person.getX() <= barrs6[i].getX() + Barrs_6.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs6[i].getY()
+                    && person.getY() <= barrs6[i].getY() + Barrs_6.HEIGHT) {//判断玩家与金币的碰撞
+                if (person.getX() + Person.WIDTH <= barrs6[i].getX() + Barrs_6.WIDTH) {
+                    //删除当前面包
+                    barrs6[i] = barrs6[barrs6.length - 1];
+                    barrs6 = Arrays.copyOf(barrs6, barrs6.length - 1);
+
+                    //玩家加体力
+                    int power = person.getPower();
+                    person.setPower(power+3);
                 }
             }
         }
@@ -227,9 +267,8 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (person.getX() + Person.WIDTH <= barrs3[i].getX() + Barrs_3.WIDTH) {//玩家的宽度（120px）是比障碍物小的
                     //左碰撞
                     person.setX(barrs3[i].getX() - Barrs_3.WIDTH);
-                } else {
-                    //右碰撞
-                    person.setX(barrs3[i].getX() + Barrs_3.WIDTH);
+                    int power = person.getPower();
+                    person.setPower(power - 1);
                 }
             }
         }
@@ -242,9 +281,8 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (person.getX() + Person.WIDTH <= barrs4[i].getX() + Barrs_4.WIDTH) {
                     //左碰撞
                     person.setX(barrs4[i].getX() - Barrs_4.WIDTH);
-                } else {
-                    //右碰撞
-                    person.setX(barrs4[i].getX() + Barrs_4.WIDTH);
+                    int power = person.getPower();
+                    person.setPower(power - 1);
                 }
             }
         }
@@ -261,7 +299,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     //玩家加分
                     int score = person.getScore();
-                    person.setScore((int) (score + 10*user.getBonus()));
+                    person.setScore((int) (score + 10 * user.getBonus()));
                 }
             }
         }
@@ -270,12 +308,15 @@ public class GamePanel extends JPanel implements KeyListener {
 //结束逻辑
 
     public void gameOverAction(GameFrame frame) {
-        if (person.outOfBounds()) {
+        if (person.outOfBounds() || person.outOfPower()) {
             //程序结束
             isGameOver = true;
-            //传递用户信息
-            person.setUser(user);
-            //传递数据（创建结束界面） 
+            //传递数据（创建结束界面）
+            if (person.getPower() == 0) {
+                JOptionPane.showMessageDialog(null, "You are tired!", "Game Over", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "You are blocked!", "Game Over", JOptionPane.ERROR_MESSAGE);
+            }
             new EndFrame(person);//面向对象思想
             //关闭窗口
             frame.dispose();
@@ -316,7 +357,7 @@ public class GamePanel extends JPanel implements KeyListener {
  
   }
  
-@Override
+    @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
 
@@ -327,18 +368,15 @@ public class GamePanel extends JPanel implements KeyListener {
         //获取玩家当前位置坐标
         int x = person.getX();
         int y = person.getY();
-        int x1 = barrs_2.getX();
-        int y1 = barrs_2.getY();
 
         //上
-        if (e.getKeyCode() == KeyEvent.VK_UP && y > 10 && y1 > 10) {
-            person.setY(y - 100);
-            barrs_2.setY(y - 100);
+        if (e.getKeyCode() == KeyEvent.VK_UP && y > 440 ) {
+            person.setY(y - 180);
+            //barrs_2.setY(y - 100);
         }
         //下
-        if (e.getKeyCode() == KeyEvent.VK_DOWN && y <= 560 && y1 < 560) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && y <= 560 ) {
             person.setY(y + 120);
-            barrs_2.setY(y - 120);
         }
         //暂停 继续功能
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {

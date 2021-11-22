@@ -12,8 +12,8 @@ public class Barrs_4 {//    鱼叉障碍物！
 
     private Image image;
     private Image images[];
-    public static final int WIDTH = 150;
-    public static final int HEIGHT = 350;
+    public static final int WIDTH = 100;
+    public static final int HEIGHT = 250;
     private int x, y;
 
     public Barrs_4() {//构造方法

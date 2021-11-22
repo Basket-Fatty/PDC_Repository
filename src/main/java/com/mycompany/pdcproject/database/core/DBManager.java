@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.mycompany.pdcproject.database.bean.Configuration;
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 
 /**
  * 根据配置信息,维持连接对象的管理(增加连接池的功能)
@@ -24,7 +25,8 @@ public class DBManager {
     static {
         Properties pros = new Properties();
         try {
-            pros.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
+            pros.load(new BufferedInputStream(new FileInputStream("src/db.properties")));
+//            pros.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

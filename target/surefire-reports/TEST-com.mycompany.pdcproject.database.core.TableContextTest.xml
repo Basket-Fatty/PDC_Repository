@@ -59,6 +59,6 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.mycompany.pdcproject.database.core.TableContextTest" name="testUpdateJavaPOFile" time="0.002"/>
-  <testcase classname="com.mycompany.pdcproject.database.core.TableContextTest" name="testLoadPOTable" time="0"/>
+  <testcase classname="com.mycompany.pdcproject.database.core.TableContextTest" name="testUpdateJavaPOFile" time="0.001"/>
+  <testcase classname="com.mycompany.pdcproject.database.core.TableContextTest" name="testLoadPOTable" time="0.001"/>
 </testsuite>

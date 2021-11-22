@@ -1,6 +1,7 @@
 package com.mycompany.pdcproject.view;
 
 import com.mycompany.pdcproject.controller.GamePanel;
+import com.mycompany.pdcproject.controller.MusicPlayer;
 import com.mycompany.pdcproject.database.po.Users;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -31,9 +32,12 @@ public class GameFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setIconImage(new ImageIcon("Image/115.png").getImage());
+        this.setIconImage(new ImageIcon("Image/rng.png").getImage());
         this.setUndecorated(true);
         this.setVisible(true);
+        
+        //background music
+        MusicPlayer.play();
     }
 
 //    public static void main(String[] args) {

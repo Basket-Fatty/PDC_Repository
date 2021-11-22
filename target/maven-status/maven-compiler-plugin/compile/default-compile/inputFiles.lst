@@ -2,11 +2,11 @@ F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\model\Barrs_5.
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\core\TypeConvertor.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\view\MainFrame.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\core\TableContext.java
-F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\model\Barrs_2.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\controller\WindowFrame.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\core\DBManager.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\view\EndFrame.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\bean\JavaFieldGetSet.java
+F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\controller\MusicPlayer.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\po\Item.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\view\StoreFrame.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\bean\ColumnInfo.java
@@ -16,6 +16,7 @@ F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\core\
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\view\GameFrame.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\core\DerbyTypeConvertor.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\controller\GamePanel.java
+F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\model\Barrs_6.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\view\RankFrame.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\database\utils\StringUtils.java
 F:\Netbeans\PDC_Repository\src\main\java\com\mycompany\pdcproject\model\Person.java

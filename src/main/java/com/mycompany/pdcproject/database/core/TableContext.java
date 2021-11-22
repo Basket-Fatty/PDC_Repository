@@ -106,8 +106,8 @@ public class TableContext {
         }
     }
 
-    public static void main(String[] args) {
-        Map<String, TableInfo> tables = TableContext.tables;
-        System.out.println(tables);
-    }
+//    public static void main(String[] args) {
+//        Map<String, TableInfo> tables = TableContext.tables;
+//        System.out.println(tables);
+//    }
 }

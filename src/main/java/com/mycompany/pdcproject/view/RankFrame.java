@@ -24,12 +24,10 @@ public class RankFrame extends JFrame {
 
         Image background;//------ctr shift + o 导包
 
-        public HistoryPanel() {//-----alt / 回车 构造方法    在{后双击,显示作用域
-            //读取图片文件，赋值给background变量
-            try {//-----虽然不大可能，但也做好吃饭噎死的准备
-                background = ImageIO.read(new File("Image/history1.jpg"));//----read参数为File类型
-            } catch (IOException e) {//-------捕获异常信息
-                // 打印异常日志信息
+        public HistoryPanel() {
+            try {
+                background = ImageIO.read(new File("Image/history1.jpg"));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -55,7 +53,7 @@ public class RankFrame extends JFrame {
         JLabel jchampagneright = new JLabel();
         Font f = new Font("Arial", Font.BOLD, 40);
         Font f1 = new Font("Arial", Font.BOLD, 25);
-        Font f2 = new Font("宋体", Font.BOLD, 25);
+        Font f2 = new Font("Arial", Font.BOLD, 25);
 
         //窗口设置
         setTitle("History"); //设置窗口标题
@@ -63,7 +61,7 @@ public class RankFrame extends JFrame {
         setBounds(300, 100, 1000, 600);
 
         //返回按钮
-        jback = new JButton(new ImageIcon("Image/back1.png"));
+        jback = new JButton(new ImageIcon("Image/back2.1.png"));
         jback.setBounds(30, 20, 50, 50);
         jback.setContentAreaFilled(false);
         jback.setBorderPainted(false);
@@ -76,7 +74,7 @@ public class RankFrame extends JFrame {
         add(jback);
 
         //顶部标题
-        jtitle = new JLabel("HISTORY", JLabel.CENTER);
+        jtitle = new JLabel("RANKLIST", JLabel.CENTER);
         jtitle.setBounds(250, 0, 500, 100);
         jtitle.setFont(f);
         jtitle.setForeground(Color.black);
@@ -130,6 +128,7 @@ public class RankFrame extends JFrame {
         historyPanel.setBounds(0, 0, 1000, 600);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setIconImage(new ImageIcon("Image/rng.png").getImage());//logo
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 

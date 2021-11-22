@@ -1,0 +1,9 @@
+UP key is for jumping and DOWN key is for rapid fall. Use these two keys to
+control the character's behavior and avoid game obstacles like grabs.
+The player's initial physical power value is 100. With the progress
+of the game, the physical power will slowly decrease. When the physical
+strength value decreases to 1, the player needs to stop and rest,
+and the game is over. Therefore, you need to obtain food items to maintain
+physical strength. In the process of the game, you will encounter gold coin
+reward props. After eating these gold coin reward props, you can obtain gold coins,
+and use these gold coins to buy props in the mall to improve your role.

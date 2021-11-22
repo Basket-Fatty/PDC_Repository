@@ -6,6 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
@@ -13,10 +20,10 @@ public class MainFrame extends JFrame {
     //存储用户数据
     private Users user;
 
-    private JButton[] button = new JButton[9];
+    private JButton[] button = new JButton[8];
     private JPanel MainPanel;
     private JLabel image;
-    String[] bname = {"Start", "Set", "We", "Help", "Quit", "Store", "Rank", "Intro", "Guide"};
+    String[] bname = {"Start", "We", "Help", "Quit", "Store", "Rank", "Intro", "Guide"};
 
     allactionListener allactionlistener = new allactionListener();
 
@@ -26,16 +33,16 @@ public class MainFrame extends JFrame {
         Font font1 = new Font("Algerian", Font.BOLD, 25);
         Font font2 = new Font("Algerian", Font.BOLD, 35);
         setLayout(null);
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 8; i++) {
             int j = i;
             //Set the layout of the buttons in MainFrame
             button[i] = new JButton(bname[i]);
-            if (i < 5) {
+            if (i < 4) {
                 button[i].setBounds(100, 200 + i * 60, 170, 40);
-            } else if (i < 7) {
-                button[i].setBounds(835, 30 + (i - 5) * 50, 170, 40);
+            } else if (i < 6) {
+                button[i].setBounds(835, 70 + (i - 5) * 50, 170, 40);
             } else {
-                button[i].setBounds(835, 450 + 50 * (i - 7), 170, 40);
+                button[i].setBounds(835, 480 + 50 * (i - 7), 170, 40);
             }
             button[i].setContentAreaFilled(false);
             button[i].setBorderPainted(false);
@@ -92,6 +99,7 @@ public class MainFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
             String cmd = e.getActionCommand();
+            StringBuilder sb = new StringBuilder();
             switch (cmd) {
                 case "Start":
                     dispose();
@@ -103,32 +111,56 @@ public class MainFrame extends JFrame {
                 case "Rank":
                     new RankFrame();
                     break;
-                case "Intro":
-                    JOptionPane.showMessageDialog(null, "As a runner, your dream is to run everywhere in the world.\n"
-                            + "Now, you have the opportunity to choose a role in the game to help you fulfill your dream.\n"
-                            + " In the game, you will encounter various obstacles,\n"
-                            + "All you have to do is try to cross these obstacles and go further to get higher points.\n"
-                            + "Of course, just like real characters, running for a long time will become tired. \n"
-                            + "You need to get food props in the game to supplement your physical strength.\n"
-                            + "In addition, in the game, we also set up gold coins to encourage those who love running and insist on running.", "Introduction", JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                case "Intro": 
+                    try {
+                    BufferedReader reader = new BufferedReader(new FileReader(new File("Text/Intro.txt")));
+                    String temp = reader.readLine();
+                    while (temp != null) {
+                        sb.append(temp);
+                        sb.append("\n");
+                        temp = reader.readLine();
+                    }
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                JOptionPane.showMessageDialog(null, sb.toString(), "Introduction", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
                 case "Guide":
-                    JOptionPane.showMessageDialog(null, "W is for jumping and S is for sliding shovel. Use these two keys to \n"
-                            + "control the character's behavior and avoid game obstacles. \n"
-                            + "The player's initial physical strength value is 100. \n"
-                            + "With the progress of the game, the physical strength value will slowly decrease.\n"
-                            + "When the physical strength value decreases to 0, the player needs to stop and rest, "
-                            + "and the game is over. Therefore, you need to obtain food items to maintain physical strength. \n"
-                            + "In the process of the game, you will encounter gold coin reward props. After eating these gold coin reward props, \n"
-                            + "you can obtain gold coins, and use these gold coins to buy props in the mall to improve your role.\n", "Guidance", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                case "Set":
-                    break;
+                    try {
+                    BufferedReader reader = new BufferedReader(new FileReader(new File("Text/Guide.txt")));
+                    String temp = reader.readLine();
+                    while (temp != null) {
+                        sb.append(temp);
+                        sb.append("\n");
+                        temp = reader.readLine();
+                    }
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, sb.toString(), "Guidance", JOptionPane.INFORMATION_MESSAGE);
+                break;
                 case "We":
-                    JOptionPane.showMessageDialog(null, "Name           AUT ID\n" + "Huang Xuzhe   21140965\n" + "Tang Siyuan   21141058\n"
-                            + "Hua Xinyang   21140959\n" + "He Xhengkai   21140964",
-                            "About us", JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                    try {
+                    BufferedReader reader = new BufferedReader(new FileReader(new File("Text/We.txt")));
+                    String temp = reader.readLine();
+                    while (temp != null) {
+                        sb.append(temp);
+                        sb.append("\n");
+                        temp = reader.readLine();
+                    }
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, sb.toString(), "About us", JOptionPane.INFORMATION_MESSAGE);
+                break;
                 case "Help":
                     JOptionPane.showMessageDialog(null, "If you have any questions, please send questions to email: 1367041395@qq.com",
                             "Help", JOptionPane.INFORMATION_MESSAGE);

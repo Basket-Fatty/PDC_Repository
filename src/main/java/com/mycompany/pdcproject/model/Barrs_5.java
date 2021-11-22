@@ -24,13 +24,14 @@ public class Barrs_5 {
 
     public Barrs_5() {
         try {
-            image = ImageIO.read(new File("Image/" + (random.nextInt(6) + 21) + ".png"));
+            image = ImageIO.read(new File("Image/" + (random.nextInt(4) + 21) + ".png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        x = GameFrame.WIDTH + 10;
+        x = GameFrame.WIDTH + random.nextInt(500);
         y = random.nextInt(600);
+        while(y<400)y = random.nextInt(600);
         speed = 20;
     }
 

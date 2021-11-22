@@ -31,7 +31,7 @@ public class Person {//1.声明属性
     private int score;
     //玩家跑酷距离
     private int distance;
-
+    private int power;
     public Person() {//2.赋值
         //给图片数组images赋值
         init();//2.1  先写，会提示要不要实现！自动生成方法
@@ -43,15 +43,22 @@ public class Person {//1.声明属性
         index = 0;
         score = 0;
         distance = 0;
+        power = 100;
     }
     //玩家自由下落方法5.1
 
     public void drop() {
-        y += 5;
+        y += 12;
         if (y >= 580) {
             y = 580;
         }
     }
+    
+    //玩家体力消耗
+    public void repower(){
+        if(distance%40==0)power -= 1;
+    }
+    
     //玩家移动的方法
 
     public void step() {
@@ -69,6 +76,10 @@ public class Person {//1.声明属性
     //判断玩家是否越界的方法
     public boolean outOfBounds() {
         return this.x >= GameFrame.WIDTH || this.x <= -WIDTH;
+    }
+    
+    public boolean outOfPower() {
+        return this.power==0;
     }
 
     private void init() {//2.2
@@ -140,6 +151,14 @@ public class Person {//1.声明属性
         this.score = score;
     }
 
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+    
     public int getDistance() {
         return distance;
     }

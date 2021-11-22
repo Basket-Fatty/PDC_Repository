@@ -28,7 +28,7 @@ public class StoreFrame extends JFrame {
     JLabel jMoneyLabel;
     JPanel jP1;
     //南部区域
-    JLabel[] jShoeLabels = new JLabel[3];
+    JButton[] jShoeButtons = new JButton[3];
     JLabel[] jMoneyLabels = new JLabel[3];
     JLabel[] jLabels = new JLabel[3];
     JButton[] jBuys = new JButton[3];
@@ -36,7 +36,9 @@ public class StoreFrame extends JFrame {
     JPanel jP2;
     JLabel jLabel;
     int[] prices = new int[3];
-
+    String[] shoeinfo = {"Straw sandals", "Speed shoes", "Power shoes", "The most common shoes.\n"+" Wearing these will increase the points you get from eating gold coins to 12", 
+        "These are Speed shoes. \n"+" Wearing these will increase the points you get from eating gold coins to 15 \n"+" And your maximum physical strength to 150" ,
+        "These are Power shoes. \n"+" Wearing these will increase the points you get from eating gold coins to 20 \n"+" And your maximum physical strength to 200"};
     public StoreFrame(Users user) {
         super("Store"); //设置窗口标题
 
@@ -48,16 +50,16 @@ public class StoreFrame extends JFrame {
         setLayout(null);//使窗体取消布局管理器设置          
 
         jMoneyLabel = new JLabel(money + "", JLabel.CENTER);
-        Font f1 = new Font("Arial", Font.BOLD, 16);
-        Font f2 = new Font("Arial", Font.BOLD, 25);
+        Font f1 = new Font("Arial", Font.BOLD, 25);
+        Font f2 = new Font("Arial", Font.BOLD, 28);
         for (int i = 0; i < 3; i++) {
             //Set the layout of  Shoes Icon
-            jShoeLabels[i] = new JLabel(new ImageIcon("Image/shoe" + (i + 1) + ".png"));
-            jShoeLabels[i].setBounds(i * 300 + 100, 100, 200, 200);
-            add(jShoeLabels[i]);
+            jShoeButtons[i] = new JButton(new ImageIcon("Image/shoe" + (i + 1) + ".png"));
+            jShoeButtons[i].setBounds(i * 300 + 150, 170, 110, 110);
+            add(jShoeButtons[i]);
             //Set the layout of Money Label
             jMoneyLabels[i] = new JLabel(shop.getItemList().get(i).getPrice().toString(), JLabel.CENTER);
-            jMoneyLabels[i].setBounds(i * 300 + 100, 300, 200, 50);
+            jMoneyLabels[i].setBounds(i * 300 + 140, 300, 150, 50);
             jMoneyLabels[i].setFont(f1);
             add(jMoneyLabels[i]);
             //Set the layout of JLabel
@@ -85,10 +87,10 @@ public class StoreFrame extends JFrame {
 
             //Set the layout of Wear Button
             //判断是否穿戴，通过bonus判断
-            if(user.getBonus() == item.getBonus()){
-                jWears[i] = new JButton("Wear");
+            if(user.getBonus().equals(item.getBonus())){
+                jWears[i] = new JButton("Off");     
             }else{
-                jWears[i] = new JButton("Off");
+                jWears[i] = new JButton("Wear");
             } 
             jWears[i].setBounds(i * 300 + 150, 470, 110, 50);
             jWears[i].setBackground(Color.PINK);
@@ -96,9 +98,18 @@ public class StoreFrame extends JFrame {
             add(jWears[i]);
 
             //Set Buttons' ActionListener
+            JButton jShoeimage = jShoeButtons[i];
+            int j = i;
             JButton jBuy = jBuys[i];
             JButton jWear = jWears[i];
-
+            
+            jShoeButtons[i].addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null, shoeinfo[j+3], shoeinfo[j], JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+            
             jBuys[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -117,12 +128,12 @@ public class StoreFrame extends JFrame {
         jBack.setContentAreaFilled(false);
         jBack.setBorderPainted(false);
         jBack.setBounds(30, 20, 50, 50);
-        jMoneyLabel.setBounds(845, 20, 100, 50);
+        jMoneyLabel.setBounds(880, 20, 100, 50);
 
         jLabel = new JLabel("Balance:$", JLabel.CENTER);
         jLabel.setFont(f1);
         jMoneyLabel.setFont(f1);
-        jLabel.setBounds(780, 20, 100, 50);
+        jLabel.setBounds(745, 20, 200, 50);
 
         add(jLabel);
         add(jBack);
@@ -143,6 +154,7 @@ public class StoreFrame extends JFrame {
         this.setSize(1000, 600);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setIconImage(new ImageIcon("Image/rng.png").getImage());//logo
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
