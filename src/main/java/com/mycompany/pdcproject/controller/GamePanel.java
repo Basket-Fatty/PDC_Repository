@@ -9,143 +9,100 @@ import com.mycompany.pdcproject.model.Barrs_6;
 import com.mycompany.pdcproject.model.Person;
 import com.mycompany.pdcproject.view.EndFrame;
 import com.mycompany.pdcproject.view.GameFrame;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-/**
- * 游戏主面板类，核心逻辑类 1、背景图片滚动效果 2、玩家动态效果 3、五种障碍物的出现 4、玩家和障碍物的碰撞逻辑 5、暂停、继续逻辑 6、结束逻辑
- */
+//GamePanel类制作游戏界面的主面板，生成跑酷游戏内容
 public class GamePanel extends JPanel implements KeyListener {
 
     //存储用户信息
     private Users user;
-
-    /**
-     * 2、生成动态的背景图片**
-     */
-    //2.1声明背景图片对象
+    //生成背景图片，得分信息和体力信息
     Image background;
     Image score;
     Image power;
-    Image pause;//暂停
-    Image proceed;//继续.
 
-    /**
-     * *3.实现玩家的动态效果和移动功能**
-     */
-    //3.1创建玩家对象（类的实例化）
-    Person person;
+    Person person;//创建玩家对象
     Barrs_4 barrs_4;//鱼钩等障碍物
     Barrs_5 barrs_5;//金币
     Barrs_6 barrs_6;//面包
-    //Barrs_6 barrs_6;
-    /**
-     * 4.实现螃蟹障碍物
-     */
-    //4.1
-    Barrs_1[] barrs1 = {};//存储螃蟹数组（没有元素，可以扩容）
+
+    Barrs_1[] barrs1 = {};//螃蟹障碍物数组
     Barrs_3[] barrs3 = {};//导弹
     Barrs_4[] barrs4 = {};//鱼钩
     Barrs_5[] barrs5 = {};//金币
     Barrs_6[] barrs6 = {};//面包
-    //Barrs_6[] barrs6 = {};//
 
     public GamePanel(Users user) {
         //存储用户信息
         this.user = user;
 
-        //3.2
         person = new Person();//调用Person类的构造方法，创建对象并赋值
         //传递用户信息
         person.setUser(user);
-        person.setPower((int)(100 * user.getBonus()));
-        //2.2读取图片文件
+        person.setPower((int) (100 * user.getBonus()));
+
         try {
-            background = ImageIO.read(new File("Image/cc.png"));//跑酷背景
-            score = ImageIO.read(new File("Image/a12.png"));//得分背景
-            power = ImageIO.read(new File("Image/b11.png"));
-//            pause = ImageIO.read(new File("Image/b2.png"));
-//            proceed = ImageIO.read(new File("Image/b1.png"));
+            background = ImageIO.read(new File("Image/cc.png"));//背景图片
+            score = ImageIO.read(new File("Image/a12.png"));//得分显示
+            power = ImageIO.read(new File("Image/a12.png"));//体力显示
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    //2.5
-    int x = 0;//背景图片初始位置
+
+    int x = 0;//初始话背景图片位置
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        //2.7
         if (flag) {
-            x -= 20;//图片滚动的速度
+            x -= 20;//背景图不断滚动
         }
-        //2.3绘制背景图片(动态切换很流畅)
+        //绘制背景图片并实现背景图片的无缝切换
         g.drawImage(background, x, 0, GameFrame.WIDTH, GameFrame.HEIGHT, null);
         g.drawImage(background, x + GameFrame.WIDTH, 0, GameFrame.WIDTH, GameFrame.HEIGHT, null);
-        if (x <= -GameFrame.WIDTH) {//实现两张图片之间的切换
+        if (x <= -GameFrame.WIDTH) {
             x = 0;
         }
-        //3.3绘制 玩家
-        person.paintPerson(g);
-        //绘制螃蟹
+        person.paintPerson(g);//添加人物图片
         for (int i = 0; i < barrs1.length; i++) {
-            barrs1[i].paintBarrs(g);
+            barrs1[i].paintBarrs(g);//添加螃蟹障碍物
         }
-        //绘制导弹
         for (int i = 0; i < barrs3.length; i++) {
-            barrs3[i].paintBarrs(g);
+            barrs3[i].paintBarrs(g);//添加导弹障碍物
         }
-        //随机绘制鱼钩障碍物
         for (int i = 0; i < barrs4.length; i++) {
-            barrs4[i].paintBarrs(g);
+            barrs4[i].paintBarrs(g);//添加顶部鱼叉
         }
-        //随机绘制金币
         for (int i = 0; i < barrs5.length; i++) {
-            barrs5[i].paintBarrs(g);
+            barrs5[i].paintBarrs(g);//添加金币
         }
-        //随机绘制面包
         for (int i = 0; i < barrs6.length; i++) {
-            barrs6[i].paintBarrs(g);
+            barrs6[i].paintBarrs(g);//添加面包
         }
-//位置越往下，图层越往上
-        //绘制玩家分数
+        //玩家分数和体力值显示
         g.drawImage(score, 120, 50, null);
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.drawString("SCORE:" + person.getScore(), 133, 95);
-
-        g.drawImage(score, 400, 50, null);
-        g.setColor(Color.ORANGE);
+        g.drawImage(power, 400, 50, null);
+        g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.drawString("Power:" + person.getPower(), 413, 95);
-
-        //绘制暂停、继续标识图片
-        if (flag) {
-            g.drawImage(proceed, 200, 800, 90, 90, null);
-        } else {
-            g.drawImage(pause, 200, 800, 90, 90, null);
-        }
-
     }
 
-//生    成  障  碍  物  的  方  法
     int index = 0;
+//障碍物生成方法
 
-    public void enteredAction() {//实现源源  不  断  生成障碍物的效果
+    public void enteredAction() {
         index++;
-        //生成螃蟹障碍物
         if (index % 100 == 0) {
             //生成一个螃蟹
             Barrs_1 b1 = new Barrs_1();
@@ -153,8 +110,7 @@ public class GamePanel extends JPanel implements KeyListener {
             Barrs_4 b4 = new Barrs_4();
 
             barrs1 = Arrays.copyOf(barrs1, barrs1.length + 1);//数组扩容
-            barrs1[barrs1.length - 1] = b1;//放到数组最后一个元素的位置
-            //System.out.println("测试"+barrs1.length);    
+            barrs1[barrs1.length - 1] = b1;//放到数组最后一个元素的位置   
             barrs3 = Arrays.copyOf(barrs3, barrs3.length + 1);
             barrs3[barrs3.length - 1] = b3;
             barrs4 = Arrays.copyOf(barrs4, barrs4.length + 1);
@@ -169,73 +125,63 @@ public class GamePanel extends JPanel implements KeyListener {
             barrs5[barrs5.length - 1] = b5;
         }
     }
+//移动方法
 
-//移    动  方  法
     public void stepAction() {
-        //3..4
         person.step();//切换玩家的图片—>动起来
         person.drop();//不断下坠
         person.repower();
         //螃蟹障碍物移动
         for (int i = 0; i < barrs1.length; i++) {
-            barrs1[i].step();
-            //判断当前障碍物是否 越界，并做越界处理
+            barrs1[i].step();//障碍物运动并判断是否越界
             if (barrs1[i].outofBounds()) {
-                //删除越界的螃蟹障碍物
-                barrs1[i] = barrs1[barrs1.length - 1];//将螃蟹数组最后一个元素，赋给越界的螃蟹，覆盖了，相当于间接删除了。
-                barrs1 = Arrays.copyOf(barrs1, barrs1.length - 1);//数组缩容
+                barrs1[i] = barrs1[barrs1.length - 1];//数组赋值实现障碍物删除。
+                barrs1 = Arrays.copyOf(barrs1, barrs1.length - 1);
             }
         }
-
+        //导弹障碍物移动
         for (int i = 0; i < barrs3.length; i++) {
             barrs3[i].step();
-            //删除越界的导弹障碍物
             if (barrs3[i].outofBounds()) {
                 barrs3[i] = barrs3[barrs3.length - 1];
                 barrs3 = Arrays.copyOf(barrs3, barrs3.length - 1);
             }
         }
-
+        //鱼叉障碍物移动
         for (int i = 0; i < barrs4.length; i++) {
             barrs4[i].step();
-            //删除越界的鱼叉障碍物
             if (barrs4[i].outofBounds()) {
                 barrs4[i] = barrs4[barrs4.length - 1];
                 barrs4 = Arrays.copyOf(barrs4, barrs4.length - 1);
             }
         }
+        //金币移动
         for (int i = 0; i < barrs5.length; i++) {
             barrs5[i].step();
             if (barrs5[i].outofBounds()) {
-                //删除越界的金币
                 barrs5[i] = barrs5[barrs5.length - 1];
                 barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
             }
         }
-        
+        //面包移动
         for (int i = 0; i < barrs6.length; i++) {
             barrs6[i].step();
-            //删除越界的面包障碍物
             if (barrs6[i].outofBounds()) {
                 barrs6[i] = barrs6[barrs6.length - 1];
                 barrs6 = Arrays.copyOf(barrs6, barrs6.length - 1);
             }
         }
-
     }
 
-//玩家和障碍物碰撞的处理方法
+//碰撞的处理
     public void pengAction() {
-        //判断玩家是否和螃蟹障碍物进行碰撞
-        for (int i = 0; i < barrs1.length; i++) {//上下左右都写了，下是用不到的
-            if (person.getX() + Person.WIDTH >= barrs1[i].getX()
-                    && person.getX() <= barrs1[i].getX() + Barrs_1.WIDTH
-                    && person.getY() + Person.getHeight() >= barrs1[i].getY()
-                    && person.getY() <= barrs1[i].getY() + Barrs_1.HEIGHT) {
-                //碰撞后的处理（遮挡类障碍物）
-                if (person.getX() + Person.WIDTH <= barrs1[i].getX() + Barrs_1.WIDTH) {//防止人在右边，碰撞后可以穿过障碍物
-                    //左碰撞
-                    person.setX(barrs1[i].getX() - Barrs_1.WIDTH);
+        //和螃蟹障碍物的碰撞
+        for (int i = 0; i < barrs1.length; i++) {
+            if (person.getX() + Person.WIDTH >= barrs1[i].getX() && person.getX() <= barrs1[i].getX() + Barrs_1.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs1[i].getY() && person.getY() <= barrs1[i].getY() + Barrs_1.HEIGHT) {
+                if (person.getX() + Person.WIDTH <= barrs1[i].getX() + Barrs_1.WIDTH) {//碰撞产生
+                    person.setX(barrs1[i].getX() - Barrs_1.WIDTH);//玩家被阻挡，x座标减少
+                    //玩家减体力
                     int power = person.getPower() - 1;
                     person.setPower(power);
                 }
@@ -243,44 +189,25 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         //和面包的碰撞
         for (int i = 0; i < barrs6.length; i++) {
-            if (person.getX() + Person.WIDTH >= barrs6[i].getX()
-                    && person.getX() <= barrs6[i].getX() + Barrs_6.WIDTH
-                    && person.getY() + Person.getHeight() >= barrs6[i].getY()
-                    && person.getY() <= barrs6[i].getY() + Barrs_6.HEIGHT) {//判断玩家与金币的碰撞
-                if (person.getX() + Person.WIDTH <= barrs6[i].getX() + Barrs_6.WIDTH) {
+            if (person.getX() + Person.WIDTH >= barrs6[i].getX() && person.getX() <= barrs6[i].getX() + Barrs_6.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs6[i].getY() && person.getY() <= barrs6[i].getY() + Barrs_6.HEIGHT) {
+                if (person.getX() + Person.WIDTH <= barrs6[i].getX() + Barrs_6.WIDTH) {//碰撞产生
                     //删除当前面包
                     barrs6[i] = barrs6[barrs6.length - 1];
                     barrs6 = Arrays.copyOf(barrs6, barrs6.length - 1);
-
                     //玩家加体力
                     int power = person.getPower();
-                    person.setPower(power+3);
+                    person.setPower(power + 3);
                 }
             }
         }
         //判断玩家是否和导弹障碍物进行碰撞
         for (int i = 0; i < barrs3.length; i++) {
-            if (person.getX() + Person.WIDTH >= barrs3[i].getX()
-                    && person.getX() <= barrs3[i].getX() + Barrs_3.WIDTH
-                    && person.getY() + Person.getHeight() >= barrs3[i].getY()
-                    && person.getY() <= barrs3[i].getY() + Barrs_3.HEIGHT) {
-                if (person.getX() + Person.WIDTH <= barrs3[i].getX() + Barrs_3.WIDTH) {//玩家的宽度（120px）是比障碍物小的
-                    //左碰撞
-                    person.setX(barrs3[i].getX() - Barrs_3.WIDTH);
-                    int power = person.getPower();
-                    person.setPower(power - 1);
-                }
-            }
-        }
-        //判断玩家是否和鱼叉障碍物进行碰撞
-        for (int i = 0; i <= barrs4.length - 1; i++) {//小心数组越界！
-            if (person.getX() + Person.WIDTH >= barrs4[i].getX()
-                    && person.getX() <= barrs4[i].getX() + Barrs_4.WIDTH
-                    && person.getY() + Person.HEIGHT >= barrs4[i].getY()
-                    && person.getY() <= barrs4[i].getY() + Barrs_4.HEIGHT) {
-                if (person.getX() + Person.WIDTH <= barrs4[i].getX() + Barrs_4.WIDTH) {
-                    //左碰撞
-                    person.setX(barrs4[i].getX() - Barrs_4.WIDTH);
+            if (person.getX() + Person.WIDTH >= barrs3[i].getX() && person.getX() <= barrs3[i].getX() + Barrs_3.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs3[i].getY() && person.getY() <= barrs3[i].getY() + Barrs_3.HEIGHT) {
+                if (person.getX() + Person.WIDTH <= barrs3[i].getX() + Barrs_3.WIDTH) {//碰撞产生
+                    person.setX(barrs3[i].getX() - Barrs_3.WIDTH);//玩家被阻挡，x座标减少
+                    //玩家减体力
                     int power = person.getPower();
                     person.setPower(power - 1);
                 }
@@ -288,15 +215,12 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         //玩家和金币的碰撞
         for (int i = 0; i < barrs5.length; i++) {
-            if (person.getX() + Person.WIDTH >= barrs5[i].getX()
-                    && person.getX() <= barrs5[i].getX() + Barrs_5.WIDTH
-                    && person.getY() + Person.getHeight() >= barrs5[i].getY()
-                    && person.getY() <= barrs5[i].getY() + Barrs_5.HEIGHT) {//判断玩家与金币的碰撞
-                if (person.getX() + Person.WIDTH <= barrs5[i].getX() + Barrs_5.WIDTH) {
+            if (person.getX() + Person.WIDTH >= barrs5[i].getX() && person.getX() <= barrs5[i].getX() + Barrs_5.WIDTH
+                    && person.getY() + Person.getHeight() >= barrs5[i].getY() && person.getY() <= barrs5[i].getY() + Barrs_5.HEIGHT) {
+                if (person.getX() + Person.WIDTH <= barrs5[i].getX() + Barrs_5.WIDTH) {//碰撞产生
                     //删除当前金币
                     barrs5[i] = barrs5[barrs5.length - 1];
                     barrs5 = Arrays.copyOf(barrs5, barrs5.length - 1);
-
                     //玩家加分
                     int score = person.getScore();
                     person.setScore((int) (score + 10 * user.getBonus()));
@@ -305,38 +229,33 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
     }
-//结束逻辑
 
+//游戏结束
     public void gameOverAction(GameFrame frame) {
         if (person.outOfBounds() || person.outOfPower()) {
             //程序结束
             isGameOver = true;
-            //传递数据（创建结束界面）
             if (person.getPower() == 0) {
                 JOptionPane.showMessageDialog(null, "You are tired!", "Game Over", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "You are blocked!", "Game Over", JOptionPane.ERROR_MESSAGE);
             }
             new EndFrame(person);//面向对象思想
-            //关闭窗口
-            frame.dispose();
+            frame.dispose();//关闭当前窗口
         }
-
     }
     public boolean isGameOver = false;
     boolean flag = true;
-//2.8  创  建  一  个  程  序  启  动  的   方  法
 
+//程序启动
     public void action(GameFrame frame) {
-        new Thread() {//匿名内部类
-            //重写run方法
+        new Thread() {
             public void run() {
                 while (!isGameOver) {
-                    //3.4
                     if (flag) {
-                        enteredAction();//细节：只有先生成了障碍物后，下面才能调用移动障碍物的方法
-                        stepAction();
-                        pengAction();//玩家和障碍物碰撞
+                        enteredAction();//障碍物生成
+                        stepAction();//物体移动
+                        pengAction();//物体碰撞
                         gameOverAction(frame);
                     }
                     //重绘方法
@@ -345,7 +264,6 @@ public class GamePanel extends JPanel implements KeyListener {
                     try {
                         Thread.sleep(60);
                     } catch (Exception e) {
-                        // TODO: handle exception
                         e.printStackTrace();
                     }
                 }
@@ -354,13 +272,10 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     .start();//创建一个线程并启动
- 
   }
  
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -369,24 +284,18 @@ public class GamePanel extends JPanel implements KeyListener {
         int x = person.getX();
         int y = person.getY();
 
-        //上
-        if (e.getKeyCode() == KeyEvent.VK_UP && y > 440 ) {
-            person.setY(y - 180);
-            //barrs_2.setY(y - 100);
+        if (e.getKeyCode() == KeyEvent.VK_UP && y > 440) {
+            person.setY(y - 180);//↑键使角色跳跃
         }
-        //下
-        if (e.getKeyCode() == KeyEvent.VK_DOWN && y <= 560 ) {
-            person.setY(y + 120);
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && y <= 560) {
+            person.setY(y + 120);//↓键使角色下降
         }
-        //暂停 继续功能
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            flag = !flag;
+            flag = !flag;//空格键暂停/继续
         }
-
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 }

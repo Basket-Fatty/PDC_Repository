@@ -7,93 +7,79 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
-/**
- *
- * 玩家的实体类
- */
-public class Person {//1.声明属性
+public class Person {
 
-    private Image image;//1.1 玩家当前显示图片
-    private Image[] images;//1.2 玩家所有图片
+    private Image image;//奔跑某一时刻的图片
+    private Image[] images;//Image数组存储玩家奔跑状态时的图片
 
-    public static final int WIDTH = 120;//1.3玩家宽高
+    public static final int WIDTH = 120;
     public static final int HEIGHT = 120;
 
-    //1.4玩家初始位置坐标
-    private int x, y;
+    private int x, y;//玩家的座标
     int index;//下面用作切换图片
-    //玩家信息
-    private Users user;
-    //玩家得分
-    private int score;
-    //玩家跑酷距离
-    private int distance;
+    private Users user;//玩家信息
+    private int score;//得分
+    private int distance;//跑酷距离
     private int power;
-    public Person() {//2.赋值
-        //给图片数组images赋值
-        init();//2.1  先写，会提示要不要实现！自动生成方法
-        //默认当前显示图片位第一张图片 2.6
-        image = images[0];
 
-        x = 90;//2.7
-        y = 580;//脚踩地板
+    public Person() {
+        init();
+        image = images[0];//默认显示第一张图片
+        x = 90;
+        y = 580;
         index = 0;
         score = 0;
         distance = 0;
         power = 100;
     }
-    //玩家自由下落方法5.1
 
+    //玩家下落
     public void drop() {
         y += 12;
         if (y >= 580) {
             y = 580;
         }
     }
-    
-    //玩家体力消耗
-    public void repower(){
-        if(distance%40==0)power -= 1;
-    }
-    
-    //玩家移动的方法
 
+    //玩家体力消耗
+    public void repower() {
+        if (distance % 40 == 0) {
+            power -= 1;
+        }
+    }
+
+    //玩家移动
     public void step() {
-        //玩家图片的切换
         image = images[index++ / 3 % images.length];
-        //玩家坐标改变
         distance += 2;
     }
-    //绘制玩家的方法
 
     public void paintPerson(Graphics g) {
         g.drawImage(image, x, y, WIDTH, HEIGHT, null);
     }
 
-    //判断玩家是否越界的方法
+    //判断玩家是否越界
     public boolean outOfBounds() {
         return this.x >= GameFrame.WIDTH || this.x <= -WIDTH;
     }
-    
+
+    //判断玩家体力值是否耗尽
     public boolean outOfPower() {
-        return this.power==0;
+        return this.power == 0;
     }
 
-    private void init() {//2.2
+    private void init() {
         images = new Image[8];
-        for (int i = 0; i < images.length; i++) {//2.3
-            try {//2.5
-                images[i] = ImageIO.read(new File("Image/" + (i + 1) + ".png"));//2.4
-            } catch (IOException e) {//2.5
-                // TODO Auto-generated catch block
+        for (int i = 0; i < images.length; i++) {
+            try {
+                images[i] = ImageIO.read(new File("Image/" + (i + 1) + ".png"));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-//2.8  右键，Source，GGAS
 
     public Image getImage() {
         return image;
@@ -158,7 +144,7 @@ public class Person {//1.声明属性
     public void setPower(int power) {
         this.power = power;
     }
-    
+
     public int getDistance() {
         return distance;
     }
